@@ -1,8 +1,13 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="1" errors="0" time="121.91165000000001">
-<testsuite name="Regression\Portugal-05.spec.js" timestamp="2026-02-16T10:49:11.909Z" hostname="chromium" tests="1" failures="0" skipped="1" time="120.308" errors="0">
-<testcase name="Portugal-05 Existing customer RFQ (Request for Quote) submission" classname="Regression\Portugal-05.spec.js" time="120.308">
-<skipped>
-</skipped>
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="104.754882">
+<testsuite name="Regression\Portugal-06.spec.js" timestamp="2026-02-16T11:12:58.023Z" hostname="chromium" tests="1" failures="0" skipped="0" time="36.579" errors="0">
+<testcase name="Portugal-06 Existing customer order from approved quote, payment method-credit card(Amex)" classname="Regression\Portugal-06.spec.js" time="36.579">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\Regression-Portugal-06-Por-b3e3e-nt-method-credit-card-Amex--chromium\test-finished-1.png]]
+
+[[ATTACHMENT|test-results\Regression-Portugal-06-Por-b3e3e-nt-method-credit-card-Amex--chromium\video.webm]]
+]]>
+</system-out>
 </testcase>
 </testsuite>
 </testsuites>

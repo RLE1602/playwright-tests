@@ -15,6 +15,27 @@ test('Portugal-06 Existing customer order from approved quote, payment method-cr
   await page.locator('span').filter({ hasText: /^Quotes$/ }).click();
   await page.getByRole('button', { name: 'Quote No: ES1267044 Expires:' }).getByRole('button').click();
   await page.getByRole('button', { name: 'Go To Cart' }).click();
+  await page.waitForURL(/cart\.html/, { waitUntil: 'domcontentloaded' });
 
-  
+  await page.getByRole('button', { name: 'Checkout' }).click();
+  await page.waitForURL(/addresses\.html/, { waitUntil: 'domcontentloaded' });
+
+  await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
+  await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
+
+  //await page.goto('https://stage-shop.phenomenex.com/au/en/shipping.html');
+  await page.getByRole('button', { name: 'Proceed to Payment' }).click();
+  await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
+
+  await page.evaluate(() => { window.scrollBy(0, 500);});
+  await page.getByText('Use Card').nth(0).click();
+  //await page.getByRole('button', { name: 'Use Card' }).nth(0).click();
+  await page.evaluate(() => { window.scrollBy(0, 700);});
+  await page.getByRole('checkbox').scrollIntoViewIfNeeded();
+
+  await page.locator('(//input[@id="accept-term"])[2]').check();
+  await page.getByRole('button', { name: 'Place your order' }).click();
+  await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
+  await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);
+
 });
