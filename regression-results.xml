@@ -1,53 +1,11 @@
-<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="632.316044">
-<testsuite name="Regression\Portugal-07.spec.js" timestamp="2026-02-16T05:10:01.238Z" hostname="chromium" tests="1" failures="1" skipped="0" time="616.235" errors="0">
-<testcase name="Portugal-07 Existing customer should be able to place order and ship to another country Spain" classname="Regression\Portugal-07.spec.js" time="616.235">
-<failure message="Portugal-07.spec.js:6:5 Portugal-07 Existing customer should be able to place order and ship to another country Spain" type="FAILURE">
-<![CDATA[  [chromium] › Regression\Portugal-07.spec.js:6:5 › Portugal-07 Existing customer should be able to place order and ship to another country Spain 
-
-    Test timeout of 600000ms exceeded.
-
-    Error: page.waitForURL: Test timeout of 600000ms exceeded.
-    =========================== logs ===========================
-    waiting for navigation until "domcontentloaded"
-    ============================================================
-
-      55 |   await expect(placeOrderBtn).toBeVisible({ waitUntil: 'domcontentloaded'});
-      56 |   await placeOrderBtn.click();
-    > 57 |   await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
-         |              ^
-      58 |   await expect(page.getByText('Order Confirmed')).toBeVisible();
-      59 |   await expect(page.getByText(/order confirmed/i)).toBeVisible();
-      60 |   await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);
-        at C:\Users\RLE1602\Desktop\PlaywriteLeica\tests\Regression\Portugal-07.spec.js:57:14
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\error-context.md
-
-    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="92.01313400000001">
+<testsuite name="Regression\Portugal-07.spec.js" timestamp="2026-02-16T06:36:32.239Z" hostname="chromium" tests="1" failures="0" skipped="0" time="88.928" errors="0">
+<testcase name="Portugal-07 Existing customer should be able to place order and ship to another country Spain" classname="Regression\Portugal-07.spec.js" time="88.928">
 <system-out>
 <![CDATA[
-[[ATTACHMENT|test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\test-failed-1.png]]
+[[ATTACHMENT|test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\test-finished-1.png]]
 
 [[ATTACHMENT|test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\video.webm]]
-
-[[ATTACHMENT|test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\error-context.md]]
-
-[[ATTACHMENT|test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\trace.zip]]
 ]]>
 </system-out>
 </testcase>

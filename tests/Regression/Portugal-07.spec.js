@@ -45,7 +45,7 @@ test('Portugal-07 Existing customer should be able to place order and ship to an
   await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
 
   await page.evaluate(() => { window.scrollBy(0, 500);});
-  //await page.getByText('Use Account').nth(0).click();
+  await page.getByText('Use Card').nth(0).click();
   //await page.getByRole('button', { name: 'Use Card' }).nth(0).click();
   await page.evaluate(() => { window.scrollBy(0, 700);});
   await page.getByRole('checkbox').scrollIntoViewIfNeeded();
