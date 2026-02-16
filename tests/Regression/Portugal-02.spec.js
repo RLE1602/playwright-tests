@@ -26,17 +26,17 @@ test('Portugal-02 Existing customer  reorder, New Ship to Address Same City, p
   await page.getByRole('button', { name: 'Check out' }).click();
 
   //await page.getByRole('link', { name: 'Cart shopping_cart' }).click();
-  await page.waitForURL(/cart\.html/, { waitUntil: 'load' });
+  await page.waitForURL(/cart\.html/, { waitUntil: 'domcontentloaded' });
 
   await page.getByRole('button', { name: 'Checkout' }).click();
-  await page.waitForURL(/addresses\.html/, { waitUntil: 'load' });
+  await page.waitForURL(/addresses\.html/, { waitUntil: 'domcontentloaded' });
 
   await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
   await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
 
   //await page.goto('https://stage-shop.phenomenex.com/au/en/shipping.html');
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
-  await page.waitForURL(/payment\.html/, { waitUntil: 'load' });
+  await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
 
   //PO Upload payment method
   //await page.getByRole('radio', { name: 'Pay by Purchase Order' }).check();
@@ -50,7 +50,7 @@ test('Portugal-02 Existing customer  reorder, New Ship to Address Same City, p
   await page.getByRole('checkbox').scrollIntoViewIfNeeded();
   await page .locator('(//input[@id="accept-term"])[2]').check();
   await page.getByRole('button', { name: 'Place your order' }).click();
-  await page.waitForURL(/receipt\.html/, { waitUntil: 'load' });
+  await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
   await expect(page.getByText('Order Confirmed')).toBeVisible();
   await expect(page.getByText(/order confirmed/i)).toBeVisible();
   await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);

@@ -30,17 +30,17 @@ test('P-01 Existing customer with customer specific pricing, order placement, pa
   await page.getByRole('button', { name: 'Add To Cart' }).nth(0).click();
   await page.getByRole('button', { name: 'Continue Shopping' }).click();
   await page.getByRole('link', { name: 'Cart shopping_cart' }).click();
-  await page.waitForURL(/cart\.html/, { waitUntil: 'load' });
+  await page.waitForURL(/cart\.html/, { waitUntil: 'domcontentloaded' });
 
   await page.getByRole('button', { name: 'Checkout' }).click();
-  await page.waitForURL(/addresses\.html/, { waitUntil: 'load' });
+  await page.waitForURL(/addresses\.html/, { waitUntil: 'domcontentloaded' });
 
   await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
   await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
 
   //await page.goto('https://stage-shop.phenomenex.com/au/en/shipping.html');
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
-  await page.waitForURL(/payment\.html/, { waitUntil: 'load' });
+  await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
 
   await page.evaluate(() => { window.scrollBy(0, 500);});
   await page.getByText('Use Card').nth(0).click();
@@ -50,7 +50,7 @@ test('P-01 Existing customer with customer specific pricing, order placement, pa
 
   await page.locator('(//input[@id="accept-term"])[2]').check();
   await page.getByRole('button', { name: 'Place your order' }).click();
-  await page.waitForURL(/receipt\.html/, { waitUntil: 'load' });
+  await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
   await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);
 
 });

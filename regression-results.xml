@@ -1,13 +1,289 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="126.510297">
-<testsuite name="Regression\Portugal-01.spec.js" timestamp="2026-02-16T08:09:27.998Z" hostname="chromium" tests="1" failures="0" skipped="0" time="114.337" errors="0">
-<testcase name="P-01 Existing customer with customer specific pricing, order placement, payment method-credit card (Mastercard)" classname="Regression\Portugal-01.spec.js" time="114.337">
+<testsuites id="" name="" tests="6" failures="6" skipped="0" errors="0" time="1259.671373">
+<testsuite name="Regression\Portugal-01.spec.js" timestamp="2026-02-16T08:32:13.418Z" hostname="chromium" tests="1" failures="1" skipped="0" time="1200.202" errors="0">
+<testcase name="P-01 Existing customer with customer specific pricing, order placement, payment method-credit card (Mastercard)" classname="Regression\Portugal-01.spec.js" time="1200.202">
+<failure message="Portugal-01.spec.js:6:5 P-01 Existing customer with customer specific pricing, order placement, payment method-credit card (Mastercard)" type="FAILURE">
+<![CDATA[  [chromium] › Regression\Portugal-01.spec.js:6:5 › P-01 Existing customer with customer specific pricing, order placement, payment method-credit card (Mastercard) 
+
+    Test timeout of 600000ms exceeded.
+
+    Error: page.waitForURL: Test timeout of 600000ms exceeded.
+    =========================== logs ===========================
+      "networkidle" event fired
+      "domcontentloaded" event fired
+    ============================================================
+
+      31 |   await page.getByRole('button', { name: 'Continue Shopping' }).click();
+      32 |   await page.getByRole('link', { name: 'Cart shopping_cart' }).click();
+    > 33 |   await page.waitForURL(/cart\.html/, { waitUntil: 'load' });
+         |              ^
+      34 |
+      35 |   await page.getByRole('button', { name: 'Checkout' }).click();
+      36 |   await page.waitForURL(/addresses\.html/, { waitUntil: 'load' });
+        at C:\Users\RLE1602\Desktop\PlaywriteLeica\tests\Regression\Portugal-01.spec.js:33:14
+
+    Tearing down "context" exceeded the test timeout of 600000ms.
+
+    Error Context: ..\test-results\Regression-Portugal-01-P-0-a16d1-hod-credit-card-Mastercard--chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\test-results\Regression-Portugal-01-P-0-a16d1-hod-credit-card-Mastercard--chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\test-results\Regression-Portugal-01-P-0-a16d1-hod-credit-card-Mastercard--chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
 <system-out>
 <![CDATA[
-[[ATTACHMENT|test-results\Regression-Portugal-01-P-0-a16d1-hod-credit-card-Mastercard--chromium\test-finished-1.png]]
-
-[[ATTACHMENT|test-results\Regression-Portugal-01-P-0-a16d1-hod-credit-card-Mastercard--chromium\video.webm]]
+[[ATTACHMENT|test-results\Regression-Portugal-01-P-0-a16d1-hod-credit-card-Mastercard--chromium\error-context.md]]
 
 [[ATTACHMENT|test-results\Regression-Portugal-01-P-0-a16d1-hod-credit-card-Mastercard--chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="Regression\Portugal-02.spec.js" timestamp="2026-02-16T08:32:13.418Z" hostname="chromium" tests="1" failures="1" skipped="0" time="1181.544" errors="0">
+<testcase name="Portugal-02 Existing customer  reorder, New Ship to Address Same City, payment method - PO upload" classname="Regression\Portugal-02.spec.js" time="1181.544">
+<failure message="Portugal-02.spec.js:6:5 Portugal-02 Existing customer  reorder, New Ship to Address Same City, payment method - PO upload" type="FAILURE">
+<![CDATA[  [chromium] › Regression\Portugal-02.spec.js:6:5 › Portugal-02 Existing customer  reorder, New Ship to Address Same City, payment method - PO upload 
+
+    Test timeout of 600000ms exceeded.
+
+    TimeoutError: locator.click: Timeout 600000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Check out' })
+
+
+      24 |   await page.getByRole('button', { name: 'Continue Shopping' }).click();
+      25 |   await page.getByRole('button', { name: 'Reorder now' }).nth(1).click();
+    > 26 |   await page.getByRole('button', { name: 'Check out' }).click();
+         |                                                         ^
+      27 |
+      28 |   //await page.getByRole('link', { name: 'Cart shopping_cart' }).click();
+      29 |   await page.waitForURL(/cart\.html/, { waitUntil: 'load' });
+        at C:\Users\RLE1602\Desktop\PlaywriteLeica\tests\Regression\Portugal-02.spec.js:26:57
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\Regression-Portugal-02-Por-43343--payment-method-- PO-upload-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\Regression-Portugal-02-Por-43343--payment-method-- PO-upload-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\Regression-Portugal-02-Por-43343--payment-method-- PO-upload-chromium\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\test-results\Regression-Portugal-02-Por-43343--payment-method-- PO-upload-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace "..\test-results\Regression-Portugal-02-Por-43343--payment-method-- PO-upload-chromium\trace.zip"
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\Regression-Portugal-02-Por-43343--payment-method-- PO-upload-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\Regression-Portugal-02-Por-43343--payment-method-- PO-upload-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\Regression-Portugal-02-Por-43343--payment-method-- PO-upload-chromium\error-context.md]]
+
+[[ATTACHMENT|test-results\Regression-Portugal-02-Por-43343--payment-method-- PO-upload-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="Regression\Portugal-03.spec.js" timestamp="2026-02-16T08:32:13.418Z" hostname="chromium" tests="1" failures="1" skipped="0" time="1201.248" errors="0">
+<testcase name="Portugal-03 Existing customer with free shipping that uploads tax exemption certificate(order level),payment method-bank transfer" classname="Regression\Portugal-03.spec.js" time="1201.248">
+<failure message="Portugal-03.spec.js:6:5 Portugal-03 Existing customer with free shipping that uploads tax exemption certificate(order level),payment method-bank transfer" type="FAILURE">
+<![CDATA[  [chromium] › Regression\Portugal-03.spec.js:6:5 › Portugal-03 Existing customer with free shipping that uploads tax exemption certificate(order level),payment method-bank transfer 
+
+    Test timeout of 600000ms exceeded.
+
+    Error: page.waitForURL: Test timeout of 600000ms exceeded.
+    =========================== logs ===========================
+      "domcontentloaded" event fired
+    ============================================================
+
+      33 |   await page.getByRole('button', { name: 'Continue Shopping' }).click();
+      34 |   await page.getByRole('link', { name: 'Cart shopping_cart' }).click();
+    > 35 |   await page.waitForURL(/cart\.html/, { waitUntil: 'load' });
+         |              ^
+      36 |
+      37 |   await page.getByRole('button', { name: 'Checkout' }).click();
+      38 |   await page.waitForURL(/addresses\.html/, { waitUntil: 'load' });
+        at C:\Users\RLE1602\Desktop\PlaywriteLeica\tests\Regression\Portugal-03.spec.js:35:14
+
+    Tearing down "context" exceeded the test timeout of 600000ms.
+
+    Error Context: ..\test-results\Regression-Portugal-03-Por-f2217-ayment-method-bank-transfer-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\test-results\Regression-Portugal-03-Por-f2217-ayment-method-bank-transfer-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\test-results\Regression-Portugal-03-Por-f2217-ayment-method-bank-transfer-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\Regression-Portugal-03-Por-f2217-ayment-method-bank-transfer-chromium\error-context.md]]
+
+[[ATTACHMENT|test-results\Regression-Portugal-03-Por-f2217-ayment-method-bank-transfer-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="Regression\Portugal-04.spec.js" timestamp="2026-02-16T08:32:13.418Z" hostname="chromium" tests="1" failures="1" skipped="0" time="1202.549" errors="0">
+<testcase name="Portugal-04 Existing customer with public promotion and regular payment method-credit card (Visa).spec.js" classname="Regression\Portugal-04.spec.js" time="1202.549">
+<failure message="Portugal-04.spec.js:6:5 Portugal-04 Existing customer with public promotion and regular payment method-credit card (Visa).spec.js" type="FAILURE">
+<![CDATA[  [chromium] › Regression\Portugal-04.spec.js:6:5 › Portugal-04 Existing customer with public promotion and regular payment method-credit card (Visa).spec.js 
+
+    Test timeout of 600000ms exceeded.
+
+    Error: page.waitForURL: Test timeout of 600000ms exceeded.
+    =========================== logs ===========================
+      "domcontentloaded" event fired
+    ============================================================
+
+      33 |   await page.getByRole('button', { name: 'Continue Shopping' }).click();
+      34 |   await page.getByRole('link', { name: 'Cart shopping_cart' }).click();
+    > 35 |   await page.waitForURL(/cart\.html/, { waitUntil: 'load' });
+         |              ^
+      36 |
+      37 |   await page.locator('//p[normalize-space()="I have a promo code"]').nth(0).click();
+      38 |   await page.locator('//input[@class="rounded-md form-input"]').nth(0).fill('PBLC0226');
+        at C:\Users\RLE1602\Desktop\PlaywriteLeica\tests\Regression\Portugal-04.spec.js:35:14
+
+    Tearing down "context" exceeded the test timeout of 600000ms.
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\Regression-Portugal-04-Por-26000-od-credit-card-Visa-spec-js-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\Regression-Portugal-04-Por-26000-od-credit-card-Visa-spec-js-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\test-results\Regression-Portugal-04-Por-26000-od-credit-card-Visa-spec-js-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\test-results\Regression-Portugal-04-Por-26000-od-credit-card-Visa-spec-js-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\Regression-Portugal-04-Por-26000-od-credit-card-Visa-spec-js-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\Regression-Portugal-04-Por-26000-od-credit-card-Visa-spec-js-chromium\error-context.md]]
+
+[[ATTACHMENT|test-results\Regression-Portugal-04-Por-26000-od-credit-card-Visa-spec-js-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="Regression\Portugal-07.spec.js" timestamp="2026-02-16T08:32:13.418Z" hostname="chromium" tests="1" failures="1" skipped="0" time="1202.593" errors="0">
+<testcase name="Portugal-07 Existing customer should be able to place order and ship to another country Spain" classname="Regression\Portugal-07.spec.js" time="1202.593">
+<failure message="Portugal-07.spec.js:6:5 Portugal-07 Existing customer should be able to place order and ship to another country Spain" type="FAILURE">
+<![CDATA[  [chromium] › Regression\Portugal-07.spec.js:6:5 › Portugal-07 Existing customer should be able to place order and ship to another country Spain 
+
+    Test timeout of 600000ms exceeded.
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Order Confirmed')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for getByText('Order Confirmed')
+
+
+      56 |   await placeOrderBtn.click();
+      57 |   await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
+    > 58 |   await expect(page.getByText('Order Confirmed')).toBeVisible();
+         |                                                   ^
+      59 |   await expect(page.getByText(/order confirmed/i)).toBeVisible();
+      60 |   await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);
+      61 |
+        at C:\Users\RLE1602\Desktop\PlaywriteLeica\tests\Regression\Portugal-07.spec.js:58:51
+
+    Tearing down "context" exceeded the test timeout of 600000ms.
+
+    Error Context: ..\test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\error-context.md]]
+
+[[ATTACHMENT|test-results\Regression-Portugal-07-Por-2fc70-ip-to-another-country-Spain-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="Regression\Portugal-08.spec.js" timestamp="2026-02-16T08:32:13.418Z" hostname="chromium" tests="1" failures="1" skipped="0" time="1200.545" errors="0">
+<testcase name="Portugal-08 Existing customer with account agreements- Customers with product special pricing and free shipping" classname="Regression\Portugal-08.spec.js" time="1200.545">
+<failure message="Portugal-08.spec.js:6:5 Portugal-08 Existing customer with account agreements- Customers with product special pricing and free shipping" type="FAILURE">
+<![CDATA[  [chromium] › Regression\Portugal-08.spec.js:6:5 › Portugal-08 Existing customer with account agreements- Customers with product special pricing and free shipping 
+
+    Test timeout of 600000ms exceeded.
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Order Confirmed')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for getByText('Order Confirmed')
+
+
+      54 |   await page.getByRole('button', { name: 'Place your order' }).click();
+      55 |   await page.waitForURL(/receipt\.html/, { waitUntil: 'load' });
+    > 56 |   await expect(page.getByText('Order Confirmed')).toBeVisible();
+         |                                                   ^
+      57 |   await expect(page.getByText(/order confirmed/i)).toBeVisible();
+      58 |   await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);
+      59 |
+        at C:\Users\RLE1602\Desktop\PlaywriteLeica\tests\Regression\Portugal-08.spec.js:56:51
+
+    Tearing down "context" exceeded the test timeout of 600000ms.
+
+    Error Context: ..\test-results\Regression-Portugal-08-Por-e546c-l-pricing-and-free-shipping-chromium\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\test-results\Regression-Portugal-08-Por-e546c-l-pricing-and-free-shipping-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\test-results\Regression-Portugal-08-Por-e546c-l-pricing-and-free-shipping-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\Regression-Portugal-08-Por-e546c-l-pricing-and-free-shipping-chromium\error-context.md]]
+
+[[ATTACHMENT|test-results\Regression-Portugal-08-Por-e546c-l-pricing-and-free-shipping-chromium\trace.zip]]
 ]]>
 </system-out>
 </testcase>
