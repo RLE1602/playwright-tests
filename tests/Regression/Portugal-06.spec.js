@@ -11,7 +11,10 @@ test('Portugal-06 Existing customer order from approved quote, payment method-cr
   await page.getByRole('textbox', { name: 'Password' }).fill('Welcome@123');
   await page.getByRole('button', { name: 'Sign in' }).click();
   await expect(page).toHaveURL('https://stage10.phenomenex.com/', { waitUntil: 'load', timeout: 200_000});
- 
+  await page.getByRole('button', { name: 'Welcome AutoFirstName' }).click();
+  await page.locator('span').filter({ hasText: /^Quotes$/ }).click();
+  await page.getByRole('button', { name: 'Quote No: ES1267044 Expires:' }).getByRole('button').click();
+  await page.getByRole('button', { name: 'Go To Cart' }).click();
 
   
 });
