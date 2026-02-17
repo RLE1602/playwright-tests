@@ -28,7 +28,7 @@ test('Portugal-05 Existing customer RFQ (Request for Quote) submission', async (
   await page.getByRole('button', { name: 'Add To Quote' }).nth(0).click();
   await page.locator("xpath=//a[@class='btn btn-link with-icon px-2 ng-star-inserted']").click();
   //await page.locator('link', { name: 'Quote shopping_cart' }).click();
-  await page.waitForURL(/quote\.html/, { waitUntil: 'domcontentloaded' });
+  await page.waitForURL(/quote-cart\.html/, { waitUntil: 'domcontentloaded' });
   
   // Submit Quote Request
   await page.locator("//span[@class='flex gap-1 cursor-pointer']").click();
