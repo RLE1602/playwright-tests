@@ -32,9 +32,10 @@ test('Portugal-05 Existing customer RFQ (Request for Quote) submission', async (
   
   // Submit Quote Request
   await page.locator("//span[@class='flex gap-1 cursor-pointer']").click();
-  //await page.getByRole('textbox', { name:'quote-comment'}).fill('Thisismycomment');
+  await page.locator('[name="quote-comment"]').fill('PROMOCODE');
+
   await page.locator("//span[@class='flex gap-1 font-bold cursor-pointer']").click();
-  await page.getByRole('textbox', { name: 'quote-promo' }).fill('PROMOCODE');
+  await page.locator('[name="quote-promo"]').fill('PROMOCODE');
 
   await page.getByRole('button', { name: 'Submit Quote Request' }).click();
   
