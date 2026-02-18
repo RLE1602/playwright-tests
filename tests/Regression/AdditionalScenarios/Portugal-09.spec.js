@@ -40,7 +40,7 @@ test('Portugal-09 Complete the checkout flow until the Order Submission page, re
   await page.getByRole('link', { name: 'Cart' }).click();
   await page.waitForURL(/cart\.html/, { waitUntil: 'domcontentloaded' });
 
-  await page.getByRole('textbox').click();
+  await page.getByRole('textbox').nth(0).click();
   await page.getByRole('textbox').fill('5');
   await page.getByRole('textbox').press('Enter');
   await page.getByRole('button', { name: 'Checkout' }).click();
