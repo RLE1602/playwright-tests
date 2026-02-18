@@ -47,18 +47,20 @@ test('Portugal-15 Begin the checkout flow as a guest until prompted to log in, l
   await page.waitForURL(/addresses\.html/, { waitUntil: 'domcontentloaded' });
   await page.getByText('Edit / Change').first().click();
   await page.getByText('Edit').nth(0).click()
-  await page.getByText('Cancel').click();
+  await page.getByRole('Cancel').scrollIntoViewIfNeeded();
+
+  await page.getByText('Cancel').nth(0).click();
   await page.getByRole('button', { name: 'Use Address' }).nth(0).click();
   await expect(page.getByRole('button', { name: 'Use Address' })).nth(0).toBeHidden();
-  await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
+  await page.getByRole('button', { name: 'Proceed to Shipping Method' }).nth(0).click();
   await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
   await page.getByText('Day Express Saver +55,00 €').click();
-  await page.getByRole('button', { name: 'Proceed to Payment' }).click();
+  await page.getByRole('button', { name: 'Proceed to Payment' }).nth(0).click();
   await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
   await page.evaluate(() => { window.scrollBy(0, 700);});
   await page.getByRole('checkbox').scrollIntoViewIfNeeded();
   await page.locator('(//input[@id="accept-term"])[2]').check();
-  await page.getByRole('button', { name: 'Place your order' }).click();
+  await page.getByRole('button', { name: 'Place your order' }).nth(0).click();
   await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
   await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);
 
