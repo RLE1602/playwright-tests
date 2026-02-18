@@ -14,7 +14,7 @@ test('Portugal-15 Begin the checkout flow as a guest until prompted to log in, l
   await page.keyboard.press('Enter');
   await page.getByRole('button', { name: 'Add To Cart' }).nth(0).click();
   //Sign In
-  await page.getByRole('link', { name: 'Sign In' }).click();
+  await page.locator('//button[normalize-space()="Sign in"]').click();
   await page.getByRole('textbox', { name: 'Email Address' }).fill('portugal_user4@yopmail.com');
   await page.getByRole('textbox', { name: 'Password' }).fill('Welcome@123');
   await page.getByRole('button', { name: 'Sign in' }).click();  
