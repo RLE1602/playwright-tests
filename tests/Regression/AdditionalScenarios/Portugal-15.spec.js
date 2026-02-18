@@ -19,6 +19,7 @@ test('Portugal-15 Begin the checkout flow as a guest until prompted to log in, l
   await page.getByRole('textbox', { name: 'Password' }).fill('Welcome@123');
   await page.getByRole('button', { name: 'Sign in' }).click();  
   await expect(page).toHaveURL('https://stage10.phenomenex.com/', { waitUntil: 'load', timeout: 200_000});
+  await page.getByRole('button', { name: 'Continue Shopping' }).click();
   await page.getByRole('textbox', { name: 'Search by Part No., Product,' }).click();
   await page.locator('//*[@id="holder"]//app-header-search-modal//span[2]/i').click();
   await page.getByRole('textbox', { name: 'Search by Part No., Product,' }).nth(0).click();
@@ -39,7 +40,7 @@ test('Portugal-15 Begin the checkout flow as a guest until prompted to log in, l
   await page.getByRole('link', { name: 'Cart' }).click();
   await page.waitForURL(/cart\.html/, { waitUntil: 'domcontentloaded' });
 
-  await page.getByRole('textbox').click();
+  await page.getByRole('textbox').nth(0).click();
   await page.getByRole('textbox').fill('5');
   await page.getByRole('textbox').press('Enter');
   await page.getByRole('button', { name: 'Checkout' }).click();
