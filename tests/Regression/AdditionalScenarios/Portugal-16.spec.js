@@ -34,7 +34,8 @@ test('Portugal-16 Multiple Address Selection Validation (Complete the checkout f
   await page.getByText('Edit / Change').first().click();
   await page.getByText('Edit').nth(3).click();
   await page.getByText('Cancel').click();
-  await page.getByRole('button', { name: 'Use Address' }).nth(3).click();
+  await page.getByRole('button', { name: 'Use Address' }).nth(0).click();
+  await expect(page.getByRole('button', { name: 'Use Address' })).toBeHidden();
   
   // Test case 09 is begun
   await page.getByRole('link', { name: 'Cart' }).click();

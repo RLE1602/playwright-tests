@@ -46,7 +46,9 @@ test('Portugal-11 Complete the checkout flow until the Shipping Method page, ret
   await page.getByText('Edit / Change').first().click();
   await page.getByText('Edit').nth(3).click();
   await page.getByText('Cancel').click();
-  await page.getByRole('button', { name: 'Use Address' }).nth(3).click();
+  await page.getByRole('button', { name: 'Use Address' }).nth(0).click();
+  await expect(page.getByRole('button', { name: 'Use Address' })).toBeHidden();
+
   await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
   await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
