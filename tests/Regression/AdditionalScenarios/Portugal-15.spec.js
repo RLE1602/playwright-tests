@@ -18,7 +18,7 @@ test('Portugal-15 Begin the checkout flow as a guest until prompted to log in, l
   await page.getByRole('textbox', { name: 'Email Address' }).fill('portugal_user4@yopmail.com');
   await page.getByRole('textbox', { name: 'Password' }).fill('Welcome@123');
   await page.getByRole('button', { name: 'Sign in' }).click();  
-  await expect(page).toHaveURL('https://stage10.phenomenex.com/', { waitUntil: 'load', timeout: 200_000});
+  await expect(page).toHaveURL('https://stage10.phenomenex.com/search?search_string=00B-4441-B0', { waitUntil: 'load', timeout: 200_000});
   await page.getByRole('button', { name: 'Continue Shopping' }).click();
   await page.getByRole('textbox', { name: 'Search by Part No., Product,' }).click();
   await page.locator('//*[@id="holder"]//app-header-search-modal//span[2]/i').click();
