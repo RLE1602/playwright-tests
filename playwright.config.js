@@ -14,7 +14,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
-    timeout: 600_000,
+    timeout: 300_000,
 
   
   /* Run tests in files in parallel */
@@ -45,8 +45,8 @@ export default defineConfig({
     trace: 'retain-on-failure',
     screenshot: 'on',
     video: 'on',
-    actionTimeout: 600_000,
-    navigationTimeout: 800_000,
+    actionTimeout: 300_000,
+    navigationTimeout: 300_000,
   
   },
 
