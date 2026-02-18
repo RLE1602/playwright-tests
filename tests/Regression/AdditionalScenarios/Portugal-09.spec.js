@@ -48,7 +48,7 @@ test('Portugal-09 Complete the checkout flow until the Order Submission page, re
   await page.getByText('Edit / Change').first().click();
   await page.getByText('Edit').nth(3).click();
   await page.getByText('Cancel').click();
-  await page.getByRole('button', { name: 'Use Address' }).nth(3).click();
+  await page.getByRole('button', { name: 'Use Address' }).nth(0).click();
   await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
   await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
   await page.getByText('Day Express Saver +55,00 €').click();
