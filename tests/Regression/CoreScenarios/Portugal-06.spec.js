@@ -45,6 +45,6 @@ test('Portugal-06 Existing customer order from approved quote, payment method-cr
   await page.getByRole('button', { name: 'Place your order' }).click();
   await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
   await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);
-}
-
+  }
+  page.close();
 });
