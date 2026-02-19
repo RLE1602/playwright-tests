@@ -32,9 +32,8 @@ test('Portugal-09 Complete the checkout flow until the Order Submission page, re
   await page.getByRole('button', { name: 'Checkout' }).click();
   await page.waitForURL(/addresses\.html/, { waitUntil: 'domcontentloaded' });
   await page.locator('//button[normalize-space()="Proceed to Shipping Method"]').click();
-  //await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
-  await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
-  //await page.goto('https://stage-shop.phenomenex.com/au/en/shipping.html');
+  await Promise.all([page.waitForURL(/shipping\.html/),page.locator('text=Shipping Method').waitFor({ state: 'visible' }),]);
+
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
   await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
   // Test case 09 is begun
