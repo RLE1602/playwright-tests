@@ -31,7 +31,8 @@ test('Portugal-09 Complete the checkout flow until the Order Submission page, re
   await page.waitForURL(/cart\.html/, { waitUntil: 'domcontentloaded' });
   await page.getByRole('button', { name: 'Checkout' }).click();
   await page.waitForURL(/addresses\.html/, { waitUntil: 'domcontentloaded' });
-  await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
+  await page.locator('//button[normalize-space()="Proceed to Shipping Method"]').click();
+  //await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
   await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
   //await page.goto('https://stage-shop.phenomenex.com/au/en/shipping.html');
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
@@ -52,7 +53,7 @@ test('Portugal-09 Complete the checkout flow until the Order Submission page, re
   await expect(page.getByRole('button', { name: 'Use Address' }).first()).toBeHidden();
   await page.getByRole('button', { name: 'Proceed to Shipping Method' }).scrollIntoViewIfNeeded();
 
-  await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
+  await page.locator('//button[normalize-space()="Proceed to Shipping Method"]').click();
   await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
   await page.getByText('Day Express Saver +55,00 €').click();
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
