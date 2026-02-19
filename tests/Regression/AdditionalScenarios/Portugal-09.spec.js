@@ -32,7 +32,7 @@ test('Portugal-09 Complete the checkout flow until the Order Submission page, re
   await page.getByRole('button', { name: 'Checkout' }).click();
   await page.waitForURL(/addresses\.html/, { waitUntil: 'domcontentloaded' });
   await page.locator('//button[normalize-space()="Proceed to Shipping Method"]').click();
-  await page.waitForURL(/shipping\.html/);
+  await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
   await page.getByText('Confirm shipping', {exact: true}).waitFor({ state: 'visible', timeout: 90000 });
   //await page.locator('text=Shipping Method').waitFor({ state: 'visible', timeout: 90000 });
 
