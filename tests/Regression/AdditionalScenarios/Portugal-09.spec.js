@@ -46,7 +46,8 @@ test('Portugal-09 Complete the checkout flow until the Order Submission page, re
   await page.getByRole('textbox').nth(0).press('Enter');
   await page.getByRole('button', { name: 'Checkout' }).click();
   await page.waitForURL(/addresses\.html/, { waitUntil: 'domcontentloaded' });
-  await page.getByRole('button', { name: 'Edit / Change' }).click();
+  await page.locator('//div[@class="flex flex-col w-2/3"]//a[@class="font-bold cursor-pointer text-danaherpurple-500"]').click();
+  //await page.getByRole('button', { name: 'Edit / Change' }).click();
   await page.getByRole('button', { name: 'Edit' }).click();
   await page.getByRole('button', { name: 'Cancel' }).click();
   await page.getByRole('button', { name: 'Use Address' }).first().click();
