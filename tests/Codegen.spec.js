@@ -56,7 +56,9 @@ test('P-01 Existing customer with customer specific pricing, order placement, pa
   await expect(page.getByRole('button', { name: 'Use Address' }).first()).toBeHidden();
 
   await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
-  await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
+  await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });  
+  await page.getByText(/Day Express Saver/i).click();
+
 
   //await page.goto('https://stage-shop.phenomenex.com/au/en/shipping.html');
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
