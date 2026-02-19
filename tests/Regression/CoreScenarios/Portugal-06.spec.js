@@ -21,7 +21,7 @@ test('Portugal-06 Existing customer order from approved quote, payment method-cr
   else {
   // execute checkout flow
 
-  await page.getByRole('button', { name: 'Add To Cart' }).click();
+  await page.getByRole('button', { name: 'ADD TO CART' }).click();
   await page.getByRole('button', { name: 'Go To Cart' }).click();
   await page.waitForURL(/cart\.html/, { waitUntil: 'domcontentloaded' });
 
