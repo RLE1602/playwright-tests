@@ -43,7 +43,8 @@ test('P-01 Existing customer with customer specific pricing, order placement, pa
   await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
 
 //Test case 01 is begun 
-  await page.getByRole('button', { name: 'Cart shopping_cart' }).click();
+  //await page.getByRole('button', { name: 'Cart shopping_cart' }).click();
+  await page.locator('//span[normalize-space()="Cart"]').click();
   await page.waitForURL(/cart\.html/, { waitUntil: 'domcontentloaded' });
   await page.getByRole('textbox').nth(0).click();
   await page.getByRole('textbox').nth(0).fill('5');
