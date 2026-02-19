@@ -60,7 +60,7 @@ test('Portugal-09 Complete the checkout flow until the Order Submission page, re
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
   await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
   await page.evaluate(() => { window.scrollBy(0, 700);});
-  await page.getByRole('button', {name:'Use Card'}).click();
+  await page.getByRole('button', {name:'Use Card'}).nth(0).click();
   await page.getByRole('checkbox').scrollIntoViewIfNeeded();
   await page.locator('(//input[@id="accept-term"])[2]').check();
   await page.getByRole('button', { name: 'Place your order' }).click();
