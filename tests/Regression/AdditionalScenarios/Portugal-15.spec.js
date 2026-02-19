@@ -46,8 +46,8 @@ test('Portugal-15 Begin the checkout flow as a guest until prompted to log in, l
   await page.getByRole('button', { name: 'Checkout' }).click();
   await page.waitForURL(/addresses\.html/, { waitUntil: 'domcontentloaded' });
   await page.getByText('Edit / Change').first().click();
-  await page.getByText('Edit').nth(1).click()
-  await page.getByRole('Cancel').nth(1).scrollIntoViewIfNeeded();
+  await page.getByText('Edit').nth(0).click()
+  await page.getByRole('Cancel').nth(0).scrollIntoViewIfNeeded();
 
   await page.getByText('Cancel').nth(1).click();
   await page.getByRole('button', { name: 'Use Address' }).nth(0).click();
