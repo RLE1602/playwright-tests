@@ -21,7 +21,6 @@ test('Portugal-09 Complete the checkout flow until the Order Submission page, re
   await page.getByRole('button', { name: 'Continue Shopping' }).click();
   await page.getByRole('textbox', { name: 'Search by Part No., Product,' }).click();
 
-  //await page.locator('#holder').getByText('close').nth(0).click();
   await page.locator('//*[@id="holder"]//app-header-search-modal//span[2]/i').click();
   await page.getByRole('textbox', { name: 'Search by Part No., Product,' }).nth(0).click();
 
@@ -65,14 +64,29 @@ test('Portugal-09 Complete the checkout flow until the Order Submission page, re
   await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
 
   await page.evaluate(() => { window.scrollBy(0, 500);});
-  await page.getByText('Use Card').nth(0).click();
-  //await page.getByRole('button', { name: 'Use Card' }).nth(0).click();
-  await page.evaluate(() => { window.scrollBy(0, 700);});
-  await page.getByRole('checkbox').scrollIntoViewIfNeeded();
+  //await page.getByText('Use Card').nth(0).click();
+  
+  const useCardButtons = page.getByText('Use Card');
 
-  await page.locator('(//input[@id="accept-term"])[2]').check();
-  await page.getByRole('button', { name: 'Place your order' }).click();
-  await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
-  await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);
+   // Wait for buttons to be visible
+   await expect(useCardButtons.nth(0)).toBeVisible({ timeout: 10000 });
+   await expect(useCardButtons.nth(1)).toBeVisible({ timeout: 10000 });
+
+  // Click logic
+  if (!(await useCardButtons.nth(0).isEnabled())) {
+  // First card not clickable → click second
+   await useCardButtons.nth(1).click();
+    } else {
+  // First card clickable → click first
+   await useCardButtons.nth(0).click();}
+
+   await page.evaluate(() => { window.scrollBy(0, 700);});
+   await page.getByRole('checkbox').scrollIntoViewIfNeeded();
+
+   await page.locator('(//input[@id="accept-term"])[2]').check();
+   await page.getByRole('button', { name: 'Place your order' }).click();
+   await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
+   await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);
+   await expect(page.getByText(/Order Confirmed/i)).toBeVisible();
 
 });
