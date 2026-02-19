@@ -15,13 +15,19 @@ test('Portugal-06 Existing customer order from approved quote, payment method-cr
   await page.locator('span').filter({ hasText: /^Quotes$/ }).click();
 
 
-  const noData = page.getByText('No data available');
+  const noData = page.getByText('No data');
   if (await noData.isVisible()) {
   console.log('No Quotes available');}
   else {
   // execute checkout flow
 
   await page.getByRole('button', { name: 'ADD TO CART' }).first().click();
+  // Assuming the popup contains text "Quote Added to Cart"
+  const quotePopup = page.getByText('Quote Added to Cart');
+
+  // Wait for it to be visible (up to 10 seconds)
+  await expect(quotePopup).toBeVisible({ timeout: 30000 });
+
   await page.getByRole('button', { name: 'Go To Cart' }).click();
   await page.waitForURL(/cart\.html/, { waitUntil: 'domcontentloaded' });
 
