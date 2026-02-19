@@ -21,7 +21,7 @@ test('Portugal-06 Existing customer order from approved quote, payment method-cr
   else {
   // execute checkout flow
 
-  await page.getByRole('button', { name: 'ADD TO CART' }).first().click();
+  await page.locator('//span[normalize-space()="Add To Cart"]').click();
   // Assuming the popup contains text "Quote Added to Cart"
   const quotePopup = page.getByText('Quote Added to Cart');
 
