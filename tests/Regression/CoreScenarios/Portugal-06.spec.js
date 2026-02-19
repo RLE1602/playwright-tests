@@ -15,7 +15,7 @@ test('Portugal-06 Existing customer order from approved quote, payment method-cr
   //const noDataElement = page.getByText('No Data');
   const noDataElement = await page.getByRole('button', { name: 'REQUEST A QUOTE' }).isVisible();
   
-  if (noDataElement==false) {
+  if (noDataElement==true) {
     console.log('No Quotes available');
   } else {
     // execute checkout flow
