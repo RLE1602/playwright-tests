@@ -31,13 +31,25 @@ test('Portugal-05 Existing customer RFQ (Request for Quote) submission', async (
   await page.waitForURL(/quote-cart\.html/, { waitUntil: 'domcontentloaded' });
   
   // Submit Quote Request
-  await page.locator("//span[@class='flex gap-1 cursor-pointer']").click();
-  await page.locator('[name="quote-comment"]').fill('PROMOCODE');
-
+  /*await page.locator("//span[@class='flex gap-1 cursor-pointer']").click();
+  await page.locator('[name="quote-comment"]').fill('QUOTECOMMENT');
   await page.locator("//span[@class='flex gap-1 font-bold cursor-pointer']").click();
-  await page.locator('[name="quote-promo"]').fill('PROMOCODE');
+  await page.locator('[name="quote-promo"]').fill('PROMOCODE');*/
+  
+  const quoteCommentBox = page.locator('[name="quote-comment"]');
+  const promoCodeBox = page.locator('[name="quote-promo"]');
+  const submitQuoteBtn = page.getByRole('button', { name: 'Submit Quote Request' });
 
-  await page.getByRole('button', { name: 'Submit Quote Request' }).click();
+// Fill Quote Comment if empty
+  if (!(await quoteCommentBox.inputValue()).trim()) {
+  await quoteCommentBox.fill('QUOTECOMMENT');}
+
+// Fill Promo Code if empty
+  if (!(await promoCodeBox.inputValue()).trim()) {
+  await promoCodeBox.fill('PROMOCODE');}
+
+// Click Submit
+ await submitQuoteBtn.click();
   
   // Verify successful submission
   await page.waitForURL(/submit-quote\.html/, { waitUntil: 'domcontentloaded' });
