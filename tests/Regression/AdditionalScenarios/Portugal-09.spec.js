@@ -41,13 +41,13 @@ test('Portugal-09 Complete the checkout flow until the Order Submission page, re
   await page.waitForURL(/cart\.html/, { waitUntil: 'domcontentloaded' });
 
   await page.getByRole('textbox').nth(0).click();
-  await page.getByRole('textbox').fill('5');
-  await page.getByRole('textbox').press('Enter');
+  await page.getByRole('textbox').nth(0).fill('5');
+  await page.getByRole('textbox').nth(0).press('Enter');
   await page.getByRole('button', { name: 'Checkout' }).click();
   await page.waitForURL(/addresses\.html/, { waitUntil: 'domcontentloaded' });
   await page.getByText('Edit / Change').first().click();
-  await page.getByText('Edit').nth(3).click();
-  await page.getByText('Cancel').click();
+  await page.getByText('Edit').nth(1).click();
+  await page.getByText('Cancel').nth(1).click();
   await page.getByRole('button', { name: 'Use Address' }).nth(0).click();
   await expect(page.getByRole('button', { name: 'Use Address' })).nth(0).toBeHidden();
   await page.getByRole('button', { name: 'Proceed to Shipping Method' }).scrollIntoViewIfNeeded();
