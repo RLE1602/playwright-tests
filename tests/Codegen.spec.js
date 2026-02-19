@@ -42,10 +42,6 @@ test('P-01 Existing customer with customer specific pricing, order placement, pa
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
   await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
 
-  await page.evaluate(() => { window.scrollBy(0, 500);});
-  await page.getByText('Use Card').nth(0).click();
-  //await page.getByRole('button', { name: 'Use Card' }).nth(0).click();
-  await page.evaluate(() => { window.scrollBy(0, 700);});
 //Test case 01 is begun 
   await page.getByRole('link', { name: 'Cart shopping_cart' }).click();
   await page.waitForURL(/cart\.html/, { waitUntil: 'domcontentloaded' });
