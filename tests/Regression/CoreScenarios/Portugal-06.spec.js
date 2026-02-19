@@ -12,9 +12,9 @@ test('Portugal-06 Existing customer order from approved quote, payment method-cr
   await page.locator('span').filter({ hasText: /^Quotes$/ }).click();
   await expect(page).toHaveURL(/quotes/, { waitUntil: 'load', timeout: 200_000});
 
-  const noDataElement = page.getByText('No Data');
-  const isNoDataVisible = await noDataElement.isVisible().catch(() => false);
-
+  //const noDataElement = page.getByText('No Data');
+  const noDataElement = await page.getByAltText('No Data', {waitUntil:"domcontentloaded"}).isVisible();
+  
   if (noDataElement==true) {
     console.log('No Quotes available');
   } else {
