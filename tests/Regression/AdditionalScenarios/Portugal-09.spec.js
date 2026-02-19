@@ -48,8 +48,8 @@ test('Portugal-09 Complete the checkout flow until the Order Submission page, re
   await page.waitForURL(/addresses\.html/, { waitUntil: 'domcontentloaded' });
   await page.locator('//div[@class="flex flex-col w-2/3"]//a[@class="font-bold cursor-pointer text-danaherpurple-500"]').click();
   //await page.getByRole('button', { name: 'Edit / Change' }).click();
-  await page.getByRole('button', { name: 'Edit' }).toBeVisible();
-  await page.getByRole('button', { name: 'Edit' }).first().click();
+  await page.getByRole('button', { name: 'Edit', visible: true }).first().click();
+  //await page.getByRole('button', { name: 'Edit' }).first().click();
   await page.getByRole('button', { name: 'Cancel' }).click();
   await page.getByRole('button', { name: 'Use Address' }).first().click();
   await expect(page.getByRole('button', { name: 'Use Address' }).first()).toBeHidden();
