@@ -13,7 +13,7 @@ test('Portugal-06 Existing customer order from approved quote, payment method-cr
   await expect(page).toHaveURL('https://stage10.phenomenex.com/', { waitUntil: 'load', timeout: 200_000});
   await page.getByRole('button', { name: 'Welcome AutoFirstName' }).click();  
   await page.locator('span').filter({ hasText: /^Quotes$/ }).click();
-
+  await expect(page).toHaveURL(/quotes/, { waitUntil: 'load', timeout: 200_000});
 
   const noData = page.getByText('No data');
   if (await noData.isVisible()) {
