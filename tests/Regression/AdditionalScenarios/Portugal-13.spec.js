@@ -41,8 +41,8 @@ test('Portugal-13 Payment Method Switch Validation (Complete the checkout flow u
   //await page.goto('https://stage-shop.phenomenex.com/au/en/shipping.html');
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
   await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
-  await page.getByRole('button', { name: 'Use Account' }).scrollIntoViewIfNeeded();
-  await page.getByRole('button', { name: 'Use Account' }).click();
+  await page.evaluate(() => { window.scrollBy(0, 500);});
+  await page.getByText('Use Card').nth(0).click();
 
 //Test case 01 is begun 
   //await page.getByRole('button', { name: 'Cart shopping_cart' }).click();
