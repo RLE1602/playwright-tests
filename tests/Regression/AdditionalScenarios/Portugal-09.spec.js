@@ -58,7 +58,7 @@ test('Portugal-09 Complete the checkout flow until the Order Submission page, re
 
   await page.locator('//button[normalize-space()="Proceed to Shipping Method"]').click();
   await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
-  await page.getByText(/Day Express Saver \+55,00\s*€/).click();
+  await page.getByText(/Day Express Saver/i).click();
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
   await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
   await page.evaluate(() => { window.scrollBy(0, 700);});
