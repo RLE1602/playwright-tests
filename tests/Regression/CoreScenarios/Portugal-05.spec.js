@@ -27,8 +27,8 @@ test('Portugal-05 Existing customer RFQ (Request for Quote) submission', async (
   //await page.locator('link', { name: 'Quote shopping_cart' }).click();
   await page.waitForURL(/quote-cart\.html/, { waitUntil: 'domcontentloaded' });
   // Submit Quote Request
-  //const expandQuoteSection = page.locator("//span[@class='flex gap-1 cursor-pointer']");
-  //const expandPromoSection = page.locator("/span[@class='flex gap-1 font-bold cursor-pointer']");
+  const expandQuoteSection = page.locator("//span[@class='flex gap-1 cursor-pointer']");
+  const expandPromoSection = page.locator("xpath=//span[@class='flex gap-1 font-bold cursor-pointer']");
   const quoteCommentBox = page.locator('[name="quote-comment"]');
   const promoCodeBox = page.locator('[name="quote-promo"]');
   const submitQuoteBtn = page.getByRole('button', { name: 'Submit Quote Request' });
@@ -39,10 +39,11 @@ test('Portugal-05 Existing customer RFQ (Request for Quote) submission', async (
 
   if (!quoteValue && !promoValue) {
   // Both fields are empty → fill both
-  await quoteCommentBox.click();
+  await expandQuoteSection.click();
   //await quoteCommentBox.waitFor({ state: 'visible' });
   await quoteCommentBox.fill('QUOTECOMMENT');
-  await promoCodeBox.click();
+  await expandPromoSection.scrollIntoViewIfNeeded();
+  await expandPromoSection.click();
   //await promoCodeBox.waitFor({ state: 'visible' });
   await promoCodeBox.fill('PROMOCODE');
   await submitQuoteBtn.click();
@@ -54,3 +55,5 @@ test('Portugal-05 Existing customer RFQ (Request for Quote) submission', async (
   await page.waitForURL(/submit-quote\.html/, { waitUntil: 'domcontentloaded' });
   await expect(page.getByText(/Your quote request has been received/i)).toBeVisible();
 });
+
+
