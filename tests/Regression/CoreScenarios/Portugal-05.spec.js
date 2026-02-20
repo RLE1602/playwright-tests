@@ -35,21 +35,33 @@ test('Portugal-05 Existing customer RFQ (Request for Quote) submission', async (
   await page.locator('[name="quote-comment"]').fill('QUOTECOMMENT');
   await page.locator("//span[@class='flex gap-1 font-bold cursor-pointer']").click();
   await page.locator('[name="quote-promo"]').fill('PROMOCODE');*/
-  
   const quoteCommentBox = page.locator('[name="quote-comment"]');
   const promoCodeBox = page.locator('[name="quote-promo"]');
   const submitQuoteBtn = page.getByRole('button', { name: 'Submit Quote Request' });
 
-// Fill Quote Comment if empty
-  if (!(await quoteCommentBox.inputValue()).trim()) {
-  await quoteCommentBox.fill('QUOTECOMMENT');}
+  const quoteValue = (await quoteCommentBox.inputValue()).trim();
+  const promoValue = (await promoCodeBox.inputValue()).trim();
 
-// Fill Promo Code if empty
-  if (!(await promoCodeBox.inputValue()).trim()) {
-  await promoCodeBox.fill('PROMOCODE');}
+  if (quoteValue && promoValue) {
+  // Both fields already have values
+  //console.log('Fields already filled. Submitting...');
+  await submitQuoteBtn.click();
 
-// Click Submit
- await submitQuoteBtn.click();
+  } else {
+  // One or both fields empty → fill them
+  //console.log('Filling empty fields...');
+
+  if (!quoteValue) {
+    await quoteCommentBox.fill('QUOTECOMMENT');
+  }
+
+  if (!promoValue) {
+    await promoCodeBox.fill('PROMOCODE');
+  }
+
+  await submitQuoteBtn.click();}
+
+
   
   // Verify successful submission
   await page.waitForURL(/submit-quote\.html/, { waitUntil: 'domcontentloaded' });
