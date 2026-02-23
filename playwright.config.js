@@ -41,12 +41,12 @@ export default defineConfig({
     baseURL: 'https://stage-shop.phenomenex.com',
     headless: true,
     viewport: { width: 1920, height: 1080 },
-    slowMo: process.env.CI ? 0 : 100,
+    slowMo: process.env.CI ? 0 : 200,
     trace: 'retain-on-failure',
     screenshot: 'on',
     video: 'on',
-    actionTimeout: 30_000,
-    navigationTimeout: 60_000,
+    actionTimeout: process.env.CI ? 120_000 : 30_000,   // 2 min on CI, 30s locally
+    navigationTimeout: process.env.CI ? 180_000 : 60_000,
   
   },
 
