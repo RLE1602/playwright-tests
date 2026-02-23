@@ -1,7 +1,12 @@
 name: Playwright Tests
 
 on:
-  workflow_dispatch:       # manual trigger
+  workflow_dispatch:
+    inputs:
+      test_path:
+        description: 'Optional: folder or specific test file to run'
+        required: false
+        default: ''   # if empty, will use CoreScenarios
   push:
     branches: [ main ]
 
@@ -10,17 +15,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      - run: npx playwright install --with-deps
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
 
-      - run: npx playwright test
+      - name: Run Playwright tests
+        run: |
+          if [ "${{ github.event.inputs.test_path }}" != "" ]; then
+            echo "Running tests in ${{ github.event.inputs.test_path }}"
+            npx playwright test ${{ github.event.inputs.test_path }}
+          else
+            echo "Running default tests: tests/regression/CoreScenarios"
+            npx playwright test tests/regression/CoreScenarios
+          fi
 
       - name: Upload HTML Report
         uses: actions/upload-artifact@v4
