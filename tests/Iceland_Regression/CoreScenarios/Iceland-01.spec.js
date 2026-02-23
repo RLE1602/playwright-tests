@@ -8,7 +8,7 @@ test('P-01 Existing customer with customer specific pricing, order placement, pa
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.getByRole('link', { name: 'Sign In' }).click();
 
-  await page.getByRole('textbox', { name: 'Email Address' }).fill('Portugal_stage_6qo4@mailsac.com');
+  await page.getByRole('textbox', { name: 'Email Address' }).fill('Iceland_stagegm4@mailsac.com');
 
   await page.getByRole('textbox', { name: 'Password' }).fill('Welcome@123');
   await page.getByRole('button', { name: 'Sign in' }).click();
