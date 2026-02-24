@@ -17,7 +17,7 @@ test('Iceland-03 Existing customer reorder, payment method - credit card (Visa)'
   await expect(page).toHaveURL('https://stage10.phenomenex.com/', { waitUntil: 'load', timeout: 200_000});
   
   // Add Reorder steps
-  await page.getByRole('button', { name: 'Welcome portugal_user6' }).click();
+  await page.getByRole('button', { name: 'Welcome Iceland_stagegm4' }).click();
   await page.locator('span').filter({ hasText: /^Order History$/ }).click();
   await page.getByRole('button', { name: 'Ref. No: PT00001963 Order' }).click();
   await page.getByRole('button', { name: 'Reorder now' }).first().click();
