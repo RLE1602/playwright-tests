@@ -58,7 +58,7 @@ test('Iceland-02 Existing customer order placement , payment method - PO upload'
   await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
   await expect(page.getByText('Order Confirmed')).toBeVisible();
   await expect(page.getByText(/order confirmed/i)).toBeVisible();
-  await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);
+  await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/uk\/en\/receipt\.html/);
   await expect(page.locator('text=/Order Confirmed/i')).toHaveText(/Order Confirmed/i);
 
 });
