@@ -3,8 +3,7 @@ test.afterEach(async ({ page }, testInfo) => {
   await testInfo.attach('Full Page Screenshot', { body: await page.screenshot({ fullPage: true }),contentType: 'image/png',});
 });
 
-test('Iceland-03 Existing customer reorder, payment method - credit card (Visa)', async ({ page }) => {
- 
+test('Iceland-01 Existing customer with account agreements - Customers with product special pricing', async ({ page }) => {
   await page.goto('https://stage10.phenomenex.com/');
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.getByRole('link', { name: 'Sign In' }).click();
@@ -15,17 +14,22 @@ test('Iceland-03 Existing customer reorder, payment method - credit card (Visa)'
   await page.getByRole('button', { name: 'Sign in' }).click();
   
   await expect(page).toHaveURL('https://stage10.phenomenex.com/', { waitUntil: 'load', timeout: 200_000});
-  
-  // Add Reorder steps
-  await page.getByRole('button', { name: 'Welcome AutoFirstName' }).click();
-  await page.locator('span').filter({ hasText: /^Order History$/ }).click();
-  await page.getByRole('button', { name: 'Ref. No: IS00001963 Order' }).click();
-  await page.getByRole('button', { name: 'Reorder now' }).first().click();
+  await page.getByRole('textbox', { name: 'Search by Part No., Product,' }).click();
+  await page.locator('textarea').fill('00B-4441-B0');
+  await page.keyboard.press('Enter');
+  await page.getByRole('button', { name: 'Add To Cart' }).nth(0).click();
   await page.getByRole('button', { name: 'Continue Shopping' }).click();
-  await page.getByRole('button', { name: 'Reorder now' }).nth(1).click();
-  await page.getByRole('button', { name: 'Check out' }).click();
+  await page.getByRole('textbox', { name: 'Search by Part No., Product,' }).click();
 
-  //await page.getByRole('link', { name: 'Cart shopping_cart' }).click();
+  //await page.locator('#holder').getByText('close').nth(0).click();
+  await page.locator('//*[@id="holder"]//app-header-search-modal//span[2]/i').click();
+  await page.getByRole('textbox', { name: 'Search by Part No., Product,' }).nth(0).click();
+
+  await page.locator('textarea').nth(0).fill('00B-4446-B0');
+  await page.keyboard.press('Enter');
+  await page.getByRole('button', { name: 'Add To Cart' }).nth(0).click();
+  await page.getByRole('button', { name: 'Continue Shopping' }).click();
+  await page.getByRole('link', { name: 'Cart shopping_cart' }).click();
   await page.waitForURL(/cart\.html/, { waitUntil: 'domcontentloaded' });
 
   await page.getByRole('button', { name: 'Checkout' }).click();
@@ -38,19 +42,15 @@ test('Iceland-03 Existing customer reorder, payment method - credit card (Visa)'
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
   await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
 
-  // payment method
   await page.evaluate(() => { window.scrollBy(0, 500);});
   await page.getByText('Use Card').nth(0).click();
   //await page.getByRole('button', { name: 'Use Card' }).nth(0).click();
   await page.evaluate(() => { window.scrollBy(0, 700);});
   await page.getByRole('checkbox').scrollIntoViewIfNeeded();
-  await page .locator('(//input[@id="accept-term"])[2]').check();
+
+  await page.locator('(//input[@id="accept-term"])[2]').check();
   await page.getByRole('button', { name: 'Place your order' }).click();
   await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
-  await expect(page.getByText('Order Confirmed')).toBeVisible();
-  await expect(page.getByText(/order confirmed/i)).toBeVisible();
   await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/uk\/en\/receipt\.html/);
   await expect(page.locator('text=/Order Confirmed/i')).toHaveText(/Order Confirmed/i);
-
-
 });

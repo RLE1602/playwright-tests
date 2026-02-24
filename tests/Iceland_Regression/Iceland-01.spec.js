@@ -3,7 +3,7 @@ test.afterEach(async ({ page }, testInfo) => {
   await testInfo.attach('Full Page Screenshot', { body: await page.screenshot({ fullPage: true }),contentType: 'image/png',});
 });
 
-test('I-01 Existing customer order placement , payment method - credit card ( Mastercard)', async ({ page }) => {
+test('Iceland-01 Existing customer order placement , payment method - credit card ( Mastercard)', async ({ page }) => {
   await page.goto('https://stage10.phenomenex.com/');
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.getByRole('link', { name: 'Sign In' }).click();
