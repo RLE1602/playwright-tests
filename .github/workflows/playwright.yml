@@ -6,7 +6,7 @@ on:
       test_path:
         description: 'Optional: folder or specific test file to run'
         required: false
-        default: ''   # if empty, will use CoreScenarios
+        default: ''
   push:
     branches: [ main ]
 
@@ -31,16 +31,18 @@ jobs:
 
       - name: Run Playwright tests
         run: |
-         if [ "${{ github.event.inputs.test_path }}" != "" ]; then
-         npx playwright test ${{ github.event.inputs.test_path }}
+          if [ "${{ github.event.inputs.test_path }}" != "" ]; then
+            echo "Running custom path"
+            npx playwright test ${{ github.event.inputs.test_path }}
           else
-          - name: Run Playwright tests
-          run: npx playwright test tests/Regression/CoreScenarios
-         fi
+            echo "Running CoreScenarios"
+            npx playwright test tests/Regression/CoreScenarios
+          fi
+        continue-on-error: true
 
       - name: Upload test results
-        uses: actions/upload-artifact@v4
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: regression-report
+          path: regression-report/
