@@ -38,7 +38,7 @@ jobs:
           mkdir -p "$PREVIEW_DIR"
 
           # Run tests with video + screenshot enabled
-          npx playwright test tests/Regression/CoreScenarios/Portugal-01.spec.js \
+          npx playwright test tests/Regression/CoreScenarios \
             --reporter=list \
             --output "$PREVIEW_DIR"
 
@@ -82,3 +82,4 @@ jobs:
          git push
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
