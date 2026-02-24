@@ -22,7 +22,7 @@ test('Iceland-03 Existing customer reorder, payment method - credit card (Visa)'
   await page.getByRole('button', { name: 'Ref. No: IS00001862 Order' }).click();
   await page.getByRole('button', { name: 'REORDER NOW' }).first().click();
   await page.getByRole('button', { name: 'Continue Shopping' }).click();
-  await page.getByRole('button', { name: 'REORDER NOW' }).nth(1).click();
+  await page.getByRole('button', { name: 'REORDER NOW' }).nth(0).click();
   await page.getByRole('button', { name: 'Check out' }).click();
 
   //await page.getByRole('link', { name: 'Cart shopping_cart' }).click();
