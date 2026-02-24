@@ -5,8 +5,8 @@ const path = require('path');
 // List of pages you want to capture
 const pages = [
   '/',             // Home page
-  '/about.html',   // About page
-  '/contact.html'  // Contact page
+  '/cart.html',   // About page
+  '/receipt.html'  // Contact page
 ];
 
 test('Capture screenshots and videos', async ({ browser }) => {
