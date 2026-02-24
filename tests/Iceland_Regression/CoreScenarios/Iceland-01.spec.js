@@ -3,12 +3,12 @@ test.afterEach(async ({ page }, testInfo) => {
   await testInfo.attach('Full Page Screenshot', { body: await page.screenshot({ fullPage: true }),contentType: 'image/png',});
 });
 
-test('I-01 Existing customer order placement , payment method - credit card ( Mastercard)', async ({ page }) => {
+test('P-01 Existing customer with customer specific pricing, order placement, payment method-credit card (Mastercard)', async ({ page }) => {
   await page.goto('https://stage10.phenomenex.com/');
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.getByRole('link', { name: 'Sign In' }).click();
 
-  await page.getByRole('textbox', { name: 'Email Address' }).fill('Iceland_stagegm4@mailsac.com');
+  await page.getByRole('textbox', { name: 'Email Address' }).fill('Portugal_stage_6qo4@mailsac.com');
 
   await page.getByRole('textbox', { name: 'Password' }).fill('Welcome@123');
   await page.getByRole('button', { name: 'Sign in' }).click();
@@ -51,6 +51,6 @@ test('I-01 Existing customer order placement , payment method - credit card ( Ma
   await page.locator('(//input[@id="accept-term"])[2]').check();
   await page.getByRole('button', { name: 'Place your order' }).click();
   await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
-  await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/uk\/en\/receipt\.html/);
+  await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);
 
 });
