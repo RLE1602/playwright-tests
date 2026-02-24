@@ -10,48 +10,65 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm install
 
+      # 4️⃣ Install Playwright browsers
       - name: Install Playwright browsers
         run: npx playwright install
-        
-      # 1️⃣ Run regression tests
+
+      # 5️⃣ Run all regression tests with screenshots/videos
       - name: Run regression tests
-        run: npx playwright test tests/Regression/CoreScenarios --reporter=list
-
-      # 2️⃣ Run Playwright capture script
-      - name: Run Playwright capture script
-        run: node tests/capture-multiple.spec.js
-
-      # 3️⃣ Install ffmpeg
-      - name: Install ffmpeg
-        run: sudo apt-get install ffmpeg -y
-
-      # 4️⃣ Convert frames to .webm videos
-      - name: Convert frames to .webm videos
         run: |
           mkdir -p previews
-          for dir in frames-*; do
-            slug=${dir#frames-}
-            ffmpeg -framerate 10 -i $dir/frame%03d.png -c:v libvpx-vp9 -b:v 1M -pix_fmt yuva420p previews/video-${slug}.webm
+          BRANCH=$(echo "${GITHUB_REF#refs/heads/}" | tr / -)
+          DATE=$(date +%Y-%m-%d)
+          PREVIEW_DIR="previews/$BRANCH/$DATE"
+          mkdir -p "$PREVIEW_DIR"
+
+          # Run tests with video + screenshot enabled
+          npx playwright test tests/Regression/CoreScenarios/Portugal-01.spec.js \
+            --reporter=list \
+            --output "$PREVIEW_DIR"
+
+      # 6️⃣ Convert Playwright frames (if needed) to .webm
+      - name: Convert frames to .webm videos
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          BRANCH=$(echo "${GITHUB_REF#refs/heads/}" | tr / -)
+          DATE=$(date +%Y-%m-%d)
+          PREVIEW_DIR="previews/$BRANCH/$DATE"
+
+          for dir in $PREVIEW_DIR/*/; do
+            if [ -d "$dir" ]; then
+              # Only convert folders with frames
+              for f in $dir/*.png; do
+                [ -e "$f" ] || continue
+              done
+              # Example ffmpeg command for each folder (adjust if needed)
+              ffmpeg -framerate 10 -pattern_type glob -i "$dir/*.png" \
+                     -c:v libvpx-vp9 -b:v 1M -pix_fmt yuva420p "$dir/video.webm"
+            fi
           done
 
-      # 5️⃣ Commit screenshots and videos
-      - name: Commit screenshots and videos
+      # 7️⃣ Commit screenshots and videos back to repo
+      - name: Commit previews
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add screenshot-*.png previews/*.webm
-          git commit -m "Update screenshots and videos [skip ci]" || echo "No changes to commit"
+          git add previews/
+          git commit -m "Update Playwright screenshots & videos [skip ci]" || echo "No changes to commit"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
