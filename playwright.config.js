@@ -34,6 +34,8 @@ export default defineConfig({
   reporter: [['html', { outputFolder: 'regression-report', open: 'never' }],['list']],
  
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  outputDir: process.env.PREVIEW_DIR || 'test-results',
+
   use: {
     
     /* Base URL to use in actions like `await page.goto('')`. */
@@ -49,7 +51,7 @@ export default defineConfig({
     video: 'on',
     actionTimeout: process.env.CI ? 120_000 : 30_000,   // 2 min on CI, 30s locally
     navigationTimeout: process.env.CI ? 180_000 : 60_000,
-  
+
   },
 
   /* Configure projects for major browsers */
