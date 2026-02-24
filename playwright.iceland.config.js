@@ -13,9 +13,8 @@ import { defineConfig, devices } from '@playwright/test';
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  testDir: './tests',
-    //testDir: 'tests/Regression/CoreScenarios',
-
+  //testDir: './tests',
+    testDir: 'tests/Iceland_Regression/CoreScenarios',
     timeout: 300_000,
 
   
