@@ -3,7 +3,7 @@ test.afterEach(async ({ page }, testInfo) => {
   await testInfo.attach('Full Page Screenshot', { body: await page.screenshot({ fullPage: true }),contentType: 'image/png',});
 });
 
-test('Iceland-05 Existing customer RFQ (Request for Quote) submission(Amex card)', async ({ page }) => {
+test('Iceland-05 Existing customer RFQ (Request for Quote) submission', async ({ page }) => {
   await page.goto('https://stage10.phenomenex.com/');
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.getByRole('link', { name: 'Sign In' }).click();
