@@ -23,13 +23,20 @@ jobs:
 
       - name: Install Playwright browsers
         run: npx playwright install
+        
+      # 1️⃣ Run regression tests
+      - name: Run regression tests
+        run: npx playwright test tests/Regression/CoreScenarios --reporter=list
 
-      - name: Run Playwright script
-        run: npx playwright test tests/capture-multiple.spec.js --reporter=list
+      # 2️⃣ Run Playwright capture script
+      - name: Run Playwright capture script
+        run: node tests/capture-multiple.spec.js
 
+      # 3️⃣ Install ffmpeg
       - name: Install ffmpeg
         run: sudo apt-get install ffmpeg -y
 
+      # 4️⃣ Convert frames to .webm videos
       - name: Convert frames to .webm videos
         run: |
           mkdir -p previews
@@ -38,6 +45,7 @@ jobs:
             ffmpeg -framerate 10 -i $dir/frame%03d.png -c:v libvpx-vp9 -b:v 1M -pix_fmt yuva420p previews/video-${slug}.webm
           done
 
+      # 5️⃣ Commit screenshots and videos
       - name: Commit screenshots and videos
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
