@@ -51,6 +51,10 @@ export default defineConfig({
     video: 'on',
     actionTimeout: process.env.CI ? 120_000 : 30_000,   // 2 min on CI, 30s locally
     navigationTimeout: process.env.CI ? 180_000 : 60_000,
+<<<<<<< HEAD
+=======
+    outputDir: process.env.PREVIEW_DIR || 'test-results',
+>>>>>>> 9cd216e (playwright.config.js)
 
   },
 
