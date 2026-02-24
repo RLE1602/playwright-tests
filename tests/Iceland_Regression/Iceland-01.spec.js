@@ -51,6 +51,7 @@ test('I-01 Existing customer order placement , payment method - credit card ( Ma
   await page.locator('(//input[@id="accept-term"])[2]').check();
   await page.getByRole('button', { name: 'Place your order' }).click();
   await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
-  await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);
+  await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/uk\/en\/receipt\.html/);
+  await expect(page).toHaveText(/Order Confirmed/i);
 
 });
