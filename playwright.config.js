@@ -1,4 +1,4 @@
-// @ts-check
+"// @ts-check
 import { defineConfig, devices } from '@playwright/test';
 
 /**
@@ -13,8 +13,8 @@ import { defineConfig, devices } from '@playwright/test';
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  testDir: './tests',
-    //testDir: 'tests/Regression/CoreScenarios',
+  //testDir: './tests',
+    testDir: 'tests/Regression/CoreScenarios',
 
     timeout: 300_000,
 
@@ -34,7 +34,7 @@ export default defineConfig({
   reporter: [['html', { outputFolder: 'regression-report', open: 'never' }],['list']],
  
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  //outputDir: process.env.PREVIEW_DIR || 'test-results',
+  outputDir: process.env.PREVIEW_DIR || 'test-results',
 
   use: {
     
@@ -99,4 +99,3 @@ export default defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
-
