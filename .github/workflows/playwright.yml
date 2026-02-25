@@ -37,9 +37,10 @@ jobs:
       - name: Convert JSON to Excel
         run: |
           npm install xlsx
-          node convert-to-excel.js
+          node convert-to-excel.js || echo "⚠ Excel generation failed, continuing workflow..."
 
       - name: Upload Excel Report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Playwright-Excel-Report
