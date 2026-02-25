@@ -34,6 +34,17 @@ jobs:
           # Do NOT fail workflow if tests fail
           npx playwright test tests/Regression/CoreScenarios || true
 
+      - name: Convert JSON to Excel
+        run: |
+          npm install xlsx
+          node convert-to-excel.js
+
+      - name: Upload Excel Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Playwright-Excel-Report
+          path: Playwright_Test_Report.xlsx
+
       - name: Show preview structure
         run: |
           echo "Preview folder structure:"
