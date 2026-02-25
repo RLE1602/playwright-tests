@@ -1,118 +1,101 @@
-const fs = require('fs');
-const path = require('path');
-const XLSX = require('xlsx');
+"// @ts-check"
+import { defineConfig, devices } from '@playwright/test';
 
-// Paths
-const jsonFile = path.join(process.cwd(), 'test-results.json');
-const previewsRoot = process.env.PREVIEW_DIR || path.join(process.cwd(), 'previews');
+/**
+ * Read environment variables from file.
+ * https://github.com/motdotla/dotenv
+ */
+// import dotenv from 'dotenv';
+// import path from 'path';
+// dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-try {
+/**
+ * @see https://playwright.dev/docs/test-configuration
+ */
+export default defineConfig({
+  //testDir: './tests',
+    testDir: 'tests/Regression/CoreScenarios',
 
-  if (!fs.existsSync(jsonFile)) {
-    console.warn('⚠ test-results.json not found. Creating empty Excel report.');
-  }
+    timeout: 300_000,
 
-  const data = fs.existsSync(jsonFile)
-    ? JSON.parse(fs.readFileSync(jsonFile, 'utf-8'))
-    : { suites: [] };
+  
+  /* Run tests in files in parallel */
 
-  const rows = [];
+  fullyParallel: true,
+  /* Fail the build on CI if you accidentally left test.only in the source code. */
+  forbidOnly: !!process.env.CI,
+  /* Retry on CI only */
+  retries: process.env.CI ? 2 : 0,
+  //retries:2,
 
-  // Helper: find preview files
-  function findPreviews(testName) {
-    const links = [];
-    if (!fs.existsSync(previewsRoot)) return [];
+  /* Opt out of parallel tests on CI. */
+  workers: process.env.CI ? 3 : 4,
+  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+  reporter: [['html', { outputFolder: 'regression-report', open: 'never' }],['list'], ['json', { outputFile: 'test-results.json' }]],
+ 
+  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  outputDir: process.env.PREVIEW_DIR || 'test-results',
 
-    const walk = (dir) => {
-      fs.readdirSync(dir).forEach((file) => {
-        const fullPath = path.join(dir, file);
-        if (fs.statSync(fullPath).isDirectory()) {
-          walk(fullPath);
-        } else if (file.includes(testName)) {
-          const relativePath = path
-            .relative(process.cwd(), fullPath)
-            .replace(/\\/g, "/");
-          links.push(relativePath);
-        }
-      });
-    };
+  use: {
+    
+    /* Base URL to use in actions like `await page.goto('')`. */
+    // baseURL: 'http://localhost:3000',
 
-    walk(previewsRoot);
-    return links;
-  }
+    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    baseURL: 'https://stage-shop.phenomenex.com',
+    headless: true,
+    viewport: { width: 1920, height: 1080 },
+    slowMo: process.env.CI ? 0 : 200,
+    trace: 'retain-on-failure',
+    screenshot: 'on',
+    video: 'on',
+    actionTimeout: process.env.CI ? 120_000 : 30_000,   // 2 min on CI, 30s locally
+    navigationTimeout: process.env.CI ? 180_000 : 60_000,
+    },
 
-  // Safe iteration through Playwright JSON
-  data.suites?.forEach((suite) => {
-    suite.specs?.forEach((spec) => {
-      spec.tests?.forEach((test) => {
+  /* Configure projects for major browsers */
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+      
+    },
 
-        const result = test.results?.[0] || {};
+    /*{
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
 
-        const testTitle = test.title || 'Unknown_Test';
-        const specTitle = spec.title || testTitle;
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
 
-        const durationMin = (result.duration || 0) / 60000;
+    /* Test against mobile viewports. */
+    // {
+    //   name: 'Mobile Chrome',
+    //   use: { ...devices['Pixel 5'] },
+    // },
+    // {
+    //   name: 'Mobile Safari',
+    //   use: { ...devices['iPhone 12'] },
+    // },
 
-        const failedStep =
-          result.status === 'failed' && result.error
-            ? result.error.message || 'Error occurred'
-            : '-';
+    /* Test against branded browsers. */
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    // },
+    // {
+    //   name: 'Google Chrome',
+    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    // },
+  ],
 
-        const previews = findPreviews(testTitle);
-        const mediaLinks = previews.length
-          ? previews.map(p => `HYPERLINK("${p}", "View Media")`).join(', ')
-          : '-';
-
-        rows.push({
-          Suite: suite.title || 'Root Suite',
-          'Test Case ID': testTitle.replace(/\s+/g, '_'),
-          'Test Case Name': specTitle,
-          'Step Number': test.step || '-',
-          Status: result.status || 'unknown',
-          'Failed Step Description': failedStep,
-          'Duration (min)': durationMin.toFixed(2),
-          Retry: result.retry || 0,
-          Browser: test.projectName || 'unknown',
-          'Media Link': mediaLinks,
-          'Execution Date': result.startTime
-            ? new Date(result.startTime).toISOString().split('T')[0]
-            : '-',
-        });
-
-      });
-    });
-  });
-
-  // If no rows, still create one empty row
-  if (rows.length === 0) {
-    rows.push({
-      Suite: '-',
-      'Test Case ID': '-',
-      'Test Case Name': 'No tests found',
-      'Step Number': '-',
-      Status: '-',
-      'Failed Step Description': '-',
-      'Duration (min)': '-',
-      Retry: '-',
-      Browser: '-',
-      'Media Link': '-',
-      'Execution Date': '-',
-    });
-  }
-
-  // Create workbook
-  const workbook = XLSX.utils.book_new();
-  const worksheet = XLSX.utils.json_to_sheet(rows);
-
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Test Report');
-
-  // Save Excel in workflow root (matches YAML)
-  const excelFile = path.join(process.cwd(), 'Playwright_Test_Report.xlsx');
-  XLSX.writeFile(workbook, excelFile);
-
-  console.log(`✅ Excel report generated: ${excelFile}`);
-  console.log('File exists:', fs.existsSync(excelFile));
-
-} catch (err) {
-  console.error('⚠ Excel generation error (workflow will continue):', err.message);
-}
+  /* Run your local dev server before starting the tests */
+  // webServer: {
+  //   command: 'npm run start',
+  //   url: 'http://localhost:3000',
+  //   reuseExistingServer: !process.env.CI,
+  // },
+});
