@@ -4,7 +4,8 @@ const XLSX = require('xlsx');
 
 // Paths
 const jsonFile = path.join(__dirname, 'test-results.json');
-const previewsRoot = path.join(__dirname, 'previews');
+// Use PREVIEW_DIR env if set, otherwise default to ./previews
+const previewsRoot = process.env.PREVIEW_DIR || path.join(__dirname, 'previews');
 
 if (!fs.existsSync(jsonFile)) {
   console.error('❌ test-results.json not found. Make sure Playwright ran with JSON reporter.');
@@ -27,7 +28,8 @@ function findPreviews(testName) {
       if (fs.statSync(fullPath).isDirectory()) {
         walk(fullPath);
       } else if (file.includes(testName)) {
-        const relativePath = path.relative(__dirname, fullPath);
+        // Make relative path to root for hyperlinks
+        const relativePath = path.relative(__dirname, fullPath).replace(/\\/g, "/");
         links.push(relativePath);
       }
     });
@@ -52,14 +54,14 @@ data.suites.forEach((suite) => {
       // Media links
       const previews = findPreviews(test.title);
       const mediaLinks = previews.length
-        ? previews.map(p => `HYPERLINK("${p.replace(/\\/g, "/")}", "View Media")`).join(', ')
+        ? previews.map(p => `HYPERLINK("${p}", "View Media")`).join(', ')
         : '-';
 
       rows.push({
         Suite: suite.title || 'Root Suite',
-        'Test Case ID': test.title.replace(/\s+/g, '_'), // optional: create unique ID
+        'Test Case ID': test.title.replace(/\s+/g, '_'),
         'Test Case Name': spec.title || test.title,
-        'Step Number': test.step || '-', // optional: if you have step info
+        'Step Number': test.step || '-',
         Status: result.status,
         'Failed Step Description': failedStep,
         'Duration (min)': durationMin.toFixed(2),
@@ -91,8 +93,10 @@ const worksheet = XLSX.utils.json_to_sheet(rows, { header: [
 // Append sheet
 XLSX.utils.book_append_sheet(workbook, worksheet, 'Test Report');
 
-// Save Excel file
+// Save Excel file directly in the root (no artifacts folder)
 const excelFile = path.join(__dirname, 'Playwright_Test_Report.xlsx');
 XLSX.writeFile(workbook, excelFile);
 
+// Confirm file exists for CI/CD
 console.log(`✅ Enhanced Excel report generated: ${excelFile}`);
+console.log('File exists:', fs.existsSync(excelFile));
