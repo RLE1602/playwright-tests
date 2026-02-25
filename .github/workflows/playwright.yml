@@ -28,7 +28,8 @@ jobs:
         env: 
             PREVIEW_DIR: previews/${{ github.ref_name }}/$(date +%Y-%m-%d-%H%M%S) 
         run: | 
-          echo "Using preview dir: $PREVIEW_DIR" mkdir -p "$PREVIEW_DIR"
+          echo "Using preview dir: $PREVIEW_DIR"
+          mkdir -p "$PREVIEW_DIR"
 
           # Do NOT fail workflow if tests fail
           npx playwright test tests/Regression/CoreScenarios || true
@@ -60,6 +61,7 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 
 
