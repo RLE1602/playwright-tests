@@ -1,0 +1,796 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e8]:
+      - generic [ref=e11]:
+        - generic [ref=e13]:
+          - link "white_wave_logo":
+            - /url: /
+            - img "white_wave_logo" [ref=e14] [cursor=pointer]
+        - list [ref=e16]:
+          - listitem [ref=e17] [cursor=pointer]:
+            - button "Welcome AutoFirstName account_circle" [ref=e19]:
+              - generic [ref=e20]: Welcome AutoFirstName
+              - generic [ref=e21]: account_circle
+          - listitem [ref=e22]:
+            - generic [ref=e24]:
+              - text: Portugal
+              - generic [ref=e25]: language
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - generic [ref=e33]:
+            - generic [ref=e35] [cursor=pointer]: search
+            - textbox "Search by Part No., Product, Application, or Keyword" [ref=e36]: 00B-4441-B0
+          - generic [ref=e38]:
+            - link "Quick Order bolt" [ref=e40] [cursor=pointer]:
+              - /url: /quick-order
+              - text: Quick Order
+              - generic [ref=e41]: bolt
+            - link "Quote sms 0" [ref=e43] [cursor=pointer]:
+              - /url: https://stage-shop.phenomenex.com/eu/en/quote-cart.html
+              - text: Quote
+              - generic [ref=e44]: sms
+              - generic [ref=e45]: "0"
+            - link "Cart shopping_cart 0" [ref=e47] [cursor=pointer]:
+              - /url: https://stage-shop.phenomenex.com/eu/en/cart.html
+              - text: Cart
+              - generic [ref=e48]: shopping_cart
+              - generic [ref=e49]: "0"
+        - list [ref=e53]:
+          - listitem [ref=e54] [cursor=pointer]:
+            - generic [ref=e56]: LC
+          - listitem [ref=e57] [cursor=pointer]:
+            - generic [ref=e59]: GC
+          - listitem [ref=e60] [cursor=pointer]:
+            - generic [ref=e62]: Sample Prep
+          - listitem [ref=e63] [cursor=pointer]:
+            - link "Industry Applications" [ref=e65]:
+              - /url: /service-listing-industries
+          - listitem [ref=e66] [cursor=pointer]:
+            - generic [ref=e68]: Resources
+          - listitem [ref=e69] [cursor=pointer]:
+            - generic [ref=e71]: Our Company
+    - generic [ref=e77]:
+      - generic [ref=e78]:
+        - list [ref=e79]:
+          - listitem [ref=e80]:
+            - generic [ref=e81]: "Filter by:"
+        - list [ref=e82]:
+          - listitem [ref=e83] [cursor=pointer]:
+            - link "All Results 315" [ref=e84]:
+              - /url: javascript:void(0)
+              - text: All Results
+              - generic [ref=e85]: "315"
+          - listitem [ref=e86] [cursor=pointer]:
+            - link "assessment Applications 0" [ref=e87]:
+              - /url: javascript:void(0)
+              - generic [ref=e88]: assessment
+              - text: Applications
+              - generic [ref=e89]: "0"
+          - listitem [ref=e90] [cursor=pointer]:
+            - link "description Documents 0" [ref=e91]:
+              - /url: javascript:void(0)
+              - generic [ref=e92]: description
+              - text: Documents
+              - generic [ref=e93]: "0"
+          - listitem [ref=e94] [cursor=pointer]:
+            - link "widgets Part Numbers 311" [ref=e95]:
+              - /url: javascript:void(0)
+              - generic [ref=e96]: widgets
+              - text: Part Numbers
+              - generic [ref=e97]: "311"
+          - listitem [ref=e98] [cursor=pointer]:
+            - link "web Product Information 0" [ref=e99]:
+              - /url: javascript:void(0)
+              - generic [ref=e100]: web
+              - text: Product Information
+              - generic [ref=e101]: "0"
+          - listitem [ref=e102] [cursor=pointer]:
+            - link "desktop_mac Webinars 0" [ref=e103]:
+              - /url: javascript:void(0)
+              - generic [ref=e104]: desktop_mac
+              - text: Webinars
+              - generic [ref=e105]: "0"
+          - listitem [ref=e106] [cursor=pointer]:
+            - link "rss_feed Blog 0" [ref=e107]:
+              - /url: javascript:void(0)
+              - generic [ref=e108]: rss_feed
+              - text: Blog
+              - generic [ref=e109]: "0"
+        - list [ref=e110]:
+          - listitem [ref=e111]: Refine Search
+        - list [ref=e112]:
+          - listitem [ref=e113]:
+            - text: Brand
+            - generic [ref=e115]: expand_less
+          - generic [ref=e116]:
+            - listitem [ref=e117] [cursor=pointer]:
+              - generic [ref=e119]:
+                - generic [ref=e120]:
+                  - checkbox "AXIA 22" [ref=e121]
+                  - generic:
+                    - img
+                - generic [ref=e123]:
+                  - generic [ref=e124]: AXIA
+                  - generic [ref=e125]: "22"
+            - listitem [ref=e126] [cursor=pointer]:
+              - generic [ref=e128]:
+                - generic [ref=e129]:
+                  - checkbox "Aeris 7" [ref=e130]
+                  - generic:
+                    - img
+                - generic [ref=e132]:
+                  - generic [ref=e133]: Aeris
+                  - generic [ref=e134]: "7"
+            - listitem [ref=e135] [cursor=pointer]:
+              - generic [ref=e137]:
+                - generic [ref=e138]:
+                  - checkbox "Aqua 7" [ref=e139]
+                  - generic:
+                    - img
+                - generic [ref=e141]:
+                  - generic [ref=e142]: Aqua
+                  - generic [ref=e143]: "7"
+            - listitem [ref=e144] [cursor=pointer]:
+              - generic [ref=e146]:
+                - generic [ref=e147]:
+                  - checkbox "Clarity 19" [ref=e148]
+                  - generic:
+                    - img
+                - generic [ref=e150]:
+                  - generic [ref=e151]: Clarity
+                  - generic [ref=e152]: "19"
+            - listitem [ref=e153] [cursor=pointer]:
+              - generic [ref=e155]:
+                - generic [ref=e156]:
+                  - checkbox "Gemini 46" [ref=e157]
+                  - generic:
+                    - img
+                - generic [ref=e159]:
+                  - generic [ref=e160]: Gemini
+                  - generic [ref=e161]: "46"
+            - listitem [ref=e162] [cursor=pointer]:
+              - generic [ref=e164]:
+                - generic [ref=e165]:
+                  - checkbox "HyperClone 4" [ref=e166]
+                  - generic:
+                    - img
+                - generic [ref=e168]:
+                  - generic [ref=e169]: HyperClone
+                  - generic [ref=e170]: "4"
+            - listitem [ref=e171] [cursor=pointer]:
+              - generic [ref=e173]:
+                - generic [ref=e174]:
+                  - checkbox "Jupiter 12" [ref=e175]
+                  - generic:
+                    - img
+                - generic [ref=e177]:
+                  - generic [ref=e178]: Jupiter
+                  - generic [ref=e179]: "12"
+            - listitem [ref=e180] [cursor=pointer]:
+              - generic [ref=e182]:
+                - generic [ref=e183]:
+                  - checkbox "Kinetex 13" [ref=e184]
+                  - generic:
+                    - img
+                - generic [ref=e186]:
+                  - generic [ref=e187]: Kinetex
+                  - generic [ref=e188]: "13"
+            - listitem [ref=e189] [cursor=pointer]:
+              - generic [ref=e191]:
+                - generic [ref=e192]:
+                  - checkbox "Luna 109" [ref=e193]
+                  - generic:
+                    - img
+                - generic [ref=e195]:
+                  - generic [ref=e196]: Luna
+                  - generic [ref=e197]: "109"
+            - listitem [ref=e198] [cursor=pointer]:
+              - generic [ref=e200]:
+                - generic [ref=e201]:
+                  - checkbox "Lux 21" [ref=e202]
+                  - generic:
+                    - img
+                - generic [ref=e204]:
+                  - generic [ref=e205]: Lux
+                  - generic [ref=e206]: "21"
+            - listitem [ref=e207] [cursor=pointer]:
+              - generic [ref=e209]:
+                - generic [ref=e210]:
+                  - checkbox "PhenoSphere 1" [ref=e211]
+                  - generic:
+                    - img
+                - generic [ref=e213]:
+                  - generic [ref=e214]: PhenoSphere
+                  - generic [ref=e215]: "1"
+            - listitem [ref=e216] [cursor=pointer]:
+              - generic [ref=e218]:
+                - generic [ref=e219]:
+                  - checkbox "PolymerX 1" [ref=e220]
+                  - generic:
+                    - img
+                - generic [ref=e222]:
+                  - generic [ref=e223]: PolymerX
+                  - generic [ref=e224]: "1"
+            - listitem [ref=e225] [cursor=pointer]:
+              - generic [ref=e227]:
+                - generic [ref=e228]:
+                  - checkbox "Prodigy 6" [ref=e229]
+                  - generic:
+                    - img
+                - generic [ref=e231]:
+                  - generic [ref=e232]: Prodigy
+                  - generic [ref=e233]: "6"
+            - listitem [ref=e234] [cursor=pointer]:
+              - generic [ref=e236]:
+                - generic [ref=e237]:
+                  - checkbox "Strata-X 2" [ref=e238]
+                  - generic:
+                    - img
+                - generic [ref=e240]:
+                  - generic [ref=e241]: Strata-X
+                  - generic [ref=e242]: "2"
+            - listitem [ref=e243] [cursor=pointer]:
+              - generic [ref=e245]:
+                - generic [ref=e246]:
+                  - checkbox "Synergi 41" [ref=e247]
+                  - generic:
+                    - img
+                - generic [ref=e249]:
+                  - generic [ref=e250]: Synergi
+                  - generic [ref=e251]: "41"
+        - list [ref=e252]:
+          - listitem [ref=e253]:
+            - text: Phase
+            - generic [ref=e255]: expand_more
+        - list [ref=e256]:
+          - listitem [ref=e257]:
+            - text: Separation Mode
+            - generic [ref=e259]: expand_more
+      - generic [ref=e261]:
+        - heading "315 Results for “00B-4441-B0” share" [level=1] [ref=e262]:
+          - generic [ref=e263]: 315 Results for “00B-4441-B0”
+          - link "share" [ref=e264] [cursor=pointer]:
+            - /url: javascript:void(0)
+            - generic [ref=e265]: share
+        - generic [ref=e266]:
+          - text: Not the results you are looking for? Try our
+          - link "Application Search" [ref=e267] [cursor=pointer]:
+            - /url: /applications
+          - text: .
+        - generic [ref=e272]:
+          - img [ref=e274]
+          - generic [ref=e275]:
+            - generic [ref=e276]: "Part: 00B-4441-B0"
+            - paragraph [ref=e277] [cursor=pointer]: Clarity 3 µm Oligo-RP, LC Column 50 x 2 mm, Ea
+            - generic [ref=e279]: ()
+          - generic [ref=e280]:
+            - generic [ref=e282]:
+              - link "link" [ref=e283] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e284]: link
+              - link "favorite_border" [ref=e285] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e286]: favorite_border
+            - textbox [ref=e290]
+        - generic [ref=e295]:
+          - img [ref=e297]
+          - generic [ref=e298]:
+            - generic [ref=e299]: "Part: 00D-4441-B0"
+            - paragraph [ref=e300] [cursor=pointer]: Clarity 3 µm Oligo-RP, LC Column 100 x 2 mm, Ea
+            - generic [ref=e302]: ()
+          - generic [ref=e303]:
+            - generic [ref=e305]:
+              - link "link" [ref=e306] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e307]: link
+              - link "favorite_border" [ref=e308] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e309]: favorite_border
+            - textbox [ref=e313]
+        - generic [ref=e318]:
+          - img [ref=e320]
+          - generic [ref=e321]:
+            - generic [ref=e322]: "Part: 00F-4441-B0"
+            - paragraph [ref=e323] [cursor=pointer]: Clarity 3 µm Oligo-RP, LC Column 150 x 2 mm, Ea
+            - generic [ref=e325]: ()
+          - generic [ref=e326]:
+            - generic [ref=e328]:
+              - link "link" [ref=e329] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e330]: link
+              - link "favorite_border" [ref=e331] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e332]: favorite_border
+            - textbox [ref=e336]
+        - generic [ref=e341]:
+          - img [ref=e343]
+          - generic [ref=e344]:
+            - generic [ref=e345]: "Part: 00A-4441-B0"
+            - paragraph [ref=e346] [cursor=pointer]: Clarity 3 µm Oligo-RP, LC Column 30 x 2 mm, Ea
+            - generic [ref=e348]: ()
+          - generic [ref=e349]:
+            - generic [ref=e351]:
+              - link "link" [ref=e352] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e353]: link
+              - link "favorite_border" [ref=e354] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e355]: favorite_border
+            - textbox [ref=e359]
+        - generic [ref=e364]:
+          - img [ref=e366]
+          - generic [ref=e367]:
+            - generic [ref=e368]: "Part: 00B-4441-E0"
+            - paragraph [ref=e369] [cursor=pointer]: Clarity 3 µm Oligo-RP, LC Column 50 x 4.6 mm, Ea
+            - generic [ref=e371]: ()
+          - generic [ref=e372]:
+            - generic [ref=e374]:
+              - link "link" [ref=e375] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e376]: link
+              - link "favorite_border" [ref=e377] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e378]: favorite_border
+            - textbox [ref=e382]
+        - generic [ref=e387]:
+          - img [ref=e389]
+          - generic [ref=e390]:
+            - generic [ref=e391]: "Part: 00B-4441-N0"
+            - paragraph [ref=e392] [cursor=pointer]: Clarity 3 µm Oligo-RP, LC Column 50 x 10 mm, Ea
+            - generic [ref=e394]: ()
+          - generic [ref=e395]:
+            - generic [ref=e397]:
+              - link "link" [ref=e398] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e399]: link
+              - link "favorite_border" [ref=e400] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e401]: favorite_border
+            - textbox [ref=e405]
+        - generic [ref=e410]:
+          - img [ref=e412]
+          - generic [ref=e413]:
+            - generic [ref=e414]: "Part: 00B-4448-B0"
+            - paragraph [ref=e415] [cursor=pointer]: Luna 5 µm PFP(2) 100 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e417]: ()
+          - generic [ref=e418]:
+            - generic [ref=e420]:
+              - link "link" [ref=e421] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e422]: link
+              - link "favorite_border" [ref=e423] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e424]: favorite_border
+            - textbox [ref=e428]
+        - generic [ref=e433]:
+          - img [ref=e435]
+          - generic [ref=e436]:
+            - generic [ref=e437]: "Part: 00B-4447-B0"
+            - paragraph [ref=e438] [cursor=pointer]: Luna 3 µm PFP(2) 100 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e440]: ()
+          - generic [ref=e441]:
+            - generic [ref=e443]:
+              - link "link" [ref=e444] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e445]: link
+              - link "favorite_border" [ref=e446] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e447]: favorite_border
+            - textbox [ref=e451]
+        - generic [ref=e456]:
+          - img [ref=e458]
+          - generic [ref=e459]:
+            - generic [ref=e460]: "Part: 00B-4446-B0"
+            - paragraph [ref=e461] [cursor=pointer]: Luna 2.5 µm C18(2)-HST 100 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e463]: ()
+          - generic [ref=e464]:
+            - generic [ref=e466]:
+              - link "link" [ref=e467] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e468]: link
+              - link "favorite_border" [ref=e469] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e470]: favorite_border
+            - textbox [ref=e474]
+        - generic [ref=e479]:
+          - img [ref=e481]
+          - generic [ref=e482]:
+            - generic [ref=e483]: "Part: 00B-4444-B0"
+            - paragraph [ref=e484] [cursor=pointer]: Gemini 5 µm C6-Phenyl 110 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e486]: ()
+          - generic [ref=e487]:
+            - generic [ref=e489]:
+              - link "link" [ref=e490] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e491]: link
+              - link "favorite_border" [ref=e492] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e493]: favorite_border
+            - textbox [ref=e497]
+        - generic [ref=e502]:
+          - img [ref=e504]
+          - generic [ref=e505]:
+            - generic [ref=e506]: "Part: 00B-4443-B0"
+            - paragraph [ref=e507] [cursor=pointer]: Gemini 3 µm C6-Phenyl 110 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e509]: ()
+          - generic [ref=e510]:
+            - generic [ref=e512]:
+              - link "link" [ref=e513] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e514]: link
+              - link "favorite_border" [ref=e515] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e516]: favorite_border
+            - textbox [ref=e520]
+        - generic [ref=e525]:
+          - img [ref=e527]
+          - generic [ref=e528]:
+            - generic [ref=e529]: "Part: 00B-4458-B0"
+            - paragraph [ref=e530] [cursor=pointer]: Lux 3 µm Cellulose-1, LC Column 50 x 2 mm, Ea
+            - generic [ref=e532]: ()
+          - generic [ref=e533]:
+            - generic [ref=e535]:
+              - link "link" [ref=e536] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e537]: link
+              - link "favorite_border" [ref=e538] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e539]: favorite_border
+            - textbox [ref=e543]
+        - generic [ref=e548]:
+          - img [ref=e550]
+          - generic [ref=e551]:
+            - generic [ref=e552]: "Part: 00B-4439-B0"
+            - paragraph [ref=e553] [cursor=pointer]: Gemini 3 µm C18 110 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e555]: ()
+          - generic [ref=e556]:
+            - generic [ref=e558]:
+              - link "link" [ref=e559] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e560]: link
+              - link "favorite_border" [ref=e561] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e562]: favorite_border
+            - textbox [ref=e566]
+        - generic [ref=e571]:
+          - img [ref=e573]
+          - generic [ref=e574]:
+            - generic [ref=e575]: "Part: 00B-4435-B0"
+            - paragraph [ref=e576] [cursor=pointer]: Gemini 5 µm C18 110 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e578]: ()
+          - generic [ref=e579]:
+            - generic [ref=e581]:
+              - link "link" [ref=e582] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e583]: link
+              - link "favorite_border" [ref=e584] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e585]: favorite_border
+            - textbox [ref=e589]
+        - generic [ref=e594]:
+          - img [ref=e596]
+          - generic [ref=e597]:
+            - generic [ref=e598]: "Part: 00B-4398-B0"
+            - paragraph [ref=e599] [cursor=pointer]: Luna 5 µm SCX 100 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e601]: ()
+          - generic [ref=e602]:
+            - generic [ref=e604]:
+              - link "link" [ref=e605] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e606]: link
+              - link "favorite_border" [ref=e607] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e608]: favorite_border
+            - textbox [ref=e612]
+        - generic [ref=e617]:
+          - img [ref=e619]
+          - generic [ref=e620]:
+            - generic [ref=e621]: "Part: 00B-4378-B0"
+            - paragraph [ref=e622] [cursor=pointer]: Luna 5 µm NH2 100 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e624]: ()
+          - generic [ref=e625]:
+            - generic [ref=e627]:
+              - link "link" [ref=e628] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e629]: link
+              - link "favorite_border" [ref=e630] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e631]: favorite_border
+            - textbox [ref=e635]
+        - generic [ref=e640]:
+          - img [ref=e642]
+          - generic [ref=e643]:
+            - generic [ref=e644]: "Part: 00B-4377-B0"
+            - paragraph [ref=e645] [cursor=pointer]: Luna 3 µm NH2 100 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e647]: ()
+          - generic [ref=e648]:
+            - generic [ref=e650]:
+              - link "link" [ref=e651] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e652]: link
+              - link "favorite_border" [ref=e653] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e654]: favorite_border
+            - textbox [ref=e658]
+        - generic [ref=e663]:
+          - img [ref=e665]
+          - generic [ref=e666]:
+            - generic [ref=e667]: "Part: 00B-4371-B0"
+            - paragraph [ref=e668] [cursor=pointer]: Synergi 2.5 µm Polar-RP 100 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e670]: ()
+          - generic [ref=e671]:
+            - generic [ref=e673]:
+              - link "link" [ref=e674] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e675]: link
+              - link "favorite_border" [ref=e676] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e677]: favorite_border
+            - textbox [ref=e681]
+        - generic [ref=e686]:
+          - img [ref=e688]
+          - generic [ref=e689]:
+            - generic [ref=e690]: "Part: 00B-4311-B0"
+            - paragraph [ref=e691] [cursor=pointer]: Aqua 3 µm C18 125 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e693]: ()
+          - generic [ref=e694]:
+            - generic [ref=e696]:
+              - link "link" [ref=e697] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e698]: link
+              - link "favorite_border" [ref=e699] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e700]: favorite_border
+            - textbox [ref=e704]
+        - generic [ref=e709]:
+          - img [ref=e711]
+          - generic [ref=e712]:
+            - generic [ref=e713]: "Part: 00B-4257-B0"
+            - paragraph [ref=e714] [cursor=pointer]: Luna 5 µm Phenyl-Hexyl 100 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e716]: ()
+          - generic [ref=e717]:
+            - generic [ref=e719]:
+              - link "link" [ref=e720] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e721]: link
+              - link "favorite_border" [ref=e722] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e723]: favorite_border
+            - textbox [ref=e727]
+        - generic [ref=e732]:
+          - img [ref=e734]
+          - generic [ref=e735]:
+            - generic [ref=e736]: "Part: 00B-4254-B0"
+            - paragraph [ref=e737] [cursor=pointer]: Luna 3 µm CN 100 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e739]: ()
+          - generic [ref=e740]:
+            - generic [ref=e742]:
+              - link "link" [ref=e743] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e744]: link
+              - link "favorite_border" [ref=e745] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e746]: favorite_border
+            - textbox [ref=e750]
+        - generic [ref=e755]:
+          - img [ref=e757]
+          - generic [ref=e758]:
+            - generic [ref=e759]: "Part: 00B-4248-B0"
+            - paragraph [ref=e760] [cursor=pointer]: Luna 3 µm C8(2) 100 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e762]: ()
+          - generic [ref=e763]:
+            - generic [ref=e765]:
+              - link "link" [ref=e766] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e767]: link
+              - link "favorite_border" [ref=e768] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e769]: favorite_border
+            - textbox [ref=e773]
+        - generic [ref=e778]:
+          - img [ref=e780]
+          - generic [ref=e781]:
+            - generic [ref=e782]: "Part: 00B-4162-B0"
+            - paragraph [ref=e783] [cursor=pointer]: Luna 3 µm Silica (2) 100 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e785]: ()
+          - generic [ref=e786]:
+            - generic [ref=e788]:
+              - link "link" [ref=e789] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e790]: link
+              - link "favorite_border" [ref=e791] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e792]: favorite_border
+            - textbox [ref=e796]
+        - generic [ref=e801]:
+          - img [ref=e803]
+          - generic [ref=e804]:
+            - generic [ref=e805]: "Part: 00B-4114-B0"
+            - paragraph [ref=e806] [cursor=pointer]: Luna 3 µm C18 100 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e808]: ()
+          - generic [ref=e809]:
+            - generic [ref=e811]:
+              - link "link" [ref=e812] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e813]: link
+              - link "favorite_border" [ref=e814] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e815]: favorite_border
+            - textbox [ref=e819]
+        - generic [ref=e824]:
+          - img [ref=e826]
+          - generic [ref=e827]:
+            - generic [ref=e828]: "Part: 00B-4040-B0"
+            - paragraph [ref=e829] [cursor=pointer]: Luna 5 µm C8 100 Å, LC Column 50 x 2 mm, Ea
+            - generic [ref=e831]: ()
+          - generic [ref=e832]:
+            - generic [ref=e834]:
+              - link "link" [ref=e835] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e836]: link
+              - link "favorite_border" [ref=e837] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e838]: favorite_border
+            - textbox [ref=e842]
+        - button "SHOW MORE" [ref=e844] [cursor=pointer]:
+          - generic [ref=e845]:
+            - text: SHOW MORE
+            - img [ref=e846]: keyboard_arrow_down
+    - generic [ref=e850]:
+      - generic [ref=e853]:
+        - generic [ref=e854]:
+          - generic [ref=e855]:
+            - img "Phenomenex" [ref=e857]
+            - generic [ref=e859]: Phenomenex is a technology leader committed to developing novel analytical chemistry solutions that solve the separation and purification challenges of researchers worldwide.
+            - link "Connect With Us" [ref=e861] [cursor=pointer]:
+              - /url: https://discover.phenomenex.com/customersupport
+          - generic [ref=e863]:
+            - generic [ref=e864]:
+              - paragraph [ref=e865]: Products and Services
+              - paragraph [ref=e866]:
+                - link "Products" [ref=e867] [cursor=pointer]:
+                  - /url: /service-listing-products
+              - paragraph [ref=e868]:
+                - link "Techniques" [ref=e869] [cursor=pointer]:
+                  - /url: /service-listing-techniques
+              - paragraph [ref=e870]:
+                - link "Industries" [ref=e871] [cursor=pointer]:
+                  - /url: /service-listing-industries
+              - paragraph [ref=e872]:
+                - link "Quick Order" [ref=e873] [cursor=pointer]:
+                  - /url: /quick-order
+            - generic [ref=e874]:
+              - paragraph [ref=e875]: Support
+              - paragraph [ref=e876]:
+                - link "Product/Method Support" [ref=e877] [cursor=pointer]:
+                  - /url: https://discover.phenomenex.com/customersupport
+              - paragraph [ref=e878]:
+                - link "Troubleshooting Help" [ref=e879] [cursor=pointer]:
+                  - /url: https://discover.phenomenex.com/technical-support
+              - paragraph [ref=e880]:
+                - link "Contact Us" [ref=e881] [cursor=pointer]:
+                  - /url: /contact-us
+              - paragraph [ref=e882]:
+                - link "CQA / CofA" [ref=e883] [cursor=pointer]:
+                  - /url: /dashboard/cqa
+            - generic [ref=e884]:
+              - paragraph [ref=e885]: Our company
+              - paragraph [ref=e886]:
+                - link "About Phenomenex" [ref=e887] [cursor=pointer]:
+                  - /url: /our-company/about-phenomenex
+              - paragraph [ref=e888]:
+                - link "Blog" [ref=e889] [cursor=pointer]:
+                  - /url: /our-company/phenomenex-blog
+              - paragraph [ref=e890]:
+                - link "News" [ref=e891] [cursor=pointer]:
+                  - /url: /news
+              - paragraph [ref=e892]:
+                - link "Danaher Life Sciences" [ref=e893] [cursor=pointer]:
+                  - /url: https://lifesciences.danaher.com/?utm_source=phenomenex_website&amp;utm_medium=referral&amp;utm_content=footer&amp;ajs_aid=d5d95cbf-ead4-43e4-a243-b3a5be722d51
+          - generic [ref=e894]:
+            - generic [ref=e895]:
+              - link "Facebook" [ref=e896] [cursor=pointer]:
+                - /url: http://www.facebook.com/phenomenex
+                - img "Facebook" [ref=e897]
+              - link "Instagram" [ref=e898] [cursor=pointer]:
+                - /url: https://www.instagram.com/phenomenex
+                - img "Instagram" [ref=e899]
+              - link "Linkedln" [ref=e900] [cursor=pointer]:
+                - /url: http://www.linkedin.com/company/phenomenex
+                - img "Linkedln" [ref=e901]
+              - link "Twitter" [ref=e902] [cursor=pointer]:
+                - /url: http://www.twitter.com/phenomenex
+                - img "Twitter" [ref=e903]
+              - link "Youtube" [ref=e904] [cursor=pointer]:
+                - /url: http://www.youtube.com/user/phenomenex
+                - img "Youtube" [ref=e905]
+            - img "Danaher" [ref=e906]
+        - generic [ref=e910]:
+          - link "Company Logo" [ref=e911] [cursor=pointer]:
+            - /url: https://www.abcam.com
+            - img "Company Logo" [ref=e912]
+          - link "Company Logo" [ref=e913] [cursor=pointer]:
+            - /url: https://www.aldevron.com
+            - img "Company Logo" [ref=e914]
+          - link "Company Logo" [ref=e915] [cursor=pointer]:
+            - /url: https://www.mybeckman.com
+            - img "Company Logo" [ref=e916]
+          - link "Company Logo" [ref=e917] [cursor=pointer]:
+            - /url: https://www.genedata.com
+            - img "Company Logo" [ref=e918]
+          - link "Company Logo" [ref=e919] [cursor=pointer]:
+            - /url: https://www.idbs.com
+            - img "Company Logo" [ref=e920]
+          - link "Company Logo" [ref=e921] [cursor=pointer]:
+            - /url: https://www.idtdna.com
+            - img "Company Logo" [ref=e922]
+          - link "Company Logo" [ref=e923] [cursor=pointer]:
+            - /url: https://www.leica-microsystems.com
+            - img "Company Logo" [ref=e924]
+          - link "Company Logo" [ref=e925] [cursor=pointer]:
+            - /url: https://www.moleculardevices.com
+            - img "Company Logo" [ref=e926]
+          - link "Company Logo" [ref=e927] [cursor=pointer]:
+            - /url: https://sciex.com/
+            - img "Company Logo" [ref=e928]
+      - generic [ref=e931]:
+        - generic [ref=e933]:
+          - generic [ref=e934]:
+            - link "Terms and Conditions" [ref=e935] [cursor=pointer]:
+              - /url: /phx-terms-and-conditions-of-sale
+            - text: "|"
+          - generic [ref=e936]:
+            - link "Privacy Statement" [ref=e937] [cursor=pointer]:
+              - /url: /phx-privacy-policy
+            - text: "|"
+          - generic [ref=e938]:
+            - link "Quality Policy" [ref=e939] [cursor=pointer]:
+              - /url: /phx-quality-policy
+            - text: "|"
+          - generic [ref=e940]:
+            - link "Terms of Use" [ref=e941] [cursor=pointer]:
+              - /url: /phx-site-terms-of-use
+            - text: "|"
+          - generic [ref=e942]:
+            - link "Trademarks" [ref=e943] [cursor=pointer]:
+              - /url: /phx-trademarks
+            - text: "|"
+          - generic [ref=e944]:
+            - link "CA Supply Chains Act" [ref=e945] [cursor=pointer]:
+              - /url: /phx-california-supply-chains-act
+            - text: "|"
+          - generic [ref=e946]:
+            - link "CA Consumer Privacy" [ref=e947] [cursor=pointer]:
+              - /url: /phx-california-consumer-rights-notice
+            - text: "|"
+          - generic [ref=e948]:
+            - link "Cookie Policy" [ref=e949] [cursor=pointer]:
+              - /url: /phx-cookie-policy
+            - text: "|"
+          - generic [ref=e950]:
+            - link "Cookie Settings" [ref=e951] [cursor=pointer]:
+              - /url: /phx-cookie-policy
+            - text: "|"
+          - link "Impressum" [ref=e953] [cursor=pointer]:
+            - /url: /phx-impressum
+        - generic [ref=e954]: © 2026 Phenomenex Inc. All rights reserved.
+  - iframe [ref=e956]:
+    - button "Click to start chatting" [ref=f26e2] [cursor=pointer]:
+      - img [ref=f26e4]
+  - generic:
+    - generic:
+      - generic [ref=e957]: "LIVE CHAT NOW! Our experts can help with product recommendations, quotes and more.}"
+      - iframe [ref=e958]:
+        - generic [ref=f14e1] [cursor=pointer]:
+          - button "Click to decline the chat invitation" [ref=f14e2]:
+            - img [ref=f14e3]
+          - generic [ref=f14e5]:
+            - button "LIVE CHAT NOW! Our experts can help with product recommendations, quotes and more." [ref=f14e6]:
+              - generic [ref=f14e8]:
+                - text: LIVE CHAT NOW!
+                - text: Our experts can help with product recommendations, quotes and more.
+            - button "Type and start" [ref=f14e9]
+```

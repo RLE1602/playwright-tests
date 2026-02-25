@@ -33,11 +33,11 @@
               - text: Quote
               - generic [ref=e44]: sms
               - generic [ref=e45]: "0"
-            - link "Cart shopping_cart 0" [ref=e47] [cursor=pointer]:
+            - link "Cart shopping_cart 2" [ref=e47] [cursor=pointer]:
               - /url: https://stage-shop.phenomenex.com/eu/en/cart.html
               - text: Cart
               - generic [ref=e48]: shopping_cart
-              - generic [ref=e49]: "0"
+              - generic [ref=e49]: "2"
         - list [ref=e53]:
           - listitem [ref=e54] [cursor=pointer]:
             - generic [ref=e56]: LC
@@ -611,8 +611,8 @@
             - /url: /phx-impressum
         - generic [ref=e761]: © 2026 Phenomenex Inc. All rights reserved.
   - iframe [ref=e763]:
-    - button "Click to start chatting" [ref=f31e2] [cursor=pointer]:
-      - img [ref=f31e4]
+    - button "Click to start chatting" [ref=f27e2] [cursor=pointer]:
+      - img [ref=f27e4]
   - generic:
     - generic:
       - generic [ref=e764]: "LIVE CHAT NOW! Our experts can help with product recommendations, quotes and more.}"

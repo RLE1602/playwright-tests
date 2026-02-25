@@ -33,11 +33,11 @@
               - text: Quote
               - generic [ref=e44]: sms
               - generic [ref=e45]: "0"
-            - link "Cart shopping_cart 0" [ref=e47] [cursor=pointer]:
+            - link "Cart shopping_cart 2" [ref=e47] [cursor=pointer]:
               - /url: https://stage-shop.phenomenex.com/eu/en/cart.html
               - text: Cart
               - generic [ref=e48]: shopping_cart
-              - generic [ref=e49]: "0"
+              - generic [ref=e49]: "2"
         - list [ref=e53]:
           - listitem [ref=e54] [cursor=pointer]:
             - generic [ref=e56]: LC
@@ -611,19 +611,19 @@
             - /url: /phx-impressum
         - generic [ref=e761]: © 2026 Phenomenex Inc. All rights reserved.
   - iframe [ref=e763]:
-    - button "Click to start chatting" [ref=f31e2] [cursor=pointer]:
-      - img [ref=f31e4]
+    - button "Click to start chatting" [ref=f26e2] [cursor=pointer]:
+      - img [ref=f26e4]
   - generic:
     - generic:
       - generic [ref=e764]: "LIVE CHAT NOW! Our experts can help with product recommendations, quotes and more.}"
       - iframe [ref=e765]:
-        - generic [ref=f15e1] [cursor=pointer]:
-          - button "Click to decline the chat invitation" [ref=f15e2]:
-            - img [ref=f15e3]
-          - generic [ref=f15e5]:
-            - button "LIVE CHAT NOW! Our experts can help with product recommendations, quotes and more." [ref=f15e6]:
-              - generic [ref=f15e8]:
+        - generic [ref=f14e1] [cursor=pointer]:
+          - button "Click to decline the chat invitation" [ref=f14e2]:
+            - img [ref=f14e3]
+          - generic [ref=f14e5]:
+            - button "LIVE CHAT NOW! Our experts can help with product recommendations, quotes and more." [ref=f14e6]:
+              - generic [ref=f14e8]:
                 - text: LIVE CHAT NOW!
                 - text: Our experts can help with product recommendations, quotes and more.
-            - button "Type and start" [ref=f15e9]
+            - button "Type and start" [ref=f14e9]
 ```
