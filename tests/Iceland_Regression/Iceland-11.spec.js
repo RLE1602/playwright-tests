@@ -47,7 +47,7 @@ test('Iceland-11 Existing customer trying to ship to another country within the 
   await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
 
   await page.evaluate(() => { window.scrollBy(0, 500);});
-  //await page.getByText('Use Card').nth(0).click();
+  await page.getByText('Use Card').nth(0).click();
   //await page.getByRole('button', { name: 'Use Card' }).nth(0).click();
   await page.evaluate(() => { window.scrollBy(0, 700);});
   await page.getByRole('checkbox').scrollIntoViewIfNeeded();
