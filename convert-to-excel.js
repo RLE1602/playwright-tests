@@ -6,9 +6,10 @@ try {
   // Determine JSON file location
   let jsonFile = path.join(process.cwd(), 'test-results.json');
 
+  // Preview folder from env or default
   const previewsRoot = process.env.PREVIEW_DIR || path.join(process.cwd(), 'previews');
 
-  // Check if JSON exists in PREVIEW_DIR
+  // Check if JSON exists in PREVIEW_DIR as fallback
   if (!fs.existsSync(jsonFile) && process.env.PREVIEW_DIR) {
     const altPath = path.join(process.cwd(), process.env.PREVIEW_DIR, 'test-results.json');
     if (fs.existsSync(altPath)) {
@@ -20,7 +21,7 @@ try {
     console.warn('⚠ test-results.json not found in root or PREVIEW_DIR. Excel will be empty.');
   }
 
-  // Read JSON if it exists
+  // Read JSON if it exists, otherwise empty data
   const data = fs.existsSync(jsonFile) ? JSON.parse(fs.readFileSync(jsonFile, 'utf-8')) : { suites: [] };
   const rows = [];
 
@@ -36,7 +37,7 @@ try {
         if (fs.statSync(fullPath).isDirectory()) {
           walk(fullPath);
         } else if (file.includes(testName)) {
-          // Make relative path for Excel hyperlink
+          // relative path for Excel hyperlink
           const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g, "/");
           links.push(relativePath);
         }
@@ -47,7 +48,7 @@ try {
     return links;
   }
 
-  // Iterate through suites/specs/tests safely
+  // Iterate safely through suites/specs/tests
   data.suites?.forEach((suite) => {
     suite.specs?.forEach((spec) => {
       spec.tests?.forEach((test) => {
