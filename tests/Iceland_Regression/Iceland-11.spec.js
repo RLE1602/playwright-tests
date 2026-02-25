@@ -37,6 +37,7 @@ test('Iceland-11 Existing customer trying to ship to another country within the 
   await page.getByRole('button', { name: 'Checkout' }).click();
   await page.waitForURL(/addresses\.html/, { waitUntil: 'domcontentloaded' });
 
+  await page.evaluate(() => { window.scrollBy(0, 300);});
   await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
   await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
 
