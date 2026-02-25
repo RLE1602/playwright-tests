@@ -93,10 +93,11 @@ const worksheet = XLSX.utils.json_to_sheet(rows, { header: [
 // Append sheet
 XLSX.utils.book_append_sheet(workbook, worksheet, 'Test Report');
 
-// Save Excel file directly in the root (no artifacts folder)
-const excelFile = path.join(__dirname, 'Playwright_Test_Report.xlsx');
+// Save Excel file at root of workflow workspace (matches YAML)
+const excelFile = path.join(process.cwd(), 'Playwright_Test_Report.xlsx');
 XLSX.writeFile(workbook, excelFile);
 
 // Confirm file exists for CI/CD
 console.log(`✅ Enhanced Excel report generated: ${excelFile}`);
 console.log('File exists:', fs.existsSync(excelFile));
+
