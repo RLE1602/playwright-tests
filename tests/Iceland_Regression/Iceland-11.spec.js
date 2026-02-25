@@ -41,6 +41,7 @@ test('Iceland-11 Existing customer trying to ship to another country within the 
   await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
 
   //await page.goto('https://stage-shop.phenomenex.com/au/en/shipping.html');
+  await page.getByRole('button', { name: 'Proceed to Payment' }).scrollIntoViewIfNeeded();
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
   await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
 
