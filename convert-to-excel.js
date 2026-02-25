@@ -3,9 +3,9 @@ const path = require('path');
 const XLSX = require('xlsx');
 
 // Paths
-const jsonFile = path.join(__dirname, 'test-results.json');
+const jsonFile = path.join(process.cwd(), 'test-results.json'); // JSON in workflow root
 // Use PREVIEW_DIR env if set, otherwise default to ./previews
-const previewsRoot = process.env.PREVIEW_DIR || path.join(__dirname, 'previews');
+const previewsRoot = process.env.PREVIEW_DIR || path.join(process.cwd(), 'previews');
 
 if (!fs.existsSync(jsonFile)) {
   console.error('❌ test-results.json not found. Make sure Playwright ran with JSON reporter.');
@@ -19,7 +19,7 @@ const rows = [];
 // Helper: find preview files for a test
 function findPreviews(testName) {
   const links = [];
-  if (!fs.existsSync(previewsRoot)) return '';
+  if (!fs.existsSync(previewsRoot)) return [];
 
   const walk = (dir) => {
     const files = fs.readdirSync(dir);
@@ -28,8 +28,8 @@ function findPreviews(testName) {
       if (fs.statSync(fullPath).isDirectory()) {
         walk(fullPath);
       } else if (file.includes(testName)) {
-        // Make relative path to root for hyperlinks
-        const relativePath = path.relative(__dirname, fullPath).replace(/\\/g, "/");
+        // Make relative path to workflow root for hyperlinks
+        const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g, "/");
         links.push(relativePath);
       }
     });
@@ -100,4 +100,3 @@ XLSX.writeFile(workbook, excelFile);
 // Confirm file exists for CI/CD
 console.log(`✅ Enhanced Excel report generated: ${excelFile}`);
 console.log('File exists:', fs.existsSync(excelFile));
-
