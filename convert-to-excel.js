@@ -2,101 +2,104 @@ const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 
-// Paths
-const jsonFile = path.join(process.cwd(), 'test-results.json'); // JSON in workflow root
-// Use PREVIEW_DIR env if set, otherwise default to ./previews
-const previewsRoot = process.env.PREVIEW_DIR || path.join(process.cwd(), 'previews');
+try {
+  // Paths
+  const jsonFile = path.join(process.cwd(), 'test-results.json'); // JSON in workflow root
+  const previewsRoot = process.env.PREVIEW_DIR || path.join(process.cwd(), 'previews');
 
-if (!fs.existsSync(jsonFile)) {
-  console.error('❌ test-results.json not found. Make sure Playwright ran with JSON reporter.');
-  process.exit(1);
-}
+  if (!fs.existsSync(jsonFile)) {
+    console.error('❌ test-results.json not found. Make sure Playwright ran with JSON reporter.');
+    process.exit(1);
+  }
 
-// Read JSON test results
-const data = JSON.parse(fs.readFileSync(jsonFile, 'utf-8'));
-const rows = [];
+  // Read JSON test results
+  const data = JSON.parse(fs.readFileSync(jsonFile, 'utf-8'));
+  const rows = [];
 
-// Helper: find preview files for a test
-function findPreviews(testName) {
-  const links = [];
-  if (!fs.existsSync(previewsRoot)) return [];
+  // Helper: find preview files for a test
+  function findPreviews(testName) {
+    const links = [];
+    if (!fs.existsSync(previewsRoot)) return []; // return empty array if folder does not exist
 
-  const walk = (dir) => {
-    const files = fs.readdirSync(dir);
-    files.forEach((file) => {
-      const fullPath = path.join(dir, file);
-      if (fs.statSync(fullPath).isDirectory()) {
-        walk(fullPath);
-      } else if (file.includes(testName)) {
-        // Make relative path to workflow root for hyperlinks
-        const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g, "/");
-        links.push(relativePath);
-      }
-    });
-  };
+    const walk = (dir) => {
+      const files = fs.readdirSync(dir);
+      files.forEach((file) => {
+        const fullPath = path.join(dir, file);
+        if (fs.statSync(fullPath).isDirectory()) {
+          walk(fullPath);
+        } else if (file.includes(testName)) {
+          // relative path for Excel hyperlink
+          const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g, "/");
+          links.push(relativePath);
+        }
+      });
+    };
 
-  walk(previewsRoot);
-  return links;
-}
+    walk(previewsRoot);
+    return links;
+  }
 
-// Iterate through suites/specs/tests
-data.suites.forEach((suite) => {
-  suite.specs.forEach((spec) => {
-    spec.tests.forEach((test) => {
-      const result = test.results[0];
+  // Iterate through suites/specs/tests
+  data.suites.forEach((suite) => {
+    suite.specs.forEach((spec) => {
+      spec.tests.forEach((test) => {
+        const result = test.results[0];
 
-      // Duration in minutes
-      const durationMin = (result.duration || 0) / 60000;
+        // Duration in minutes
+        const durationMin = (result.duration || 0) / 60000;
 
-      // Failed step description
-      const failedStep = result.status === 'failed' && result.error ? result.error.message : '-';
+        // Failed step description
+        const failedStep = result.status === 'failed' && result.error ? result.error.message : '-';
 
-      // Media links
-      const previews = findPreviews(test.title);
-      const mediaLinks = previews.length
-        ? previews.map(p => `HYPERLINK("${p}", "View Media")`).join(', ')
-        : '-';
+        // Media links
+        const previews = findPreviews(test.title);
+        const mediaLinks = previews.length
+          ? previews.map(p => `HYPERLINK("${p}", "View Media")`).join(', ')
+          : '-';
 
-      rows.push({
-        Suite: suite.title || 'Root Suite',
-        'Test Case ID': test.title.replace(/\s+/g, '_'),
-        'Test Case Name': spec.title || test.title,
-        'Step Number': test.step || '-',
-        Status: result.status,
-        'Failed Step Description': failedStep,
-        'Duration (min)': durationMin.toFixed(2),
-        Retry: result.retry || 0,
-        Browser: test.projectName,
-        'Media Link': mediaLinks,
-        'Execution Date': new Date(result.startTime).toISOString().split('T')[0],
+        rows.push({
+          Suite: suite.title || 'Root Suite',
+          'Test Case ID': test.title.replace(/\s+/g, '_'),
+          'Test Case Name': spec.title || test.title,
+          'Step Number': test.step || '-',
+          Status: result.status,
+          'Failed Step Description': failedStep,
+          'Duration (min)': durationMin.toFixed(2),
+          Retry: result.retry || 0,
+          Browser: test.projectName,
+          'Media Link': mediaLinks,
+          'Execution Date': new Date(result.startTime).toISOString().split('T')[0],
+        });
       });
     });
   });
-});
 
-// Create Excel workbook
-const workbook = XLSX.utils.book_new();
-const worksheet = XLSX.utils.json_to_sheet(rows, { header: [
-  'Suite',
-  'Test Case ID',
-  'Test Case Name',
-  'Step Number',
-  'Status',
-  'Failed Step Description',
-  'Duration (min)',
-  'Retry',
-  'Browser',
-  'Media Link',
-  'Execution Date'
-] });
+  // Create Excel workbook
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.json_to_sheet(rows, { header: [
+    'Suite',
+    'Test Case ID',
+    'Test Case Name',
+    'Step Number',
+    'Status',
+    'Failed Step Description',
+    'Duration (min)',
+    'Retry',
+    'Browser',
+    'Media Link',
+    'Execution Date'
+  ] });
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Test Report');
 
-// Append sheet
-XLSX.utils.book_append_sheet(workbook, worksheet, 'Test Report');
+  // Save Excel file at root of workflow workspace
+  const excelFile = path.join(process.cwd(), 'Playwright_Test_Report.xlsx');
+  XLSX.writeFile(workbook, excelFile);
 
-// Save Excel file at root of workflow workspace (matches YAML)
-const excelFile = path.join(process.cwd(), 'Playwright_Test_Report.xlsx');
-XLSX.writeFile(workbook, excelFile);
+  // Confirm file exists for CI/CD
+  console.log(`✅ Excel report generated: ${excelFile}`);
+  console.log('File exists:', fs.existsSync(excelFile));
 
-// Confirm file exists for CI/CD
-console.log(`✅ Enhanced Excel report generated: ${excelFile}`);
-console.log('File exists:', fs.existsSync(excelFile));
+} catch (err) {
+  console.error('❌ Excel generation failed:', err);
+  process.exit(1);
+}
