@@ -1,9 +1,6 @@
-// @ts-check
+// playwright.config.js
 import { defineConfig, devices } from '@playwright/test';
 
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
 export default defineConfig({
   testDir: 'tests/Regression/CoreScenarios',
   timeout: 300_000,
@@ -12,17 +9,8 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 3 : 4,
 
-  /* Use PREVIEW_DIR for outputs, fallback to 'test-results' */
-  outputDir: process.env.PREVIEW_DIR || 'test-results',
-
-  reporter: [
-    ['html', { outputFolder: 'regression-report', open: 'never' }],
-    ['list'],
-    ['json', {
-      outputFile: 'test-results.json',
-      outputFolder: process.env.PREVIEW_DIR || 'test-results'
-    }]
-  ],
+  // Output folder for screenshots/videos/traces
+  outputDir: process.env.PREVIEW_DIR || 'previews/default',
 
   use: {
     baseURL: 'https://stage-shop.phenomenex.com',
@@ -35,6 +23,15 @@ export default defineConfig({
     actionTimeout: process.env.CI ? 120_000 : 30_000,
     navigationTimeout: process.env.CI ? 180_000 : 60_000,
   },
+
+  reporter: [
+    ['html', { outputFolder: 'regression-report', open: 'never' }],
+    ['list'],
+    ['json', {
+      outputFile: 'test-results.json',
+      outputFolder: process.env.PREVIEW_DIR || 'previews/default'
+    }]
+  ],
 
   projects: [
     {
