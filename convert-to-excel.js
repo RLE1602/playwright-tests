@@ -14,8 +14,14 @@ function stripAnsi(str) {
 }
 
 try {
+  // Debug: show current working directory
+  console.log('ℹ️ Current working directory:', process.cwd());
+  console.log('ℹ️ Files in current directory:');
+  console.log(fs.readdirSync(process.cwd()));
+
   // Locate Playwright JSON file
-  let jsonFile = path.join(process.cwd(), 'test-results.json');
+  const jsonFile = path.join(process.cwd(), 'test-results.json');
+
   if (!fs.existsSync(jsonFile)) {
     console.warn('⚠ test-results.json not found. Excel will be empty.');
   }
@@ -23,7 +29,6 @@ try {
   const data = fs.existsSync(jsonFile) ? JSON.parse(fs.readFileSync(jsonFile, 'utf-8')) : { suites: [] };
   const rows = [];
 
-  // Iterate suites/specs/tests
   data.suites?.forEach((suite) => {
     suite.specs?.forEach((spec) => {
       spec.tests?.forEach((test) => {
@@ -35,7 +40,7 @@ try {
           ? stripAnsi(finalResult.errors[0].message)
           : '-';
 
-        // Get attachments from Playwright
+        // Use Playwright attachments
         const attachments = finalResult.attachments || [];
         const mediaLinks = attachments.length
           ? attachments
@@ -50,7 +55,7 @@ try {
           Suite: suite.title || 'Root Suite',
           'Test Case ID': test.title.replace(/\s+/g, '_'),
           'Test Case Name': spec.title || test.title,
-          'Step Number': '-', // Step-level not tracked unless using test.step()
+          'Step Number': '-', // Use test.step() if needed
           Status: finalResult.status || 'unknown',
           'Failed Step Description': failedStep,
           'Duration (min)': durationMin.toFixed(2),
@@ -82,10 +87,9 @@ try {
       'Execution Date'
     ]
   });
-
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Test Report');
 
-  // Save Excel file
+  // Save Excel in current working directory
   const excelFile = path.join(process.cwd(), 'Playwright_Test_Report.xlsx');
   XLSX.writeFile(workbook, excelFile);
 
