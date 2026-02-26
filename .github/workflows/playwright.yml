@@ -1,3 +1,4 @@
+# .github/workflows/playwright.yml
 name: Playwright Capture Screenshots & Videos
 
 on:
@@ -24,43 +25,38 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Run regression tests
-        env: 
-          # PREVIEW_DIR: previews/${{ github.ref_name }}/$(date +%Y-%m-%d-%H%M%S)
-          PREVIEW_DIR: previews/${{ github.ref_name }}/$(date -u +%Y-%m-%d-%H%M%S)
+      - name: Set preview folder
+        id: preview
         run: |
-          echo "Using preview dir: $PREVIEW_DIR"
+          PREVIEW_DIR="$GITHUB_WORKSPACE/previews/${GITHUB_REF_NAME}/$(date -u +%Y-%m-%d-%H%M%S)"
+          echo "PREVIEW_DIR=$PREVIEW_DIR" >> $GITHUB_ENV
           mkdir -p "$PREVIEW_DIR"
+          echo "ℹ️ Preview dir: $PREVIEW_DIR"
 
-          # Do NOT fail workflow if tests fail
+      - name: Run regression tests
+        env:
+          PREVIEW_DIR: ${{ env.PREVIEW_DIR }}
+        run: |
           npx playwright test tests/Regression/CoreScenarios || true
 
       - name: Convert JSON to Excel
+        env:
+          PREVIEW_DIR: ${{ env.PREVIEW_DIR }}
         run: |
           npm install xlsx
           node convert-to-excel.js "$PREVIEW_DIR" || echo "⚠ Excel generation failed, continuing workflow..."
 
-      - name: Upload Excel Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Playwright-Excel-Report
-          path: Playwright_Test_Report.xlsx
-          
-      - name: Show preview structure
+      - name: Show preview folder structure
         run: |
           echo "Preview folder structure:"
-          ls -R previews || echo "No previews generated"
+          ls -R ${{ env.PREVIEW_DIR }} || echo "No previews generated"
 
       - name: Commit previews
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-
           git add -f previews/
           git diff --cached --quiet || git commit -m "Update Playwright screenshots & videos [skip ci]"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
