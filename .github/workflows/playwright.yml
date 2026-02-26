@@ -38,7 +38,7 @@ jobs:
       - name: Convert JSON to Excel
         run: |
           npm install xlsx
-          node convert-to-excel.js || echo "⚠ Excel generation failed, continuing workflow..."
+          node convert-to-excel.js "$PREVIEW_DIR" || echo "⚠ Excel generation failed, continuing workflow..."
 
       - name: Upload Excel Report
         if: always()
@@ -62,4 +62,5 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
