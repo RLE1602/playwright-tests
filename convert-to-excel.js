@@ -20,7 +20,8 @@ try {
   console.log(fs.readdirSync(process.cwd()));
 
   // Locate Playwright JSON file
-  const jsonFile = path.join(process.cwd(), 'test-results.json');
+  //const jsonFile = path.join(process.cwd(), 'test-results.json');
+  const jsonFile = path.join(process.cwd(), 'test-results', 'test-results.json'); // fixed folder
 
   if (!fs.existsSync(jsonFile)) {
     console.warn('⚠ test-results.json not found. Excel will be empty.');
@@ -100,3 +101,4 @@ try {
   console.error('❌ Excel generation failed:', err);
   console.log('⚠ Continuing workflow despite Excel failure');
 }
+
