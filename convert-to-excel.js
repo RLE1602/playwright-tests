@@ -52,8 +52,9 @@ try {
   data.suites?.forEach((suite) => {
     suite.specs?.forEach((spec) => {
       spec.tests?.forEach((test) => {
-        const result = test.results?.[0] || {};
-        const testTitle = test.title || 'Unknown_Test';
+        const result = test.results?.[test.results.length - 1] || {};
+        const failureLocation = result.error?.location;
+        const testTitle = spec?.title ?? test?.title ?? 'Unknown_Test';
         const specTitle = spec.title || testTitle;
         const durationMin = (result.duration || 0) / 60000;
 
@@ -71,9 +72,9 @@ try {
           Suite: suite.title || 'Root Suite',
           'Test Case ID': testTitle.replace(/\s+/g, '_'),
           'Test Case Name': specTitle,
-          'Step Number': test.step || '-',
+          'Step Number': failureLocation?.line ?? '-',
           Status: result.status || 'unknown',
-          'Failed Step Description': failedStep,
+          'Failed Step Description': result.error?.message || '-',
           'Duration (min)': durationMin.toFixed(2),
           Retry: result.retry || 0,
           Browser: test.projectName || 'unknown',
@@ -116,3 +117,4 @@ try {
   console.error('❌ Excel generation failed:', err);
   console.log('⚠ Continuing workflow despite Excel failure');
 }
+
