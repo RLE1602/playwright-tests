@@ -24,41 +24,38 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Set preview folder
-        id: preview
-        run: |
-          PREVIEW_DIR="$GITHUB_WORKSPACE/previews/${GITHUB_REF_NAME}/$(date -u +%Y-%m-%d-%H%M%S)"
-          echo "PREVIEW_DIR=$PREVIEW_DIR" >> $GITHUB_ENV
-          mkdir -p "$PREVIEW_DIR"
-          echo "ℹ️ Preview dir: $PREVIEW_DIR"
-
       - name: Run regression tests
+        env: 
+          PREVIEW_DIR: previews/${{ github.ref_name }}/$(date +%Y-%m-%d-%H%M%S)
         run: |
           echo "Using preview dir: $PREVIEW_DIR"
+          mkdir -p "$PREVIEW_DIR"
+
+          # Do NOT fail workflow if tests fail
           npx playwright test tests/Regression/CoreScenarios || true
 
       - name: Convert JSON to Excel
         run: |
-          echo "Using preview dir: $PREVIEW_DIR"
           npm install xlsx
-          node convert-to-excel.js "$PREVIEW_DIR" || echo "⚠ Excel generation failed, continuing workflow..."
+          node convert-to-excel.js || echo "⚠ Excel generation failed, continuing workflow..."
 
       - name: Upload Excel Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Playwright-Excel-Report
-          path: ${{ env.PREVIEW_DIR }}/Playwright_Test_Report.xlsx
-
-      - name: Show preview folder structure
+          path: Playwright_Test_Report.xlsx
+          
+      - name: Show preview structure
         run: |
           echo "Preview folder structure:"
-          ls -R "$PREVIEW_DIR" || echo "No previews generated"
+          ls -R previews || echo "No previews generated"
 
       - name: Commit previews
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+
           git add -f previews/
           git diff --cached --quiet || git commit -m "Update Playwright screenshots & videos [skip ci]"
           git push
