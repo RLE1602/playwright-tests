@@ -11,20 +11,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm install
 
+      # 4️⃣ Install Playwright browsers
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
+      # 5️⃣ Set dynamic preview folder
       - name: Set preview folder
         id: preview
         run: |
@@ -33,24 +38,38 @@ jobs:
           mkdir -p "$PREVIEW_DIR"
           echo "ℹ️ Preview dir: $PREVIEW_DIR"
 
+      # 6️⃣ Run Playwright tests (do not fail workflow if tests fail)
       - name: Run regression tests
-        env:
-          PREVIEW_DIR: ${{ env.PREVIEW_DIR }}
         run: |
+          echo "Using preview dir: $PREVIEW_DIR"
           npx playwright test tests/Regression/CoreScenarios || true
 
+      # 7️⃣ Convert JSON to Excel (Excel goes into same preview folder)
       - name: Convert JSON to Excel
-        env:
-          PREVIEW_DIR: ${{ env.PREVIEW_DIR }}
         run: |
+          echo "Using preview dir: $PREVIEW_DIR"
           npm install xlsx
           node convert-to-excel.js "$PREVIEW_DIR" || echo "⚠ Excel generation failed, continuing workflow..."
 
+      # 8️⃣ Upload Excel report as artifact
+      - name: Upload Excel Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Playwright-Excel-Report
+          path: $PREVIEW_DIR/Playwright_Test_Report.xlsx
+
+      # 9️⃣ Show preview folder structure
       - name: Show preview folder structure
         run: |
           echo "Preview folder structure:"
-          ls -R ${{ env.PREVIEW_DIR }} || echo "No previews generated"
+          if [ -d "$PREVIEW_DIR" ]; then
+            ls -R "$PREVIEW_DIR"
+          else
+            echo "No previews generated"
+          fi
 
+      # 🔟 Commit previews to repo
       - name: Commit previews
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
