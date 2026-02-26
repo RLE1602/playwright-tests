@@ -1,4 +1,3 @@
-// convert-to-excel.js
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
@@ -13,71 +12,61 @@ function stripAnsi(str) {
   );
 }
 
-/**
- * Recursively extract all tests from suites
- */
-function extractTests(suite, parentSuite = '') {
-  const rows = [];
-  const suiteName = parentSuite ? `${parentSuite} / ${suite.title}` : suite.title || 'Root Suite';
-
-  // Process tests in this suite
-  suite.tests?.forEach((test) => {
-    const results = test.results || [];
-    const finalResult = results[results.length - 1] || {};
-    const retryCount = results.length - 1;
-
-    const failedStep = finalResult.status === 'failed' && finalResult.errors?.length
-      ? stripAnsi(finalResult.errors[0].message)
-      : '-';
-
-    const attachments = finalResult.attachments || [];
-    const mediaLinks = attachments.length
-      ? attachments.filter(a => a.path).map(a => `HYPERLINK("${a.path}", "${a.name}")`).join(', ')
-      : '-';
-
-    const durationMin = (finalResult.duration || 0) / 60000;
-
-    rows.push({
-      Suite: suiteName,
-      'Test Case ID': test.title.replace(/\s+/g, '_'),
-      'Test Case Name': test.title,
-      'Step Number': '-',
-      Status: finalResult.status || 'unknown',
-      'Failed Step Description': failedStep,
-      'Duration (min)': durationMin.toFixed(2),
-      Retry: retryCount,
-      Browser: test.projectName || 'unknown',
-      'Media Link': mediaLinks,
-      'Execution Date': finalResult.startTime
-        ? new Date(finalResult.startTime).toISOString().split('T')[0]
-        : '-',
-    });
-  });
-
-  // Recurse into child suites
-  suite.suites?.forEach((child) => {
-    rows.push(...extractTests(child, suiteName));
-  });
-
-  return rows;
-}
-
 try {
-  // Debug: show current working directory
-  console.log('ℹ️ Current working directory:', process.cwd());
-  console.log('ℹ️ Files in current directory:', fs.readdirSync(process.cwd()));
+  // Use first CLI argument as folder or fallback to PREVIEW_DIR
+  const folder = process.argv[2] || process.env.PREVIEW_DIR || 'test-results';
+  const jsonFile = path.join(folder, 'test-results.json');
 
-  // Locate Playwright JSON file
-  const jsonFile = path.join(process.cwd(), 'test-results', 'test-results.json');
+  console.log('ℹ️ Using folder:', folder);
+  console.log('ℹ️ Looking for JSON file:', jsonFile);
 
   if (!fs.existsSync(jsonFile)) {
     console.warn('⚠ test-results.json not found. Excel will be empty.');
   }
 
   const data = fs.existsSync(jsonFile) ? JSON.parse(fs.readFileSync(jsonFile, 'utf-8')) : { suites: [] };
-  const rows = extractTests(data); // <-- use recursive extractor
+  const rows = [];
 
-  // Create Excel workbook
+  data.suites?.forEach((suite) => {
+    suite.specs?.forEach((spec) => {
+      spec.tests?.forEach((test) => {
+        const results = test.results || [];
+        const finalResult = results[results.length - 1] || {};
+        const retryCount = results.length - 1;
+
+        const failedStep = finalResult.status === 'failed' && finalResult.errors?.length
+          ? stripAnsi(finalResult.errors[0].message)
+          : '-';
+
+        const attachments = finalResult.attachments || [];
+        const mediaLinks = attachments.length
+          ? attachments
+              .filter(a => a.path)
+              .map(a => `HYPERLINK("${a.path}", "${a.name}")`)
+              .join(', ')
+          : '-';
+
+        const durationMin = (finalResult.duration || 0) / 60000;
+
+        rows.push({
+          Suite: suite.title || 'Root Suite',
+          'Test Case ID': test.title.replace(/\s+/g, '_'),
+          'Test Case Name': spec.title || test.title,
+          'Step Number': '-', // Optional: track steps with test.step()
+          Status: finalResult.status || 'unknown',
+          'Failed Step Description': failedStep,
+          'Duration (min)': durationMin.toFixed(2),
+          Retry: retryCount,
+          Browser: test.projectName || 'unknown',
+          'Media Link': mediaLinks,
+          'Execution Date': finalResult.startTime
+            ? new Date(finalResult.startTime).toISOString().split('T')[0]
+            : '-',
+        });
+      });
+    });
+  });
+
   const workbook = XLSX.utils.book_new();
   const worksheet = XLSX.utils.json_to_sheet(rows, {
     header: [
@@ -96,8 +85,7 @@ try {
   });
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Test Report');
 
-  // Save Excel in current working directory
-  const excelFile = path.join(process.cwd(), 'Playwright_Test_Report.xlsx');
+  const excelFile = path.join(folder, 'Playwright_Test_Report.xlsx');
   XLSX.writeFile(workbook, excelFile);
 
   console.log(`✅ Excel report generated: ${excelFile}`);
