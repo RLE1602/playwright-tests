@@ -60,6 +60,7 @@ try {
     return [screenshots[0].path];
   }
 
+  // 🔥 Process test results
   data.suites?.forEach((suite) => {
     suite.specs?.forEach((spec) => {
       spec.tests?.forEach((test) => {
@@ -121,11 +122,13 @@ try {
   // 🔥 Make Media Link clickable ONLY for failed tests
   rows.forEach((row, index) => {
     if (row['Status'] === 'failed' && row['Media Link'] !== '-') {
-      const cellAddress = `J${index + 2}`;
+      const cellAddress = `J${index + 2}`; // Column J = Media Link
+      const absolutePath = path.resolve(row['Media Link']);
+
       worksheet[cellAddress] = {
         t: 's',
         v: 'View Screenshot',
-        l: { Target: row['Media Link'] }
+        l: { Target: `file:///${absolutePath.replace(/\\/g, "/")}` }
       };
     }
   });
