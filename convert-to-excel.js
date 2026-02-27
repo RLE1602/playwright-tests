@@ -23,19 +23,11 @@ try {
 
   const rows = [];
 
-  // 🔥 Normalize helper
-  function normalize(str) {
-    return str
-      ?.toLowerCase()
-      .replace(/[^a-z0-9]/g, '') || '';
-  }
-
-  // 🔥 Find latest retry screenshot for failed test
-  function findPreviews(testName) {
+  // 🔥 Find latest screenshot across previews folder
+  function findLatestFailedScreenshot() {
     if (!fs.existsSync(previewsRoot)) return [];
 
-    const normalizedTestName = normalize(testName);
-    let foundScreenshots = [];
+    let screenshots = [];
 
     const walk = (dir) => {
       const files = fs.readdirSync(dir);
@@ -46,33 +38,28 @@ try {
 
         if (stat.isDirectory()) {
           walk(fullPath);
-        } 
-        else if (/^test-finished-\d+\.png$/.test(file)) {
-          const testFolder = path.basename(path.dirname(fullPath));
+        } else if (/^test-finished-\d+\.png$/.test(file)) {
+          const retryNumber = parseInt(file.match(/\d+/)[0], 10);
 
-          if (normalize(testFolder).includes(normalizedTestName)) {
-            const retryNumber = parseInt(file.match(/\d+/)[0], 10);
-
-            foundScreenshots.push({
-              path: path.relative(process.cwd(), fullPath).replace(/\\/g, "/"),
-              retry: retryNumber
-            });
-          }
+          screenshots.push({
+            path: path.relative(process.cwd(), fullPath).replace(/\\/g, "/"),
+            retry: retryNumber,
+            time: stat.mtimeMs
+          });
         }
       });
     };
 
     walk(previewsRoot);
 
-    if (foundScreenshots.length === 0) return [];
+    if (screenshots.length === 0) return [];
 
-    // Pick highest retry number
-    foundScreenshots.sort((a, b) => b.retry - a.retry);
+    // Pick most recently modified screenshot
+    screenshots.sort((a, b) => b.time - a.time);
 
-    return [foundScreenshots[0].path];
+    return [screenshots[0].path];
   }
 
-  // 🔥 Process test results
   data.suites?.forEach((suite) => {
     suite.specs?.forEach((spec) => {
       spec.tests?.forEach((test) => {
@@ -89,7 +76,7 @@ try {
 
         // Only failed tests get screenshot
         const previews = result.status === 'failed'
-          ? findPreviews(testTitle)
+          ? findLatestFailedScreenshot()
           : [];
 
         const mediaPath = previews.length ? previews[0] : '-';
@@ -149,6 +136,7 @@ try {
   XLSX.writeFile(workbook, excelFile);
 
   console.log(`✅ Excel report generated: ${excelFile}`);
+  console.log('Previews folder exists:', fs.existsSync(previewsRoot));
 
 } catch (err) {
   console.error('❌ Excel generation failed:', err);
