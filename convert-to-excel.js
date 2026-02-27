@@ -3,13 +3,9 @@ const path = require('path');
 const XLSX = require('xlsx');
 
 try {
-  // Determine JSON file location
   let jsonFile = path.join(process.cwd(), 'test-results.json');
-
-  // Preview folder from env or default
   const previewsRoot = process.env.PREVIEW_DIR || path.join(process.cwd(), 'previews');
 
-  // Check if JSON exists in PREVIEW_DIR as fallback
   if (!fs.existsSync(jsonFile) && process.env.PREVIEW_DIR) {
     const altPath = path.join(process.cwd(), process.env.PREVIEW_DIR, 'test-results.json');
     if (fs.existsSync(altPath)) {
@@ -18,53 +14,72 @@ try {
   }
 
   if (!fs.existsSync(jsonFile)) {
-    console.warn('⚠ test-results.json not found in root or PREVIEW_DIR. Excel will be empty.');
+    console.warn('⚠ test-results.json not found. Excel will be empty.');
   }
 
-  // Read JSON
   const data = fs.existsSync(jsonFile)
     ? JSON.parse(fs.readFileSync(jsonFile, 'utf-8'))
     : { suites: [] };
 
   const rows = [];
 
-  // 🔹 Find preview PNG for failed test
+  // 🔥 Normalize helper
+  function normalize(str) {
+    return str
+      ?.toLowerCase()
+      .replace(/[^a-z0-9]/g, '') || '';
+  }
+
+  // 🔥 Find latest retry screenshot for failed test
   function findPreviews(testName) {
-    const links = [];
     if (!fs.existsSync(previewsRoot)) return [];
 
-    const normalizedTestName = testName.toLowerCase().replace(/\s+/g, '');
+    const normalizedTestName = normalize(testName);
+    let foundScreenshots = [];
 
     const walk = (dir) => {
       const files = fs.readdirSync(dir);
+
       files.forEach((file) => {
         const fullPath = path.join(dir, file);
         const stat = fs.statSync(fullPath);
 
         if (stat.isDirectory()) {
           walk(fullPath);
-        } else if (file.startsWith('test-finished')) {
-          const parentFolder = path.basename(path.dirname(fullPath));
-          if (parentFolder.toLowerCase().replace(/\s+/g, '') === normalizedTestName) {
-            const relativePath = path
-              .relative(process.cwd(), fullPath)
-              .replace(/\\/g, "/");
-            links.push(relativePath);
+        } 
+        else if (/^test-finished-\d+\.png$/.test(file)) {
+          const testFolder = path.basename(path.dirname(fullPath));
+
+          if (normalize(testFolder).includes(normalizedTestName)) {
+            const retryNumber = parseInt(file.match(/\d+/)[0], 10);
+
+            foundScreenshots.push({
+              path: path.relative(process.cwd(), fullPath).replace(/\\/g, "/"),
+              retry: retryNumber
+            });
           }
         }
       });
     };
 
     walk(previewsRoot);
-    return links;
+
+    if (foundScreenshots.length === 0) return [];
+
+    // Pick highest retry number
+    foundScreenshots.sort((a, b) => b.retry - a.retry);
+
+    return [foundScreenshots[0].path];
   }
 
-  // Iterate through suites/specs/tests
+  // 🔥 Process test results
   data.suites?.forEach((suite) => {
     suite.specs?.forEach((spec) => {
       spec.tests?.forEach((test) => {
+
         const result = test.results?.[test.results.length - 1] || {};
         const failureLocation = result.error?.location;
+
         const testTitle = spec?.title ?? test?.title ?? 'Unknown_Test';
         const specTitle = spec.title || testTitle;
 
@@ -72,7 +87,7 @@ try {
           ? (result.duration / 60000).toFixed(2)
           : '0.00';
 
-        // ✅ Only get screenshot for failed tests
+        // Only failed tests get screenshot
         const previews = result.status === 'failed'
           ? findPreviews(testTitle)
           : [];
@@ -94,11 +109,11 @@ try {
             ? new Date(result.startTime).toISOString().split('T')[0]
             : '-',
         });
+
       });
     });
   });
 
-  // Create Excel workbook
   const workbook = XLSX.utils.book_new();
   const worksheet = XLSX.utils.json_to_sheet(rows, {
     header: [
@@ -116,10 +131,10 @@ try {
     ]
   });
 
-  // 🔹 Make Media Link clickable ONLY for failed tests
+  // 🔥 Make Media Link clickable ONLY for failed tests
   rows.forEach((row, index) => {
     if (row['Status'] === 'failed' && row['Media Link'] !== '-') {
-      const cellAddress = `J${index + 2}`; // Column J = Media Link
+      const cellAddress = `J${index + 2}`;
       worksheet[cellAddress] = {
         t: 's',
         v: 'View Screenshot',
@@ -130,12 +145,10 @@ try {
 
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Test Report');
 
-  // Save Excel file
   const excelFile = path.join(process.cwd(), 'Playwright_Test_Report.xlsx');
   XLSX.writeFile(workbook, excelFile);
 
   console.log(`✅ Excel report generated: ${excelFile}`);
-  console.log('File exists:', fs.existsSync(excelFile));
 
 } catch (err) {
   console.error('❌ Excel generation failed:', err);
