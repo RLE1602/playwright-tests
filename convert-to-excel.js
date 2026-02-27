@@ -21,25 +21,36 @@ try {
     console.warn('⚠ test-results.json not found in root or PREVIEW_DIR. Excel will be empty.');
   }
 
-  // Read JSON if it exists, otherwise empty data
-  const data = fs.existsSync(jsonFile) ? JSON.parse(fs.readFileSync(jsonFile, 'utf-8')) : { suites: [] };
+  // Read JSON
+  const data = fs.existsSync(jsonFile)
+    ? JSON.parse(fs.readFileSync(jsonFile, 'utf-8'))
+    : { suites: [] };
+
   const rows = [];
 
-  // Helper: find preview files for a test
+  // 🔹 Find preview PNG for failed test
   function findPreviews(testName) {
     const links = [];
     if (!fs.existsSync(previewsRoot)) return [];
+
+    const normalizedTestName = testName.toLowerCase().replace(/\s+/g, '');
 
     const walk = (dir) => {
       const files = fs.readdirSync(dir);
       files.forEach((file) => {
         const fullPath = path.join(dir, file);
-        if (fs.statSync(fullPath).isDirectory()) {
+        const stat = fs.statSync(fullPath);
+
+        if (stat.isDirectory()) {
           walk(fullPath);
-        } else if (file.includes(testName)) {
-          // relative path for Excel hyperlink
-          const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g, "/");
-          links.push(relativePath);
+        } else if (file.startsWith('test-finished')) {
+          const parentFolder = path.basename(path.dirname(fullPath));
+          if (parentFolder.toLowerCase().replace(/\s+/g, '') === normalizedTestName) {
+            const relativePath = path
+              .relative(process.cwd(), fullPath)
+              .replace(/\\/g, "/");
+            links.push(relativePath);
+          }
         }
       });
     };
@@ -48,7 +59,7 @@ try {
     return links;
   }
 
-  // Iterate safely through suites/specs/tests
+  // Iterate through suites/specs/tests
   data.suites?.forEach((suite) => {
     suite.specs?.forEach((spec) => {
       spec.tests?.forEach((test) => {
@@ -56,17 +67,17 @@ try {
         const failureLocation = result.error?.location;
         const testTitle = spec?.title ?? test?.title ?? 'Unknown_Test';
         const specTitle = spec.title || testTitle;
-        const durationMin = (result.duration || 0) / 60000;
 
-        const failedStep =
-          result.status === 'failed' && result.error
-            ? result.error.message || 'Error occurred'
-            : '-';
+        const durationMin = result.duration
+          ? (result.duration / 60000).toFixed(2)
+          : '0.00';
 
-        const previews = findPreviews(testTitle);
-        const mediaLinks = previews.length
-          ? previews.map(p => `HYPERLINK("${p}", "View Media")`).join(', ')
-          : '-';
+        // ✅ Only get screenshot for failed tests
+        const previews = result.status === 'failed'
+          ? findPreviews(testTitle)
+          : [];
+
+        const mediaPath = previews.length ? previews[0] : '-';
 
         rows.push({
           Suite: suite.title || 'Root Suite',
@@ -75,10 +86,10 @@ try {
           'Step Number': failureLocation?.line ?? '-',
           Status: result.status || 'unknown',
           'Failed Step Description': result.error?.message || '-',
-          'Duration (min)': durationMin.toFixed(2),
+          'Duration (min)': durationMin,
           Retry: result.retry || 0,
           Browser: test.projectName || 'unknown',
-          'Media Link': mediaLinks,
+          'Media Link': mediaPath,
           'Execution Date': result.startTime
             ? new Date(result.startTime).toISOString().split('T')[0]
             : '-',
@@ -104,9 +115,22 @@ try {
       'Execution Date'
     ]
   });
+
+  // 🔹 Make Media Link clickable ONLY for failed tests
+  rows.forEach((row, index) => {
+    if (row['Status'] === 'failed' && row['Media Link'] !== '-') {
+      const cellAddress = `J${index + 2}`; // Column J = Media Link
+      worksheet[cellAddress] = {
+        t: 's',
+        v: 'View Screenshot',
+        l: { Target: row['Media Link'] }
+      };
+    }
+  });
+
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Test Report');
 
-  // Save Excel file at workflow root
+  // Save Excel file
   const excelFile = path.join(process.cwd(), 'Playwright_Test_Report.xlsx');
   XLSX.writeFile(workbook, excelFile);
 
@@ -117,4 +141,3 @@ try {
   console.error('❌ Excel generation failed:', err);
   console.log('⚠ Continuing workflow despite Excel failure');
 }
-
