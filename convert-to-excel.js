@@ -23,7 +23,7 @@ try {
 
   const rows = [];
 
-  // 🔥 Find latest screenshot across previews folder
+  // 🔥 Find latest retry screenshot
   function findLatestFailedScreenshot() {
     if (!fs.existsSync(previewsRoot)) return [];
 
@@ -42,7 +42,7 @@ try {
           const retryNumber = parseInt(file.match(/\d+/)[0], 10);
 
           screenshots.push({
-            path: path.relative(process.cwd(), fullPath).replace(/\\/g, "/"),
+            fullPath,
             retry: retryNumber,
             time: stat.mtimeMs
           });
@@ -54,13 +54,12 @@ try {
 
     if (screenshots.length === 0) return [];
 
-    // Pick most recently modified screenshot
+    // Pick latest modified screenshot
     screenshots.sort((a, b) => b.time - a.time);
 
-    return [screenshots[0].path];
+    return [screenshots[0].fullPath];
   }
 
-  // 🔥 Process test results
   data.suites?.forEach((suite) => {
     suite.specs?.forEach((spec) => {
       spec.tests?.forEach((test) => {
@@ -75,12 +74,11 @@ try {
           ? (result.duration / 60000).toFixed(2)
           : '0.00';
 
-        // Only failed tests get screenshot
         const previews = result.status === 'failed'
           ? findLatestFailedScreenshot()
           : [];
 
-        const mediaPath = previews.length ? previews[0] : '-';
+        const mediaFullPath = previews.length ? previews[0] : '-';
 
         rows.push({
           Suite: suite.title || 'Root Suite',
@@ -92,7 +90,7 @@ try {
           'Duration (min)': durationMin,
           Retry: result.retry || 0,
           Browser: test.projectName || 'unknown',
-          'Media Link': mediaPath,
+          'Media Link': mediaFullPath,
           'Execution Date': result.startTime
             ? new Date(result.startTime).toISOString().split('T')[0]
             : '-',
@@ -119,23 +117,27 @@ try {
     ]
   });
 
-  // 🔥 Make Media Link clickable ONLY for failed tests
+  const excelFile = path.join(process.cwd(), 'Playwright_Test_Report.xlsx');
+
+  // 🔥 Make Media Link clickable (relative path)
   rows.forEach((row, index) => {
     if (row['Status'] === 'failed' && row['Media Link'] !== '-') {
-      const cellAddress = `J${index + 2}`; // Column J = Media Link
-      const absolutePath = path.resolve(row['Media Link']);
+
+      const cellAddress = `J${index + 2}`; // Column J
+
+      const relativePath = path
+        .relative(path.dirname(excelFile), row['Media Link'])
+        .replace(/\\/g, "/");
 
       worksheet[cellAddress] = {
         t: 's',
         v: 'View Screenshot',
-        l: { Target: `file:///${absolutePath.replace(/\\/g, "/")}` }
+        l: { Target: relativePath }
       };
     }
   });
 
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Test Report');
-
-  const excelFile = path.join(process.cwd(), 'Playwright_Test_Report.xlsx');
   XLSX.writeFile(workbook, excelFile);
 
   console.log(`✅ Excel report generated: ${excelFile}`);
