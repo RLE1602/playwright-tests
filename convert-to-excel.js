@@ -1,15 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
+require('dotenv').config(); // Load .env variables
 
 try {
   let jsonFile = path.join(process.cwd(), 'test-results.json');
   const previewsRoot = path.join(process.cwd(), 'previews');
 
-  // 🔹 🔥 UPDATE THESE 3 VALUES
-  const repoOwner = "RLE1602";
-  const repoName = "playwright-tests";
-  const commitHash = "06404f5657729ea4c49cf32e9a2a3b83504348c9";
+  // 🔹 TEAM-FRIENDLY: Get values from environment variables
+  const repoOwner = process.env.REPO_OWNER || "RLE1602";
+  const repoName = process.env.REPO_NAME || "playwright-tests";
+  const commitHash = process.env.COMMIT_HASH || "06404f5657729ea4c49cf32e9a2a3b83504348c9";
 
   if (!fs.existsSync(jsonFile)) {
     console.warn('⚠ test-results.json not found. Excel will be empty.');
@@ -65,7 +66,13 @@ try {
         const failureLocation = result.error?.location;
 
         const testTitle = spec?.title ?? test?.title ?? 'Unknown_Test';
-        const specTitle = spec.title || testTitle;
+
+        // ✅ Extract TC-XX from title
+        const tcMatch = testTitle.match(/TC-\d+/);
+        const testCaseId = tcMatch ? tcMatch[0] : 'NO-ID';
+
+        // ✅ Remove TC-XX from test name
+        const cleanTestName = testTitle.replace(/TC-\d+\s*-\s*/, '');
 
         const durationMin = result.duration
           ? (result.duration / 60000).toFixed(2)
@@ -79,8 +86,8 @@ try {
 
         rows.push({
           Suite: suite.title || 'Root Suite',
-          'Test Case ID': testTitle.replace(/\s+/g, '_'),
-          'Test Case Name': specTitle,
+          'Test Case ID': testCaseId,
+          'Test Case Name': cleanTestName,
           'Step Number': failureLocation?.line ?? '-',
           Status: result.status || 'unknown',
           'Failed Step Description': result.error?.message || '-',
@@ -120,7 +127,6 @@ try {
 
       const cellAddress = `J${index + 2}`;
 
-      // Convert local path to repo-relative path
       const relativeRepoPath = row['Media Link']
         .replace(/\\/g, "/")
         .replace(/^.*previews\//, "previews/");
