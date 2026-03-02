@@ -4,15 +4,8 @@ const XLSX = require('xlsx');
 
 try {
   let jsonFile = path.join(process.cwd(), 'test-results.json');
-  const previewsRoot = process.env.PREVIEW_DIR || path.join(process.cwd(), 'previews');
   const previewsRoot = path.join(process.cwd(), 'previews');
 
-  if (!fs.existsSync(jsonFile) && process.env.PREVIEW_DIR) {
-    const altPath = path.join(process.cwd(), process.env.PREVIEW_DIR, 'test-results.json');
-    if (fs.existsSync(altPath)) {
-      jsonFile = altPath;
-    }
-  }
   // 🔹 🔥 UPDATE THESE 3 VALUES
   const repoOwner = "RLE1602";
   const repoName = "playwright-tests";
@@ -43,7 +36,6 @@ try {
 
         if (stat.isDirectory()) {
           walk(fullPath);
-        } else if (/^test-finished-\d+\.png$/.test(file)) {
         } else if (/^test-failed-\d+\.png$/.test(file) || /^test-finished-\d+\.png$/.test(file)) {
           const retryNumber = parseInt(file.match(/\d+/)[0], 10);
 
@@ -60,7 +52,6 @@ try {
 
     if (screenshots.length === 0) return [];
 
-    // Pick latest modified screenshot
     screenshots.sort((a, b) => b.time - a.time);
 
     return [screenshots[0].fullPath];
@@ -123,19 +114,12 @@ try {
     ]
   });
 
-  const excelFile = path.join(process.cwd(), 'Playwright_Test_Report.xlsx');
-
-  // 🔥 Make Media Link clickable (relative path)
   // 🔥 Convert to GitHub RAW clickable links
   rows.forEach((row, index) => {
     if (row['Status'] === 'failed' && row['Media Link'] !== '-') {
 
-      const cellAddress = `J${index + 2}`; // Column J
       const cellAddress = `J${index + 2}`;
 
-      const relativePath = path
-        .relative(path.dirname(excelFile), row['Media Link'])
-        .replace(/\\/g, "/");
       // Convert local path to repo-relative path
       const relativeRepoPath = row['Media Link']
         .replace(/\\/g, "/")
@@ -147,7 +131,6 @@ try {
       worksheet[cellAddress] = {
         t: 's',
         v: 'View Screenshot',
-        l: { Target: relativePath }
         l: { Target: githubRawUrl }
       };
     }
@@ -159,7 +142,6 @@ try {
   XLSX.writeFile(workbook, excelFile);
 
   console.log(`✅ Excel report generated: ${excelFile}`);
-  console.log('Previews folder exists:', fs.existsSync(previewsRoot));
 
 } catch (err) {
   console.error('❌ Excel generation failed:', err);
