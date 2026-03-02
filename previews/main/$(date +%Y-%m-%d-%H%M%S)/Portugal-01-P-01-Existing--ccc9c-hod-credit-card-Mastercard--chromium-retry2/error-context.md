@@ -1,0 +1,330 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - banner:
+                    - navigation [ref=e3]:
+                      - generic [ref=e5]:
+                        - link "Phenomenex" [ref=e7] [cursor=pointer]:
+                          - /url: https://stage10.phenomenex.com/?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+                          - img "Phenomenex" [ref=e8]
+                        - link "Continue Browsing" [ref=e10] [cursor=pointer]:
+                          - /url: https://stage10.phenomenex.com/?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+                          - img [ref=e11]
+                          - text: Continue Browsing
+                        - generic "Global" [ref=e15]:
+                          - generic [ref=e18]:
+                            - link "Welcome AutoFirstName" [ref=e20] [cursor=pointer]:
+                              - /url: https://stage-shop.phenomenex.com/eu/en/profile.html
+                              - text: Welcome AutoFirstName
+                              - img [ref=e21]
+                            - link "Quote 0" [ref=e24] [cursor=pointer]:
+                              - /url: https://stage-shop.phenomenex.com/eu/en/quote-cart.html
+                              - img [ref=e25]
+                              - generic [ref=e27]: Quote
+                              - generic [ref=e28]: "0"
+                            - link "Cart 6" [ref=e30] [cursor=pointer]:
+                              - /url: https://stage-shop.phenomenex.com/eu/en/cart.html
+                              - img [ref=e31]
+                              - generic [ref=e33]: Cart
+                              - generic [ref=e34]: "6"
+    - generic [ref=e45]:
+      - generic [ref=e49]:
+        - navigation "Progress" [ref=e52]:
+          - list [ref=e53]:
+            - listitem [ref=e54]:
+              - button "Addresses" [ref=e57] [cursor=pointer]:
+                - img [ref=e58]
+                - generic [ref=e60]: Addresses
+              - paragraph [ref=e61]: Addresses
+            - listitem [ref=e62]:
+              - button "Shipping" [ref=e65] [cursor=pointer]:
+                - img [ref=e66]
+                - generic [ref=e68]: Shipping
+              - paragraph [ref=e69]: Shipping
+            - listitem [ref=e70]:
+              - button "Payment" [ref=e73] [cursor=pointer]:
+                - generic [ref=e75]: Payment
+              - paragraph [ref=e76]: Payment
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - heading "Choose your payment method" [level=1] [ref=e79]
+            - paragraph [ref=e80]: Select or enter your preferred payment method.
+          - generic [ref=e81]:
+            - generic [ref=e85]:
+              - radio "Pay by Purchase Order" [ref=e86]
+              - generic [ref=e87] [cursor=pointer]:
+                - img [ref=e89]
+                - generic [ref=e91]: Pay by Purchase Order
+            - generic [ref=e92]:
+              - generic [ref=e93]:
+                - radio "Pay by Credit Card or Electronic Funds Transfer" [checked] [ref=e94]
+                - generic [ref=e95] [cursor=pointer]:
+                  - img [ref=e97]
+                  - generic [ref=e99]: Pay by Credit Card or Electronic Funds Transfer
+              - generic [ref=e100]:
+                - generic [ref=e101]:
+                  - generic [ref=e102]:
+                    - img [ref=e103]
+                    - textbox "Search payment methods" [ref=e105]
+                  - paragraph [ref=e106] [cursor=pointer]:
+                    - img [ref=e107]
+                    - text: Add New Payment Method
+                - heading "Saved card details" [level=2] [ref=e109]
+                - generic [ref=e110]:
+                  - generic [ref=e111]:
+                    - radio [checked] [ref=e112]
+                    - img "mastercard" [ref=e113]
+                    - generic [ref=e114]:
+                      - generic [ref=e115]: Card ending in 4444
+                      - generic [ref=e116]: Expires 7/2031
+                  - generic [ref=e117]:
+                    - generic [ref=e119]: SELECTED CARD
+                    - generic [ref=e120]:
+                      - generic [ref=e121] [cursor=pointer]: Make Default
+                      - generic [ref=e122] [cursor=pointer]: Delete
+                - generic [ref=e123]:
+                  - generic [ref=e124]:
+                    - radio [ref=e125]
+                    - img "visa" [ref=e126]
+                    - generic [ref=e127]:
+                      - generic [ref=e128]: Card ending in 4242
+                      - generic [ref=e129]: Expires 8/2026
+                  - generic [ref=e130]:
+                    - generic [ref=e132] [cursor=pointer]: Use Card
+                    - generic [ref=e133]:
+                      - generic [ref=e134] [cursor=pointer]: Make Default
+                      - generic [ref=e135] [cursor=pointer]: Delete
+                - paragraph [ref=e136] [cursor=pointer]:
+                  - img [ref=e137]
+                  - text: Add New Payment Method
+            - generic [ref=e142]:
+              - heading "My Items" [level=2] [ref=e143]
+              - generic [ref=e146]:
+                - generic [ref=e147]:
+                  - img "item image" [ref=e150]
+                  - generic [ref=e152]:
+                    - paragraph [ref=e153]: Clarity 3 µm Oligo-RP, LC Column 50 x 2 mm, Ea
+                    - paragraph [ref=e154]: 00B-4441-B0
+                    - paragraph [ref=e158] [cursor=pointer]: Static Message - Save 15% OFF on $2,700 EUR or more of Phenomenex manufactured brand products
+                - generic [ref=e160]:
+                  - paragraph [ref=e161]: 727,20 €
+                  - paragraph [ref=e162]: 909,00 € (EUR)
+                  - paragraph [ref=e163]: 618,12 € (EUR)
+                  - generic [ref=e164]: "Quantity : 5"
+              - generic [ref=e167]:
+                - generic [ref=e168]:
+                  - img "item image" [ref=e171]
+                  - generic [ref=e173]:
+                    - paragraph [ref=e174]: Luna 2.5 µm C18(2)-HST 100 Å, LC Column 50 x 2 mm, Ea
+                    - paragraph [ref=e175]: 00B-4446-B0
+                    - paragraph [ref=e179] [cursor=pointer]: Static Message - Save 15% OFF on $2,700 EUR or more of Phenomenex manufactured brand products
+                - generic [ref=e181]:
+                  - paragraph [ref=e182]: 664,00 €
+                  - paragraph [ref=e183]: 830,00 € (EUR)
+                  - paragraph [ref=e184]: 564,40 € (EUR)
+                  - generic [ref=e185]: "Quantity : 1"
+          - generic [ref=e186]:
+            - generic [ref=e187]:
+              - generic [ref=e188]:
+                - generic [ref=e189]:
+                  - paragraph [ref=e191]: Shipping address
+                  - link [ref=e193] [cursor=pointer]:
+                    - /url: ""
+                    - img [ref=e194]
+                - paragraph [ref=e196]: Test New City
+                - paragraph
+                - paragraph [ref=e197]: "ATTN: AutoFirstName AutoLastName"
+                - paragraph [ref=e198]: Rua Canelas de Baixo
+                - paragraph [ref=e199]: Canelas, 4410-292
+                - paragraph [ref=e200]: Portugal
+              - generic [ref=e201]:
+                - generic [ref=e202]:
+                  - paragraph [ref=e204]: Bill to address
+                  - link [ref=e206] [cursor=pointer]:
+                    - /url: ""
+                    - img [ref=e207]
+                - paragraph [ref=e209]: Silliker
+                - paragraph
+                - paragraph [ref=e210]: "ATTN: AutoFirstName AutoLastName"
+                - paragraph [ref=e211]: Rua Industrial dos Terços nº 44
+                - paragraph [ref=e212]: Vila Nova de Gaia, 4410-477
+                - paragraph [ref=e213]: Portugal
+            - generic [ref=e215]:
+              - generic [ref=e216]:
+                - generic [ref=e217]: Subtotal
+                - generic [ref=e218]:
+                  - paragraph [ref=e219]: 4.300,00 € (EUR)
+                  - text: 3.655,00 € (EUR)
+              - generic [ref=e220]:
+                - generic [ref=e222]:
+                  - text: Shipping
+                  - superscript [ref=e223]: "*"
+                - generic [ref=e225]: 45,00 €
+              - generic [ref=e226]:
+                - generic [ref=e228]:
+                  - text: VAT
+                  - superscript [ref=e229]: "*"
+                - generic [ref=e230]: 0,00 €
+              - generic [ref=e233] [cursor=pointer]:
+                - paragraph [ref=e235]: I have a promo code
+                - img [ref=e237]
+              - generic [ref=e239]:
+                - generic [ref=e240]: Total (6 Items)
+                - generic [ref=e241]: 3.700,00 € (EUR)
+              - generic [ref=e243]:
+                - checkbox [checked] [ref=e244]
+                - generic [ref=e246]:
+                  - text: I agree to the
+                  - link "Terms and Conditions" [ref=e247] [cursor=pointer]:
+                    - /url: https://stage10.phenomenex.com/phx-terms-and-conditions-of-sale
+              - generic [ref=e248]:
+                - button "Place your order" [active] [ref=e249] [cursor=pointer]
+                - paragraph [ref=e251]: "*estimated VAT and shipping charges. Additional charges may apply upon actual calculation of order."
+          - generic [ref=e252]:
+            - heading "Need help with your order?" [level=1] [ref=e254]
+            - button "Chat with us" [ref=e256] [cursor=pointer]
+      - generic [ref=e258]:
+        - status [ref=e259]:
+          - img [ref=e260]
+          - generic [ref=e263]: Loading...
+        - generic [ref=e264]: Your payment is being processed. Please do not refresh the page.
+  - contentinfo [ref=e272]:
+    - generic [ref=e273]:
+      - generic [ref=e274]:
+        - generic [ref=e275]:
+          - paragraph [ref=e276]: Phenomenex is a technology leader committed to developing novel analytical chemistry solutions that solve the separation and purification challenges of researchers worldwide.
+          - link "CONNECT WITH US" [ref=e277] [cursor=pointer]:
+            - /url: "#"
+        - generic [ref=e278]:
+          - paragraph [ref=e279]: Products and Services
+          - link "Products" [ref=e280] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/service-listing-products?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - link "Techniques" [ref=e281] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/service-listing-techniques?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - link "Industries" [ref=e282] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/service-listing-industries?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - link "Quick Order" [ref=e283] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/quick-order?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+        - generic [ref=e284]:
+          - paragraph [ref=e285]: Support
+          - link "Product Method Support" [ref=e286] [cursor=pointer]:
+            - /url: "#"
+          - link "Product Troubleshooting" [ref=e287] [cursor=pointer]:
+            - /url: "#"
+          - link "Contact Us" [ref=e288] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/contact-us?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - link "CQA / CofA" [ref=e289] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/dashboard/cqa?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+        - generic [ref=e290]:
+          - paragraph [ref=e291]: Our company
+          - link "About Phenomenex" [ref=e292] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/our-company/about-phenomenex?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - link "Blog" [ref=e293] [cursor=pointer]:
+            - /url: https://phenomenex.blog/
+          - link "News" [ref=e294] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/news?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - link "Danaher Life Sciences" [ref=e295] [cursor=pointer]:
+            - /url: https://lifesciences.danaher.com/
+        - generic [ref=e297]:
+          - link [ref=e298] [cursor=pointer]:
+            - /url: https://www.facebook.com/phenomenex
+          - link [ref=e299] [cursor=pointer]:
+            - /url: https://www.instagram.com/accounts/login/
+          - link [ref=e300] [cursor=pointer]:
+            - /url: http://www.linkedin.com/company/phenomenex
+          - link [ref=e301] [cursor=pointer]:
+            - /url: http://www.twitter.com/phenomenex
+          - link [ref=e302] [cursor=pointer]:
+            - /url: http://www.youtube.com/user/phenomenex
+      - generic [ref=e305]:
+        - link "Company Logo" [ref=e307] [cursor=pointer]:
+          - /url: https://www.abcam.com/?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - img "Company Logo" [ref=e308]
+        - link "Company Logo" [ref=e310] [cursor=pointer]:
+          - /url: https://www.aldevron.com/?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - img "Company Logo" [ref=e311]
+        - link "Company Logo" [ref=e313] [cursor=pointer]:
+          - /url: https://www.mybeckman.com/
+          - img "Company Logo" [ref=e314]
+        - link "Company Logo" [ref=e316] [cursor=pointer]:
+          - /url: https://www.genedata.com/?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - img "Company Logo" [ref=e317]
+        - link "Company Logo" [ref=e319] [cursor=pointer]:
+          - /url: https://www.idbs.com/?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - img "Company Logo" [ref=e320]
+        - link "Company Logo" [ref=e322] [cursor=pointer]:
+          - /url: https://www.idtdna.com/?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - img "Company Logo" [ref=e323]
+        - link "Company Logo" [ref=e325] [cursor=pointer]:
+          - /url: https://www.leica-microsystems.com/?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - img "Company Logo" [ref=e326]
+        - link "Company Logo" [ref=e328] [cursor=pointer]:
+          - /url: https://www.moleculardevices.com/?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - img "Company Logo" [ref=e329]
+        - link "Company Logo" [ref=e331] [cursor=pointer]:
+          - /url: https://sciex.com/?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - img "Company Logo" [ref=e332]
+    - generic [ref=e334]:
+      - generic [ref=e335]:
+        - generic [ref=e336]:
+          - link "Terms and Conditions" [ref=e337] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/phx-terms-and-conditions-of-sale?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - text: "|"
+          - link "Privacy Statement" [ref=e338] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/phx-privacy-policy?utm_source=dhls_website&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - text: "|"
+          - link "Quality Policy" [ref=e339] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/phx-quality-policy?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - text: "|"
+          - link "Terms of Use" [ref=e340] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/phx-site-terms-of-use?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - text: "|"
+          - link "Trademarks" [ref=e341] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/phx-trademarks?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - text: "|"
+          - link "CA Supply Chains Act" [ref=e342] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/phx-california-supply-chains-act?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - text: "|"
+          - link "Cookie Policy" [ref=e343] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/phx-cookie-policy?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+          - text: "|"
+          - link "Impressum" [ref=e344] [cursor=pointer]:
+            - /url: https://stage10.phenomenex.com/phx-impressum?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+        - link "© 2025 Phenomenex Inc. All rights reserved." [ref=e345] [cursor=pointer]:
+          - /url: https://stage10.phenomenex.com/phx-privacy-policy?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+      - generic [ref=e346]:
+        - generic [ref=e347]: "Also of Interest:"
+        - link "Our Products | Phenomenex Product Listing" [ref=e348] [cursor=pointer]:
+          - /url: https://stage10.phenomenex.com/service-listing-products?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+        - text: "|"
+        - 'link "Novum: Faster, Easier, Reliable SLE Simplified" [ref=e349] [cursor=pointer]':
+          - /url: https://stage10.phenomenex.com/documents/2022/05/20/18/54/novum-faster-easier-reliable-sle-simplified?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+        - text: "|"
+        - link "Zebron Gas Chromatography Columns | Phenomenex" [ref=e350] [cursor=pointer]:
+          - /url: https://stage10.phenomenex.com/products/zebron-gc-columns?ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d&ajs_aid=1d2d561b-f0b5-4294-b69b-d21322cd910d
+  - iframe [ref=e353]:
+    - generic [ref=f29e2]:
+      - generic [ref=f29e3]:
+        - generic [ref=f29e4]:
+          - text: protected by
+          - strong [ref=f29e5]: reCAPTCHA
+        - generic [ref=f29e6]: "-"
+      - generic [ref=f29e9]:
+        - link "Privacy" [ref=f29e10] [cursor=pointer]:
+          - /url: https://www.google.com/intl/en/policies/privacy/
+        - text: "-"
+        - link "Terms" [ref=f29e11] [cursor=pointer]:
+          - /url: https://www.google.com/intl/en/policies/terms/
+  - iframe [ref=e354]:
+    - button "Open Live Chat window" [ref=f69e2] [cursor=pointer]:
+      - img [ref=f69e4]
+```
