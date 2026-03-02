@@ -1,16 +1,22 @@
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
-require('dotenv').config(); // Load .env variables
 
 try {
   let jsonFile = path.join(process.cwd(), 'test-results.json');
+  const previewsRoot = process.env.PREVIEW_DIR || path.join(process.cwd(), 'previews');
   const previewsRoot = path.join(process.cwd(), 'previews');
 
-  // 🔹 TEAM-FRIENDLY: Get values from environment variables
-  const repoOwner = process.env.REPO_OWNER || "RLE1602";
-  const repoName = process.env.REPO_NAME || "playwright-tests";
-  const commitHash = process.env.COMMIT_HASH || "06404f5657729ea4c49cf32e9a2a3b83504348c9";
+  if (!fs.existsSync(jsonFile) && process.env.PREVIEW_DIR) {
+    const altPath = path.join(process.cwd(), process.env.PREVIEW_DIR, 'test-results.json');
+    if (fs.existsSync(altPath)) {
+      jsonFile = altPath;
+    }
+  }
+  // 🔹 🔥 UPDATE THESE 3 VALUES
+  const repoOwner = "RLE1602";
+  const repoName = "playwright-tests";
+  const commitHash = "06404f5657729ea4c49cf32e9a2a3b83504348c9";
 
   if (!fs.existsSync(jsonFile)) {
     console.warn('⚠ test-results.json not found. Excel will be empty.');
@@ -37,6 +43,7 @@ try {
 
         if (stat.isDirectory()) {
           walk(fullPath);
+        } else if (/^test-finished-\d+\.png$/.test(file)) {
         } else if (/^test-failed-\d+\.png$/.test(file) || /^test-finished-\d+\.png$/.test(file)) {
           const retryNumber = parseInt(file.match(/\d+/)[0], 10);
 
@@ -53,6 +60,7 @@ try {
 
     if (screenshots.length === 0) return [];
 
+    // Pick latest modified screenshot
     screenshots.sort((a, b) => b.time - a.time);
 
     return [screenshots[0].fullPath];
@@ -66,13 +74,7 @@ try {
         const failureLocation = result.error?.location;
 
         const testTitle = spec?.title ?? test?.title ?? 'Unknown_Test';
-
-        // ✅ Extract TC-XX from title
-        const tcMatch = testTitle.match(/TC-\d+/);
-        const testCaseId = tcMatch ? tcMatch[0] : 'NO-ID';
-
-        // ✅ Remove TC-XX from test name
-        const cleanTestName = testTitle.replace(/TC-\d+\s*-\s*/, '');
+        const specTitle = spec.title || testTitle;
 
         const durationMin = result.duration
           ? (result.duration / 60000).toFixed(2)
@@ -86,8 +88,8 @@ try {
 
         rows.push({
           Suite: suite.title || 'Root Suite',
-          'Test Case ID': testCaseId,
-          'Test Case Name': cleanTestName,
+          'Test Case ID': testTitle.replace(/\s+/g, '_'),
+          'Test Case Name': specTitle,
           'Step Number': failureLocation?.line ?? '-',
           Status: result.status || 'unknown',
           'Failed Step Description': result.error?.message || '-',
@@ -121,12 +123,20 @@ try {
     ]
   });
 
+  const excelFile = path.join(process.cwd(), 'Playwright_Test_Report.xlsx');
+
+  // 🔥 Make Media Link clickable (relative path)
   // 🔥 Convert to GitHub RAW clickable links
   rows.forEach((row, index) => {
     if (row['Status'] === 'failed' && row['Media Link'] !== '-') {
 
+      const cellAddress = `J${index + 2}`; // Column J
       const cellAddress = `J${index + 2}`;
 
+      const relativePath = path
+        .relative(path.dirname(excelFile), row['Media Link'])
+        .replace(/\\/g, "/");
+      // Convert local path to repo-relative path
       const relativeRepoPath = row['Media Link']
         .replace(/\\/g, "/")
         .replace(/^.*previews\//, "previews/");
@@ -137,6 +147,7 @@ try {
       worksheet[cellAddress] = {
         t: 's',
         v: 'View Screenshot',
+        l: { Target: relativePath }
         l: { Target: githubRawUrl }
       };
     }
@@ -148,6 +159,7 @@ try {
   XLSX.writeFile(workbook, excelFile);
 
   console.log(`✅ Excel report generated: ${excelFile}`);
+  console.log('Previews folder exists:', fs.existsSync(previewsRoot));
 
 } catch (err) {
   console.error('❌ Excel generation failed:', err);
