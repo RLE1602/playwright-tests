@@ -12,8 +12,10 @@ test('WE-03 Verify Each OpCo Link From Top Section', async ({ page }) => {
   await expect(page).toHaveURL('https://www.mybeckman.in/?utm_source=dhls_website&utm_medium=referral&utm_content=header');
   await page.goBack();
   await page.getByRole('link', { name: 'Genedata' }).click();
+  await page.waitForLoadState('domcontentloaded');
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await expect(page).toHaveURL('https://www.genedata.com/?utm_source=dhls_website&utm_medium=referral&utm_content=header');
+  await page.waitForLoadState('domcontentloaded');
   await page.goBack();
   await page.getByRole('link', { name: 'IDBS' }).click();
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
