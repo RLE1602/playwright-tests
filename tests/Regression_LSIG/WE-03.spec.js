@@ -5,7 +5,7 @@ test('WE-03 Verify Each OpCo Link From Top Section', async ({ page }) => {
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.getByRole('link', { name: 'Abcam' }).click();
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  await expect(page).toHaveURL('https://www.abcam.com/en-us/');
+  await expect(page).toHaveURL('https://www.abcam.com/en-us');
   await page.goBack();
   await page.getByRole('link', { name: 'Beckman Coulter' }).click();
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
@@ -44,5 +44,6 @@ test('WE-03 Verify Each OpCo Link From Top Section', async ({ page }) => {
   await expect(page).toHaveURL('https://sg.idtdna.com/page/');
   await page.goBack();
   await expect(page).toHaveURL('https://stage.lifesciences.danaher.com/');
+  await page.close();
 
 });
