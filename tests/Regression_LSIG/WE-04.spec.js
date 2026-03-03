@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
+test('WE-04 Verify Empty Quote Cart Page', async ({ page }) => {
   await page.goto('https://stage.lifesciences.danaher.com/');
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.getByRole('link', { name: 'Quote' }).click();

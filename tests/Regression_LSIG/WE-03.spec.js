@@ -32,7 +32,7 @@ async function navigateToOpCoAndVerifyURL(page, name, urlPattern) {
 }
 
 // Test without loop
-test('WE-03 Navigate Each OpCo Sequentially and Return Home', async ({ page }) => {
+test('WE-03 Verify Each OpCo Link From Top Section', async ({ page }) => {
   // Start from home page
   await page.goto(baseURL);
   await acceptCookies(page);
