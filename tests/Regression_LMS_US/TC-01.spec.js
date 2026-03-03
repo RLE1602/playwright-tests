@@ -85,5 +85,7 @@ test('Cart CheckOut Process', async ({ browser }) => {
   await page.locator('(//input[@id="accept-term"])[2]').check();
   await page.getByRole('button', { name: 'Place your order' }).click();
   await expect(page).toHaveURL(/receipt/i, { waitUntil: 'domcontentloaded', timeout: 120000 });
+  await expect(page.locator('text=/Order Confirmed/i')).toHaveText(/Order Confirmed/i);
+  await context.close();
 
 });
