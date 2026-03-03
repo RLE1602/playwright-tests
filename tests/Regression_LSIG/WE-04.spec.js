@@ -18,7 +18,7 @@ test('test', async ({ page }) => {
 //   await page.getByRole('button', { name: 'Add and continue browsing' }).click();
 //   await page.getByRole('button').filter({ hasText: /^$/ }).nth(2).click();
   await expect(page.locator('fulllayout')).toContainText('Continue browsing our site');
-  await page.getByRole('button', { name: 'Continue browsing our site' }).click();
+  await page.getByRole('link', { name: 'Continue browsing our site' }).click();  
   await expect(page).toHaveURL('https://stage.lifesciences.danaher.com/');
   await page.close();
 });
