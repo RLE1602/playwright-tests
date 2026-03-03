@@ -31,6 +31,7 @@ test('test', async ({ browser }) => {
 
   await page.getByRole('button', { name: 'Search button' , waitFor: 'enable' });
   await page.getByRole('button', { name: 'Search button' }).click();
+  await page.getByRole('textbox', { name: 'Enter Search Term' , waitFor: 'enable' });
   await page.getByRole('textbox', { name: 'Enter Search Term' }).fill('Leica atto');
   await page.getByRole('textbox', { name: 'Enter Search Term' }).press('Enter');
 });
