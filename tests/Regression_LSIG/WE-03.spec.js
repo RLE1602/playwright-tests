@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+const { test, expect } = require('@playwright/test');
 
 const baseURL = 'https://stage.lifesciences.danaher.com/';
 
@@ -15,38 +15,40 @@ const opCos = [
   { name: 'IDT', url: /idtdna/ }
 ];
 
-// Safe cookie handler
-async function acceptCookiesIfVisible(page) {
+// --- Accept cookies if visible ---
+async function acceptCookies(page) {
   const acceptBtn = page.getByRole('button', { name: /Accept/i });
   if (await acceptBtn.isVisible().catch(() => false)) {
     await acceptBtn.click();
   }
 }
 
-test('WE-03 Verify Each OpCo Link From Top Section', async ({ page }) => {
+// --- Navigate to OpCo from home page and verify fully loaded ---
+async function navigateToOpCo(page, opco) {
+  const opcoLink = page.getByRole('link', { name: opco.name });
+  await expect(opcoLink).toBeVisible();
+  await expect(opcoLink).toBeEnabled();
 
+  await Promise.all([
+    page.waitForLoadState('load'), // wait until page is fully loaded
+    opcoLink.click()
+  ]);
+
+  // Accept cookies if shown on OpCo page
+  await acceptCookies(page);
+
+  // Verify URL
+  await expect(page).toHaveURL(opco.url);
+}
+
+// --- Test ---
+test('WE-03 Verify OpCo Pages Fully Load After Navigation', async ({ page }) => {
   for (const opco of opCos) {
-
-    // Always start fresh from base site
+    // Start from home page
     await page.goto(baseURL);
+    await acceptCookies(page);
 
-    await acceptCookiesIfVisible(page);
-
-    const link = page.getByRole('link', { name: opco.name });
-
-    // 1️⃣ Verify visible & clickable
-    await expect(link).toBeVisible();
-    await expect(link).toBeEnabled();
-
-    // 2️⃣ Click and wait properly
-    await Promise.all([
-      page.waitForLoadState('domcontentloaded'),
-      link.click()
-    ]);
-
-    await acceptCookiesIfVisible(page);
-
-    // 3️⃣ Verify navigation worked
-    await expect(page).toHaveURL(opco.url);
+    // Navigate to OpCo and verify fully loaded
+    await navigateToOpCo(page, opco);
   }
 });
