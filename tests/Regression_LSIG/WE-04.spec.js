@@ -4,6 +4,7 @@ test('test', async ({ page }) => {
   await page.goto('https://stage.lifesciences.danaher.com/');
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.getByRole('link', { name: 'Quote' }).click();
+  await page.waitForLoadState('domcontentloaded');
   await expect(page).toHaveURL('https://stage.lifesciences.danaher.com/us/en/quote-cart.html');
   await expect(page).toHaveTitle('Quote Cart | Danaher Life Sciences');
   await expect(page.getByRole('heading', { name: 'Your online quote cart is currently empty' })).toBeVisible();
