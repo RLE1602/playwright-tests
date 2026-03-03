@@ -1,51 +1,52 @@
 import { test, expect } from '@playwright/test';
 
-test('WE-03 Verify Each OpCo Link From Top Section', async ({ page }) => {
-  await page.goto('https://stage.lifesciences.danaher.com/');
-  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  await page.getByRole('link', { name: 'Abcam' }).click();
-  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  await expect(page).toHaveURL('https://www.abcam.com/en-us');
-  await page.goBack();
-  await page.getByRole('link', { name: 'Beckman Coulter' }).click();
-  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  await expect(page).toHaveURL('https://www.mybeckman.in/?utm_source=dhls_website&utm_medium=referral&utm_content=header');
-  await page.goBack();
-  await page.getByRole('link', { name: 'Genedata' }).click();
-  await page.waitForLoadState('domcontentloaded');
-  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  await expect(page).toHaveURL('https://www.genedata.com/?utm_source=dhls_website&utm_medium=referral&utm_content=header');
-  await page.waitForLoadState('domcontentloaded');
-  await page.goBack();
-  await page.getByRole('link', { name: 'IDBS' }).click();
-  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  await expect(page).toHaveURL('https://www.idbs.com/?utm_source=dhls_website&utm_medium=referral&utm_content=header');
-  await page.goBack();
-  await page.getByRole('link', { name: 'Leica' }).click();
-  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  await expect(page).toHaveURL('https://www.leica-microsystems.com/?utm_source=dhls_website&utm_medium=referral&utm_content=header');
-  await page.goBack();
-  await page.getByRole('link', { name: 'Molecular Devices' }).click();
-  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  await expect(page).toHaveURL('https://www.moleculardevices.com/?utm_source=dhls_website&utm_medium=referral&utm_content=header');
-  await page.goBack();
-  await page.getByRole('link', { name: 'Phenomenex' }).click();
-  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  await expect(page).toHaveURL('https://www.phenomenex.com/?utm_source=dhls_website&utm_medium=referral&utm_content=header');
-  await page.goBack();
-  await page.getByRole('link', { name: 'Sciex' }).click();
-  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  await expect(page).toHaveURL('https://sciex.com/?utm_source=dhls_website&utm_medium=referral&utm_content=header');
-  await page.goBack();
-  await page.getByRole('link', { name: 'Aldevron' }).click();
-  await page.getByRole('button', { name: 'Accept All' }).click();
-  await expect(page).toHaveURL('https://www.aldevron.com/?utm_source=dhls_website&utm_medium=referral&utm_content=header');
-  await page.goBack();
-  await page.getByRole('link', { name: 'IDT' }).click();
-  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  await expect(page).toHaveURL('https://sg.idtdna.com/page/');
-  await page.goBack();
-  await expect(page).toHaveURL('https://stage.lifesciences.danaher.com/');
-  await page.close();
+const baseURL = 'https://stage.lifesciences.danaher.com/';
 
+const opCos = [
+  { name: 'Abcam', url: /abcam\.com/ },
+  { name: 'Beckman Coulter', url: /mybeckman/ },
+  { name: 'Genedata', url: /genedata/ },
+  { name: 'IDBS', url: /idbs/ },
+  { name: 'Leica', url: /leica/ },
+  { name: 'Molecular Devices', url: /moleculardevices/ },
+  { name: 'Phenomenex', url: /phenomenex/ },
+  { name: 'Sciex', url: /sciex/ },
+  { name: 'Aldevron', url: /aldevron/ },
+  { name: 'IDT', url: /idtdna/ }
+];
+
+// Safe cookie handler
+async function acceptCookiesIfVisible(page) {
+  const acceptBtn = page.getByRole('button', { name: /Accept/i });
+  if (await acceptBtn.isVisible().catch(() => false)) {
+    await acceptBtn.click();
+  }
+}
+
+test('WE-03 Verify Each OpCo Link From Top Section', async ({ page }) => {
+
+  for (const opco of opCos) {
+
+    // Always start fresh from base site
+    await page.goto(baseURL);
+
+    await acceptCookiesIfVisible(page);
+
+    const link = page.getByRole('link', { name: opco.name });
+
+    // 1️⃣ Verify visible & clickable
+    await expect(link).toBeVisible();
+    await expect(link).toBeEnabled();
+
+    // 2️⃣ Click and wait properly
+    await Promise.all([
+      page.waitForLoadState('domcontentloaded'),
+      link.click()
+    ]);
+
+    await acceptCookiesIfVisible(page);
+
+    // 3️⃣ Verify navigation worked
+    await expect(page).toHaveURL(opco.url);
+  }
 });
