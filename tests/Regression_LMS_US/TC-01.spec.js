@@ -67,5 +67,6 @@ test('Cart CheckOut Process', async ({ browser }) => {
 
   await expect(page).toHaveURL(/cart/i);
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
+  await page.waitForLoadState('domcontentloaded');
   await expect(page.getByText('Ivesta')).toBeVisible();
 });
