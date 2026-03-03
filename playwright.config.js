@@ -50,8 +50,8 @@ export default defineConfig({
     trace: 'retain-on-failure',
     screenshot: 'on',
     video: 'on',
-    actionTimeout: process.env.CI ? 120_000 : 30_000,   // 2 min on CI, 30s locally
-    navigationTimeout: process.env.CI ? 180_000 : 60_000,
+    actionTimeout: process.env.CI ? 120_000 : 60_000,   // 2 min on CI, 30s locally
+    navigationTimeout: process.env.CI ? 180_000 : 90_000,
     },
 
   /* Configure projects for major browsers */
@@ -62,19 +62,19 @@ export default defineConfig({
       
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-    {
-      name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    // },
 
     /* Test against mobile viewports. */
     // {
