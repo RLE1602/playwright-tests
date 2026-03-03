@@ -6,7 +6,7 @@ test('test', async ({ page }) => {
   await page.getByRole('link', { name: 'Quote' }).click();
   await expect(page).toHaveURL('https://stage.lifesciences.danaher.com/us/en/quote-cart.html');
   await expect(page).toHaveTitle('Quote Cart | Danaher Life Sciences');
-  await expect(page.getByRole('heading', { name: 'Your online quote cart is' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Your online quote cart is currently empty' })).toBeVisible();
 //   await page.getByRole('button', { name: 'Request a Quote' }).click();
 //   await page.locator('#quote').fill('Testing');
 //   await expect(page.locator('#headlessui-dialog-title-6')).toContainText('Request for Quote');
