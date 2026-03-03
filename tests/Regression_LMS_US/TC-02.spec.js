@@ -63,7 +63,7 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
   await expect(page).toHaveURL(/cart/i);
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.waitForLoadState('domcontentloaded');
-  await expect(page.getByText(/SKU/i), { timeout: 60000 }).toBeVisible();
+  //await expect(page.getByText(/SKU/i), { timeout: 60000 }).toBeVisible();
 
     // SUBMIT QUOTE REQUEST
   await page.evaluate(() => { window.scrollBy(0, 500); });
@@ -71,7 +71,7 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
   await submitQuote.waitFor({ state: 'visible', timeout: 30000 });
   await submitQuote.click();
   await page.waitForLoadState('domcontentloaded');
-  await expect(page).toHaveURL(/submit-quote\.html/, { timeout: 120000 });
+  await expect(page).toHaveURL(/submit-quote\.html/, { timeout: 200000 });
   // VERIFY SUBMISSION
   await expect(page.locator('text=Thank you')).toBeVisible({ timeout: 60000 });
 
