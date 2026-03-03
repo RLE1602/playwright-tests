@@ -15,7 +15,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   //testDir: './tests',
     //testDir: 'tests/Regression/CoreScenarios',
-    testDir: 'tests/Regression_LSIG',
+    testDir: 'tests/Regression_LMS_US',
 
     timeout: 300_000,
 
