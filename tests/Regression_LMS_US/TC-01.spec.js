@@ -29,6 +29,7 @@ test('test', async ({ browser }) => {
   await page.getByRole('textbox', { name: 'Password' }).fill('Mitali@123');
   await page.getByRole('button', { name: 'Continue' }).click();
 
+  await page.getByRole('button', { name: 'Search button' , waitFor: 'enable' });
   await page.getByRole('button', { name: 'Search button' }).click();
   await page.getByRole('textbox', { name: 'Enter Search Term' }).fill('Leica atto');
   await page.getByRole('textbox', { name: 'Enter Search Term' }).press('Enter');
