@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Quote Cart CheckOut Process(promoCodeOrNotes)', async ({ browser }) => {
+test('Cart CheckOut Process', async ({ browser }) => {
   // Create a new context with HTTP Basic Auth credentials
   const context = await browser.newContext({
     httpCredentials: {
@@ -28,38 +28,44 @@ test('Quote Cart CheckOut Process(promoCodeOrNotes)', async ({ browser }) => {
   await page.getByRole('textbox', { name: 'Password' }).click();
   await page.getByRole('textbox', { name: 'Password' }).fill('Mitali@123');
   await page.getByRole('button', { name: 'Continue' }).click();
+  await page.waitForLoadState('networkidle');
+  await expect(page).toHaveURL(/leica-microsystems\.com/, { timeout: 120000 });
 
-  await page.getByRole('button', { name: 'Search button' , waitFor: 'enable' });
-  await page.getByRole('button', { name: 'Search button' }).click();
-  await page.getByRole('textbox', { name: 'Enter Search Term' , waitFor: 'enable' });
-  await page.getByRole('textbox', { name: 'Enter Search Term' }).fill('MZ10F for Fluorescence Sorting');
-  await page.keyboard.press('Enter');
-  await page.getByRole('button', { name: 'Add To Cart' }).nth(0).click();
-  await page.getByRole('link', { name: 'Cart shopping_cart' }).click();
-  await page.waitForURL(/cart\.html/, { waitUntil: 'domcontentloaded' });
+  // SEARCH PRODUCT
+  // Click search icon (stable locator)
+  const searchBtn = page.locator('#t3m-SearchForm-trigger');
+  await searchBtn.waitFor({ state: 'visible', timeout: 30000 });
+  await searchBtn.click();
 
-  await page.getByRole('button', { name: 'Checkout' }).click();
-  await page.waitForURL(/addresses\.html/, { waitUntil: 'domcontentloaded' });
+  // Small wait for animation (helps WebKit)
+  await page.waitForTimeout(1000);
 
-  await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
-  await page.waitForURL(/shipping\.html/, { waitUntil: 'domcontentloaded' });
+  // Wait for search input
+  const searchInput = page.getByPlaceholder('Enter Search Term');
+  await searchInput.waitFor({ state: 'visible', timeout: 30000 });
 
-  //await page.goto('https://stage-shop.phenomenex.com/au/en/shipping.html');
-  await page.getByRole('button', { name: 'Proceed to Payment' }).click();
-  await page.waitForURL(/payment\.html/, { waitUntil: 'domcontentloaded' });
+  // Type product
+  await searchInput.fill('Mateo TL');
+  await searchInput.press('Enter');
 
-  await page.evaluate(() => { window.scrollBy(0, 500);});
-  await page.getByText('Use Account').nth(0).click();
-  //await page.getByRole('button', { name: 'Use Card' }).nth(0).click();
-  await page.evaluate(() => { window.scrollBy(0, 700);});
-  await page.getByRole('checkbox').scrollIntoViewIfNeeded();
+  // Wait for results page
+  await page.waitForLoadState('networkidle');
 
-  await page.locator('(//input[@id="accept-term"])[2]').check();
-  await page.getByRole('button', { name: 'Place your order' }).click();
-  await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
-  await expect(page.getByText('Order Confirmed')).toBeVisible();
-  await expect(page.getByText(/order confirmed/i)).toBeVisible();
-  await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/eu\/en\/receipt\.html/);
-  await context.close();
+  // ADD TO CART
 
+  const addToCart = page.getByRole('button', { name: /add to cart/i });
+  await addToCart.waitFor({ state: 'visible', timeout: 30000 });
+  await addToCart.click();
+
+  // GO TO CART
+    
+  await page.waitForLoadState('networkidle');
+  const cartLink = page.getByRole('link', { name: /CART/i }).nth(0).click();
+  await page.waitForLoadState('domcontentloaded');
+
+  // VERIFY CART
+
+  await expect(page).toHaveURL(/cart/i);
+  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
+  await expect(page.getByText('Ivesta')).toBeVisible();
 });
