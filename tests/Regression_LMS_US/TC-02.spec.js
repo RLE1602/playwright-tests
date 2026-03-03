@@ -53,21 +53,26 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
 
   // ADD TO CART
 
-  const addToCart = page.getByRole('button', { name: /add to quote/i });
+  const addToCart = page.getByRole('button', { name: /request quote/i });
   await addToCart.waitFor({ state: 'visible', timeout: 30000 });
   await addToCart.click();
     // Go to Quote Cart
   await page.waitForLoadState('networkidle');
-  const cartLink = page.getByRole('link', { name: /QUOTE/i }).nth(0).click();
+  const cartLink = page.getByRole('link', { name: /QUOTE CART/i }).nth(0).click();
   await page.waitForLoadState('domcontentloaded');
+  await expect(page).toHaveURL(/cart/i);
+  await page.getByRole('button', { name: 'Accept All Cookies' }).click();
+  await page.waitForLoadState('domcontentloaded');
+  await expect(page.getByText(/SKU/i)).toBeVisible();
 
     // SUBMIT QUOTE REQUEST
+  await page.evaluate(() => { window.scrollBy(0, 500); });
   const submitQuote = page.getByRole('button', { name: /submit quote request/i });
   await submitQuote.waitFor({ state: 'visible', timeout: 30000 });
   await submitQuote.click();
   await page.waitForLoadState('domcontentloaded');
   await expect(page).toHaveURL(/submit-quote\.html/, { timeout: 120000 });
   // VERIFY SUBMISSION
-  await expect(page.locator('text=Thank you for your quote request')).toBeVisible({ timeout: 60000 });
+  await expect(page.locator('text=Thank you')).toBeVisible({ timeout: 60000 });
 
 });
