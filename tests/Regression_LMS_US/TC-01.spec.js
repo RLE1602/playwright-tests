@@ -14,7 +14,7 @@ test('test', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Email address' }).fill('mithali.himane@dhlscontractors.com');
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
   await page.getByRole('textbox', { name: 'Password' }).click();
-  await page.getByRole('textbox', { name: 'Password' }).fill('Welcome@123');
+  await page.getByRole('textbox', { name: 'Password' }).fill('Mitali@123');
   await page.getByRole('button', { name: 'Continue' }).click();
   //await page.goto('https://webpreview2.leica-microsystems.com/?country=US');
   await page.getByRole('button', { name: 'Search button' }).click();
