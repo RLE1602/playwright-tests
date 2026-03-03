@@ -49,25 +49,21 @@ test('Cart CheckOut Process', async ({ browser }) => {
   await searchInput.press('Enter');
 
   // Wait for results page
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('domcontentloaded');
 
   // ADD TO CART
 
   const addToCart = page.getByRole('button', { name: /add to cart/i });
   await addToCart.waitFor({ state: 'visible', timeout: 30000 });
   await addToCart.click();
+  // Go to Cart
+  await Promise.all([
+  page.waitForURL(/cart/i),
+  page.getByRole('link', { name: /CART/i }).nth(0).click()]);
 
-  // GO TO CART
-    
-  await page.waitForLoadState('networkidle');
-  const cartLink = page.getByRole('link', { name: /CART/i }).nth(0).click();
-  await page.waitForLoadState('domcontentloaded');
-
-  // VERIFY CART
-
+  // Verify Cart
   await expect(page).toHaveURL(/cart/i);
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
-  await page.waitForLoadState('domcontentloaded');
   await expect(page.getByText(/Ivesta/i)).toBeVisible();
-
+  
 });
