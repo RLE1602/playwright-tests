@@ -66,4 +66,24 @@ test('Cart CheckOut Process', async ({ browser }) => {
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await expect(page.getByText(/Effective/i)).toBeVisible();
 
+  // CHECKOUT
+  await page.getByRole('button', { name: 'Checkout' }).click();
+  await expect(page).toHaveURL(/address/i);
+  // SHIPPING
+  await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
+  await expect(page).toHaveURL(/shipping/i);
+
+  // PAYMENT
+  await page.getByRole('button', { name: 'Proceed to Payment' }).click();
+  await expect(page).toHaveURL(/payment/i);
+  await page.evaluate(() => { window.scrollBy(0, 500);});
+  await page.getByText('Use Card').nth(0).click();
+  await page.evaluate(() => { window.scrollBy(0, 700);});
+  await page.getByRole('checkbox').scrollIntoViewIfNeeded();
+
+  // CONFIRM
+  await page.locator('(//input[@id="accept-term"])[2]').check();
+  await page.getByRole('button', { name: 'Place your order' }).click();
+  await expect(page).toHaveURL(/receipt/i, { waitUntil: 'domcontentloaded', timeout: 120000 });
+
 });
