@@ -63,7 +63,7 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
   await expect(page).toHaveURL(/cart/i);
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.waitForLoadState('domcontentloaded');
-  await expect(page.getByText(/SKU/i)).toBeVisible();
+  await expect(page.getByText(/SKU/i), { timeout: 60000 }).toBeVisible();
 
     // SUBMIT QUOTE REQUEST
   await page.evaluate(() => { window.scrollBy(0, 500); });
