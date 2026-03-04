@@ -15,7 +15,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   //testDir: './tests',
     //testDir: 'tests/Regression/CoreScenarios',
-    testDir: 'tests/Regression_LMS_US',
+    //testDir: 'tests/Regression_LMS_US',
     timeout: 300_000,
     
 
@@ -60,21 +60,27 @@ export default defineConfig({
     {
       name: 'Regression_PHX_US',
       testDir: './tests/Regression_PHX_US',
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
     },
     {
       name: 'Regression_LMS_US',
       testDir: './tests/Regression_LMS_US',
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
     },
     {
       name: 'Regression_LSIG_US',
       testDir: './tests/Regression_LSIG_US',
-    },
-    
-    {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      
     },
+    
+    // {
+    //   name: 'chromium',
+    //   use: { ...devices['Desktop Chrome'] },
+      
+    // },
 
     // {
     //   name: 'firefox',
