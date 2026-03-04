@@ -53,5 +53,5 @@ test('PHX-01 OrderCheckoutFlow_ShipForMe(AddedNote)_MasterCreditCard_U3', async 
   await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
   await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/us\/en\/receipt\.html/);
   await expect(page.locator('text=/Order Confirmed/i')).toHaveText(/Order Confirmed/i);
-  await page.close();
+  
 });
