@@ -41,7 +41,7 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
   await page.waitForTimeout(1000);
 
   // Wait for search input
-  const searchInput = page.getByPlaceholder('Enter Search Term');
+  const searchInput = page.locator('input[placeholder="Enter Search Term"]');
   await searchInput.waitFor({ state: 'visible', timeout: 90000 });
   // Type product
   await searchInput.fill('Mateo TL');
@@ -62,9 +62,9 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.waitForLoadState('domcontentloaded');
   await expect(page).toHaveTitle(/Quote Cart | Leica Microsystems/i);
-  await expect(page.getByText(/^Request a Quote$/i)).toBeVisible({ timeout: 90000 });
-  await expect(page.getByText(/^My Quote Cart$/i)).toBeVisible();
+  await expect(page.getByRole('heading', { name: /^Request a Quote$/i })).toBeVisible({ timeout: 90000 });   await expect(page.getByText(/^My Quote Cart$/i)).toBeVisible();
   await expect(page.getByText(/^Quote Address$/i)).toBeVisible();
+  await page.getByText(/^Quote Request Summary$/i).scrollIntoViewIfNeeded();
   await expect(page.getByText(/^Quote Request Summary$/i)).toBeVisible();
   await expect(page.getByText(/^Items in your quote cart$/i)).toBeVisible();
   await expect(page.getByText(/^Your quote request will be reviewed by one of our experts upon submission$/i)).toBeVisible();
