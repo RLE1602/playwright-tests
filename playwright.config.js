@@ -16,8 +16,8 @@ export default defineConfig({
   //testDir: './tests',
     //testDir: 'tests/Regression/CoreScenarios',
     testDir: 'tests/Regression_LMS_US',
-
     timeout: 300_000,
+    
 
   
   /* Run tests in files in parallel */
@@ -56,6 +56,20 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+
+    {
+      name: 'Regression_PHX_US',
+      testDir: './tests/Regression_PHX_US',
+    },
+    {
+      name: 'Regression_LMS_US',
+      testDir: './tests/Regression_LMS_US',
+    },
+    {
+      name: 'Regression_LSIG_US',
+      testDir: './tests/Regression_LSIG_US',
+    },
+    
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
