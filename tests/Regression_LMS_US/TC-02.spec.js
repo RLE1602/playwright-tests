@@ -45,7 +45,7 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
 
   // Wait until it's visible and enabled for typing
   await searchInput.waitFor({ state: 'visible', timeout: 120000});
-  await searchInput.evaluate(input => input.scrollIntoView({ block: 'center' }));
+  //await searchInput.evaluate(input => input.scrollIntoView({ block: 'center' }));
   await searchInput.waitFor({ state: 'enabled', timeout: 30000 });
 
   // Fill and search
