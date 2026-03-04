@@ -63,7 +63,14 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
   await expect(page).toHaveURL(/cart/i);
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.waitForLoadState('domcontentloaded');
-  //await expect(page.getByText(/SKU/i), { timeout: 60000 }).toBeVisible();
+  await expect(page.getByTitle(/Quote Cart | Leica Microsystems/i)).toBeVisible();
+  await expect(page.getByText(/Request a Quote/i), { timeout: 60000 }).toBeVisible();
+  await expect(page.getByText(/My Quote Cart/i)).toBeVisible();
+  await expect(page.getByText(/Quote Address/i)).toBeVisible();
+  await expect(page.getByText(/Quote Request Summary/i)).toBeVisible();
+  await expect(page.getByText(/Items in your quote cart/i)).toBeVisible();
+  await expect(page.getByText(/Your quote request will be reviewed by one of our experts upon submission/i)).toBeVisible();
+
 
     // SUBMIT QUOTE REQUEST
   await page.evaluate(() => { window.scrollBy(0, 500); });
@@ -73,6 +80,11 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
   await page.waitForLoadState('domcontentloaded');
   await expect(page).toHaveURL(/submit-quote\.html/, { timeout: 200000 });
   // VERIFY SUBMISSION
+  await expect(page.getByTitle(/Submit Quote | Leica Microsystems/i)).toBeVisible();
   await expect(page.locator('text=Thank you')).toBeVisible({ timeout: 60000 });
+  await expect(page.locator('text=Your quote request has been received.')).toBeVisible();
+  await expect(page.locator('text=Quote ID')).toBeVisible();
+  await page.close();
+  
 
 });
