@@ -64,18 +64,39 @@ test('Cart CheckOut Process', async ({ browser }) => {
   // Verify Cart
   await expect(page).toHaveURL(/cart/i);
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
+  await expect(page.getByTitle(/Shopping Cart/i)).toBeVisible();
+  await expect(page.getByText(/Item/i)).toBeVisible();
   await expect(page.getByText(/Effective/i)).toBeVisible();
-
+  await expect(page.getByText(/My Cart/i)).toBeVisible();  
+  await expect(page.getByText(/My Items/i)).toBeVisible();
+  await expect(page.getByText(/Want to add more products?/i)).toBeVisible();
+  
   // CHECKOUT
   await page.getByRole('button', { name: 'Checkout' }).click();
-  await expect(page).toHaveURL(/address/i);
+  await expect(page).toHaveURL(/address/i);    
+  await expect(page.getByTitle(/Addresses/i)).toBeVisible();
+  await expect(page.getByText(/Shipping address/i)).toBeVisible();  
+  await expect(page.getByText(/Bill to address/i)).toBeVisible();
+  await expect(page.getByText(/Subtotal/i)).toBeVisible();
+  await expect(page.getByText(/Shipping/i)).toBeVisible();
+  
+
+
+  
   // SHIPPING
   await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
   await expect(page).toHaveURL(/shipping/i);
+  await expect(page.getByTitle(/Shipping/i)).toBeVisible();
+  await expect(page.getByText(/Confirm your shipping method(s)/i)).toBeVisible();
+  await expect(page.getByText(/My Items/i)).toBeVisible();
+  await expect(page.getByText(/Quantity/i)).toBeVisible();
 
   // PAYMENT
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
   await expect(page).toHaveURL(/payment/i);
+  await expect(page.getByTitle(/Payment/i)).toBeVisible();
+  await expect(page.getByText(/Choose your payment method/i)).toBeVisible();
+  
   await page.evaluate(() => { window.scrollBy(0, 500);});
   await page.getByText('Use Card').nth(0).click();
   await page.evaluate(() => { window.scrollBy(0, 700);});
@@ -85,6 +106,7 @@ test('Cart CheckOut Process', async ({ browser }) => {
   await page.locator('(//input[@id="accept-term"])[2]').check();
   await page.getByRole('button', { name: 'Place your order' }).click();
   await expect(page).toHaveURL(/receipt/i, { waitUntil: 'domcontentloaded', timeout: 120000 });
+  await expect(page.getByTitle(/Receipt/i)).toBeVisible();
   await expect(page.locator('text=/Order received/i')).toHaveText(/Order Received/i);
   await context.close();
 
