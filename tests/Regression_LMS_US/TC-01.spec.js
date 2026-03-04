@@ -66,7 +66,7 @@ test('Cart CheckOut Process', async ({ browser }) => {
   await expect(page).toHaveURL(/cart/i);
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await expect(page).toHaveTitle(/Shopping Cart/i);
-  await expect(page.getByText(/^\d+\sItems$/i)).toBeVisible(({ timeout: 60000 }));
+  await expect(page.getByText(/^\d+\sItem(s)?$/i)).toBeVisible(({ timeout: 60000 }));
   await expect(page.getByText(/Effective April 7, 2025, Leica Microsystems transactions will apply an adjustment tariff charge due to new U.S. tariffs on all applicable products./i)).toBeVisible();
   await expect(page.getByText(/^My Cart$/i)).toBeVisible();  
   await expect(page.getByText(/^My Items$/i)).toBeVisible();
@@ -82,7 +82,7 @@ test('Cart CheckOut Process', async ({ browser }) => {
   await expect(page.getByText(/Shipping address/i)).toBeVisible({ timeout: 60000 });  
   await expect(page.getByText(/Bill to address/i)).toBeVisible();
   await expect(page.getByText(/Subtotal/i)).toBeVisible();
-  await expect(page.getByText(/Shipping/i)).toBeVisible();
+  await expect(page.getByText(/^Shipping$/i).nth(1)).toBeVisible();
   
 
 
@@ -90,16 +90,17 @@ test('Cart CheckOut Process', async ({ browser }) => {
   // SHIPPING
   await page.getByRole('button', { name: 'Proceed to Shipping Method' }).click();
   await expect(page).toHaveURL(/shipping/i);
-  await expect(page.getByTitle(/Shipping/i)).toBeVisible();
-  await expect(page.getByText(/Confirm your shipping method(s)/i)).toBeVisible();
-  await expect(page.getByText(/My Items/i)).toBeVisible();
-  await expect(page.getByText(/Quantity/i)).toBeVisible();
+  await expect(page).toHaveTitle(/Shipping/i);
+  await expect(page.getByText(/Confirm your shipping method\(s\)?/i)).toBeVisible();
+  await page.getByText(/^My Items$/i).scrollIntoViewIfNeeded();
+  await expect(page.getByText(/^My Items$/i)).toBeVisible();
+  await expect(page.getByText(/^Quantity : \d+$/i)).toBeVisible();
 
   // PAYMENT
   await page.getByRole('button', { name: 'Proceed to Payment' }).click();
   await expect(page).toHaveURL(/payment/i);
-  await expect(page.getByTitle(/Payment/i)).toBeVisible();
-  await expect(page.getByText(/Choose your payment method/i)).toBeVisible();
+  await expect(page).toHaveTitle(/Payment/i);
+  await expect(page.getByText(/^Choose your payment method$/i)).toBeVisible();
   
   await page.evaluate(() => { window.scrollBy(0, 500);});
   await page.getByText('Use Card').nth(0).click();
@@ -110,7 +111,7 @@ test('Cart CheckOut Process', async ({ browser }) => {
   await page.locator('(//input[@id="accept-term"])[2]').check();
   await page.getByRole('button', { name: 'Place your order' }).click();
   await expect(page).toHaveURL(/receipt/i, { waitUntil: 'domcontentloaded', timeout: 120000 });
-  await expect(page.getByTitle(/Receipt/i)).toBeVisible();
+  await expect(page).toHaveTitle(/Receipt/i);
   await expect(page.locator('text=/Order received/i')).toHaveText(/Order Received/i);
   await context.close();
 
