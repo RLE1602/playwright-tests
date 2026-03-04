@@ -3,19 +3,19 @@ test.afterEach(async ({ page }, testInfo) => {
   await testInfo.attach('Full Page Screenshot', { body: await page.screenshot({ fullPage: true }),contentType: 'image/png',});
 });
 
-test('Iceland-01 Existing customer order placement , payment method - credit card ( Mastercard)', async ({ page }) => {
+test('PHX-01 OrderCheckoutFlow_ShipForMe(AddedNote)_MasterCreditCard_U3', async ({ page }) => {
   await page.goto('https://stage10.phenomenex.com/');
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.getByRole('link', { name: 'Sign In' }).click();
 
-  await page.getByRole('textbox', { name: 'Email Address' }).fill('Iceland_stagegm4@mailsac.com');
+  await page.getByRole('textbox', { name: 'Email Address' }).fill('U3_stage_sit@yopmail.com');
 
   await page.getByRole('textbox', { name: 'Password' }).fill('Welcome@123');
   await page.getByRole('button', { name: 'Sign in' }).click();
   
   await expect(page).toHaveURL('https://stage10.phenomenex.com/', { waitUntil: 'load', timeout: 200_000});
   await page.getByRole('textbox', { name: 'Search by Part No., Product,' }).click();
-  await page.locator('textarea').fill('00B-4441-B0');
+  await page.locator('textarea').fill('00F-4496-A0');
   await page.keyboard.press('Enter');
   await page.getByRole('button', { name: 'Add To Cart' }).nth(0).click();
   await page.getByRole('button', { name: 'Continue Shopping' }).click();
@@ -51,6 +51,7 @@ test('Iceland-01 Existing customer order placement , payment method - credit car
   await page.locator('(//input[@id="accept-term"])[2]').check();
   await page.getByRole('button', { name: 'Place your order' }).click();
   await page.waitForURL(/receipt\.html/, { waitUntil: 'domcontentloaded' });
-  await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/uk\/en\/receipt\.html/);
+  await expect(page).toHaveURL(/^https:\/\/stage-shop\.phenomenex\.com\/us\/en\/receipt\.html/);
   await expect(page.locator('text=/Order Confirmed/i')).toHaveText(/Order Confirmed/i);
+  await page.close();
 });
