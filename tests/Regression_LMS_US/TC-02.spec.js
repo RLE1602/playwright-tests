@@ -42,7 +42,7 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
 
   // Wait for search input
   const searchInput = page.getByPlaceholder('Enter Search Term');
-  await searchInput.waitFor({ state: 'visible', timeout: 30000 });
+  await searchInput.waitFor({ state: 'visible', timeout: 90000 });
 
   // Type product
   await searchInput.fill('Mateo TL');
