@@ -28,7 +28,7 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
   await page.getByRole('textbox', { name: 'Password' }).click();
   await page.getByRole('textbox', { name: 'Password' }).fill('Mitali@123');
   await page.getByRole('button', { name: 'Continue' }).click();
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('domcontentloaded');
   await expect(page).toHaveURL(/leica-microsystems\.com/, { timeout: 120000 });
 
   // SEARCH PRODUCT
@@ -57,13 +57,13 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
   await addToCart.waitFor({ state: 'visible', timeout: 30000 });
   await addToCart.click();
     // Go to Quote Cart
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('domcontentloaded');
   const cartLink = page.getByRole('link', { name: /QUOTE CART/i }).nth(0).click();
   await page.waitForLoadState('domcontentloaded');
   await expect(page).toHaveURL(/cart/i);
   await page.getByRole('button', { name: 'Accept All Cookies' }).click();
   await page.waitForLoadState('domcontentloaded');
-  await expect(page.getByTitle(/Quote Cart | Leica Microsystems/i)).toBeVisible();
+  await expect(page).toHaveTitle(/Quote Cart | Leica Microsystems/i);
   await expect(page.getByText(/Request a Quote/i), { timeout: 60000 }).toBeVisible();
   await expect(page.getByText(/My Quote Cart/i)).toBeVisible();
   await expect(page.getByText(/Quote Address/i)).toBeVisible();
@@ -80,7 +80,7 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
   await page.waitForLoadState('domcontentloaded');
   await expect(page).toHaveURL(/submit-quote\.html/, { timeout: 200000 });
   // VERIFY SUBMISSION
-  await expect(page.getByTitle(/Submit Quote | Leica Microsystems/i)).toBeVisible();
+  await expect(page).toHaveTitle(/Submit Quote | Leica Microsystems/i);
   await expect(page.locator('text=Thank you')).toBeVisible({ timeout: 60000 });
   await expect(page.locator('text=Your quote request has been received.')).toBeVisible();
   await expect(page.locator('text=Quote ID')).toBeVisible();
