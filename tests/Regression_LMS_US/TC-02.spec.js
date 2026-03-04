@@ -37,22 +37,19 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
   await searchBtn.waitFor({ state: 'visible', timeout: 30000 });
   await searchBtn.click();
 
-  // Wait for input to appear and become enabled
-  const searchInput = page.locator('input[placeholder="Enter Search Term"]');
-  await searchInput.waitFor({
-  state: 'attached', // ensure element exists in DOM
-  timeout: 90000});
+  // Small wait for animation (helps WebKit)
+  await page.waitForTimeout(1000);
 
-  // Wait until it's visible and enabled for typing
-  await searchInput.waitFor({ state: 'visible', timeout: 120000});
-  //await searchInput.evaluate(input => input.scrollIntoView({ block: 'center' }));
-  await searchInput.waitFor({ state: 'enabled', timeout: 30000 });
+  // Wait for search input
+  const searchInput = page.getByPlaceholder('Enter Search Term');
+  await searchInput.waitFor({ state: 'visible', timeout: 90000 });
 
-  // Fill and search
+  // Type product
   await searchInput.fill('Mateo TL');
   await searchInput.press('Enter');
-  const resultsContainer = page.locator('#search-results, .search-results'); // adjust to your results container
-  await resultsContainer.waitFor({ state: 'visible', timeout: 60000 });
+
+  // 6️⃣ Wait for search results page or content to load
+  await page.waitForLoadState('domcontentloaded');
 
   // ADD TO CART
   const addToCart = page.getByRole('button', { name: /request quote/i });
