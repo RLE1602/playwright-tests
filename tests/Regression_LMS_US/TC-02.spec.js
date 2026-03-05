@@ -67,8 +67,8 @@ test('Quote Cart CheckOut Process', async ({ browser }) => {
   await expect(page.getByText(/^Quote Address$/i)).toBeVisible();
   await page.getByText(/^Quote Request Summary$/i).scrollIntoViewIfNeeded();
   await expect(page.getByText(/^Quote Request Summary$/i)).toBeVisible();
-  await expect(page.getByText(/^Items in your quote cart$/i)).toBeVisible();
-  await expect(page.getByText(/^Your quote request will be reviewed by one of our experts upon submission$/i)).toBeVisible();
+  await expect(page.getByText(/^\d+ Items in your quote cart$/i)).toBeVisible();
+  await expect(page.getByText(/Your quote request will be reviewed by one of our experts upon submission/i)).toBeVisible();
   
   // SUBMIT QUOTE REQUEST
   await page.evaluate(() => { window.scrollBy(0, 500); });
