@@ -15,7 +15,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   //testDir: './tests',
     //testDir: 'tests/Regression/CoreScenarios',
-    //testDir: 'tests/Regression_LMS_US',
+    testDir: 'tests/Regression_LMS_US',
     timeout: 300_000,
     
 
@@ -43,7 +43,7 @@ export default defineConfig({
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    baseURL: 'https://stage-shop.phenomenex.com',
+    baseURL: 'https://stage.lifesciences.danaher.com/',
     headless: true,
     viewport: { width: 1920, height: 1080 },
     slowMo: process.env.CI ? 0 : 200,
@@ -57,30 +57,30 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
 
-    {
-      name: 'Regression_PHX_US',
-      testDir: './tests/Regression_PHX_US',
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'Regression_LMS_US',
-      testDir: './tests/Regression_LMS_US',
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'Regression_LSIG_US',
-      testDir: './tests/Regression_LSIG_US',
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
+  //   {
+  //     name: 'Regression_PHX_US',
+  //     testDir: './tests/Regression_PHX_US',
+  //     name: 'chromium',
+  //     use: { ...devices['Desktop Chrome'] },
+  //   },
+  //   {
+  //     name: 'Regression_LMS_US',
+  //     testDir: './tests/Regression_LMS_US',
+  //     name: 'chromium',
+  //     use: { ...devices['Desktop Chrome'] },
+  //   },
+  //   {
+  //     name: 'Regression_LSIG_US',
+  //     testDir: './tests/Regression_LSIG_US',
+  //     name: 'chromium',
+  //     use: { ...devices['Desktop Chrome'] },
+  //   },
     
-    // {
-    //   name: 'chromium',
-    //   use: { ...devices['Desktop Chrome'] },
+    {
+      name: 'chromium',
+    use: { ...devices['Desktop Chrome'] },
       
-    // },
+    },
 
     // {
     //   name: 'firefox',
