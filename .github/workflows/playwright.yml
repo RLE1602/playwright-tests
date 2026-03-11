@@ -1,4 +1,4 @@
-name: LSIG
+name: Playwright Visual Regression
 
 on:
   push:
@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
+      # 1. Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Set up Node.js
+      # 2. Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -25,11 +25,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 4. Set folder variables
-      - name: Prepare preview folders
+      # 4. Prepare preview folders
+      - name: Prepare folders
         shell: bash
         run: |
-          # Timestamp for optional archiving
+          # Timestamp for archive
           TIMESTAMP=$(date +%Y-%m-%d-%H%M%S)
           ARCHIVE_DIR="previews/main/$TIMESTAMP"
           LATEST_DIR="previews/main/latest"
@@ -38,7 +38,7 @@ jobs:
           mkdir -p "$ARCHIVE_DIR"
           mkdir -p "$LATEST_DIR"
 
-          # Export paths as environment variables for next steps
+          # Export for next steps
           echo "ARCHIVE_DIR=$ARCHIVE_DIR" >> $GITHUB_ENV
           echo "LATEST_DIR=$LATEST_DIR" >> $GITHUB_ENV
 
@@ -48,7 +48,7 @@ jobs:
         run: |
           npx playwright test --output=$ARCHIVE_DIR || true
 
-      # 6. Copy artifacts to "latest" folder for RGOS
+      # 6. Copy artifacts to latest folder for RGOS
       - name: Copy artifacts to latest folder
         shell: bash
         run: |
@@ -59,19 +59,17 @@ jobs:
       - name: Run RGOS visual comparison
         shell: bash
         run: |
-          # Assuming RGOS CLI or script uses:
-          # - baselineFolder
-          # - currentFolder
-          # - diffFolder
+          # Example RGOS CLI command
           npx rgos --baseline previews/main/baseline \
                    --current "$LATEST_DIR" \
                    --diff "$LATEST_DIR/diff"
 
-      # 8. Upload artifacts (archive + latest + diffs)
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+      # 8. Upload artifacts using supported v4
+      - name: Upload visual artifacts
+        uses: actions/upload-artifact@v4
         with:
-          name: playwright-visual-artifacts
+          # Unique name for each run
+          name: visual-artifacts-${{ github.run_number }}
           path: |
             previews/main/latest
             previews/main/$TIMESTAMP
