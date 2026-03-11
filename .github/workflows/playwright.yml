@@ -1,63 +1,77 @@
-name: LSIG(DHLS website)
+name: LSIG
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  capture:
+  visual-regression:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout code
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2. Set up Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 20
 
+      # 3. Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
-
-      - name: Run regression tests
-        env: 
-          PREVIEW_DIR: previews/${{ github.ref_name }}/$(date +%Y-%m-%d-%H%M%S)
+      # 4. Set folder variables
+      - name: Prepare preview folders
+        shell: bash
         run: |
-          echo "Using preview dir: $PREVIEW_DIR"
-          mkdir -p "$PREVIEW_DIR"
+          # Timestamp for optional archiving
+          TIMESTAMP=$(date +%Y-%m-%d-%H%M%S)
+          ARCHIVE_DIR="previews/main/$TIMESTAMP"
+          LATEST_DIR="previews/main/latest"
 
-          # Do NOT fail workflow if tests fail
-          npx playwright test tests/Regression_LSIG || true
+          # Create folders
+          mkdir -p "$ARCHIVE_DIR"
+          mkdir -p "$LATEST_DIR"
 
-      - name: Convert JSON to Excel
+          # Export paths as environment variables for next steps
+          echo "ARCHIVE_DIR=$ARCHIVE_DIR" >> $GITHUB_ENV
+          echo "LATEST_DIR=$LATEST_DIR" >> $GITHUB_ENV
+
+      # 5. Run Playwright tests into archive folder
+      - name: Run Playwright tests
+        shell: bash
         run: |
-          npm install xlsx
-          node convert-to-excel.js || echo "⚠ Excel generation failed, continuing workflow..."
+          npx playwright test --output=$ARCHIVE_DIR || true
 
-      - name: Upload Excel Report
-        if: always()
-        uses: actions/upload-artifact@v4
+      # 6. Copy artifacts to "latest" folder for RGOS
+      - name: Copy artifacts to latest folder
+        shell: bash
+        run: |
+          rm -rf "$LATEST_DIR/*"
+          cp -r "$ARCHIVE_DIR/"* "$LATEST_DIR/"
+
+      # 7. Run RGOS visual regression
+      - name: Run RGOS visual comparison
+        shell: bash
+        run: |
+          # Assuming RGOS CLI or script uses:
+          # - baselineFolder
+          # - currentFolder
+          # - diffFolder
+          npx rgos --baseline previews/main/baseline \
+                   --current "$LATEST_DIR" \
+                   --diff "$LATEST_DIR/diff"
+
+      # 8. Upload artifacts (archive + latest + diffs)
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
         with:
-          name: Playwright-Excel-Report
-          path: Playwright_Test_Report.xlsx
-          
-      - name: Show preview structure
-        run: |
-          echo "Preview folder structure:"
-          ls -R previews || echo "No previews generated"
-
-      - name: Commit previews
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-
-          git add -f previews/
-          git diff --cached --quiet || git commit -m "Update Playwright screenshots & videos [skip ci]"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: playwright-visual-artifacts
+          path: |
+            previews/main/latest
+            previews/main/$TIMESTAMP
